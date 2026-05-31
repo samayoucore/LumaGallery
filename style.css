@@ -1,0 +1,19 @@
+/*
+Theme Name: Luma Gallery
+Theme URI: https://github.com/your-username/luma-gallery
+Author: Luma Gallery
+Author URI: https://github.com/your-username
+Description: Luma Gallery — a premium immersive online gallery for discovering, curating, and collecting original artworks. Custom WordPress theme with Gallery Walk, AI Curator, Artist Studio, and demo checkout.
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.5
+Requires PHP: 8.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: luma-gallery
+Tags: art, gallery, portfolio, woocommerce, custom-theme
+
+This file is intentionally minimal.
+All styles are compiled from src/scss/ into assets/css/main.min.css via Gulp.
+Do not add CSS rules here.
+*/

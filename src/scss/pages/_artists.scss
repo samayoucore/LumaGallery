@@ -1,0 +1,227 @@
+// ─── Artists List Page ────────────────────────────────────────────────────────
+
+// ── Featured artist block ─────────────────────────────────────────────────────
+.luma-artists-featured {
+  background: $color-dark;
+  color: $color-white;
+  padding: $space-16 $container-padding;
+
+  &__inner {
+    max-width: $container-max;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $space-12;
+    align-items: center;
+
+    @media (max-width: $bp-lg) { grid-template-columns: 1fr; }
+  }
+
+  &__label {
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: $color-accent;
+    margin-bottom: $space-4;
+  }
+
+  &__name {
+    font-family: $font-heading;
+    font-size: clamp(#{$fs-3xl}, 5vw, #{$fs-5xl});
+    font-weight: $fw-light;
+    line-height: $lh-tight;
+    margin-bottom: $space-4;
+    color: $color-white;
+  }
+
+  &__location {
+    font-size: $fs-sm;
+    color: $color-gray-400;
+    margin-bottom: $space-6;
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+  }
+
+  &__bio {
+    font-size: $fs-base;
+    line-height: $lh-normal;
+    color: $color-gray-300;
+    margin-bottom: $space-8;
+    max-width: 480px;
+  }
+
+  &__actions {
+    display: flex;
+    gap: $space-3;
+    flex-wrap: wrap;
+  }
+
+  &__image {
+    aspect-ratio: 4 / 5;
+    border-radius: $radius-md;
+    overflow: hidden;
+    background: $color-dark-card;
+
+    @media (max-width: $bp-lg) {
+      order: -1;
+      max-height: 360px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__image-placeholder {
+    width: 100%;
+    height: 100%;
+    min-height: 380px;
+  }
+}
+
+// ── Toolbar (search + filter) ─────────────────────────────────────────────────
+.luma-artists-toolbar {
+  padding: $space-8 $container-padding;
+  border-bottom: 1px solid $color-gray-200;
+  background: $color-white;
+
+  &__inner {
+    max-width: $container-max;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: $space-4;
+    flex-wrap: wrap;
+  }
+}
+
+.luma-artists-search {
+  flex: 1;
+  min-width: 220px;
+  position: relative;
+
+  &__icon {
+    position: absolute;
+    left: $space-3;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $color-gray-400;
+    pointer-events: none;
+  }
+
+  input {
+    padding-left: $space-10;
+  }
+}
+
+.luma-style-filter {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  flex-wrap: wrap;
+
+  &__label {
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: $color-gray-500;
+    white-space: nowrap;
+  }
+}
+
+.luma-style-chip {
+  padding: 5px 14px;
+  border: 1px solid $color-gray-300;
+  border-radius: $radius-full;
+  font-size: $fs-xs;
+  font-weight: $fw-medium;
+  color: $color-gray-600;
+  background: $color-white;
+  cursor: pointer;
+  transition: border-color $t-fast, background $t-fast, color $t-fast;
+
+  &:hover,
+  &.is-active {
+    background: $color-dark;
+    border-color: $color-dark;
+    color: $color-white;
+  }
+}
+
+// ── Artists grid ──────────────────────────────────────────────────────────────
+.luma-artists-body {
+  background: $color-gray-50;
+  padding: $space-12 $container-padding $space-24;
+}
+
+.luma-artists-grid {
+  max-width: $container-max;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $space-8;
+
+  @media (max-width: $bp-lg) { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: $bp-sm) { grid-template-columns: 1fr; }
+}
+
+.luma-artists-header {
+  max-width: $container-max;
+  margin: 0 auto $space-8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__title {
+    font-family: $font-heading;
+    font-size: $fs-2xl;
+    font-weight: $fw-light;
+  }
+
+  &__count {
+    font-size: $fs-sm;
+    color: $color-gray-500;
+  }
+}
+
+// ── CTA Become an artist ──────────────────────────────────────────────────────
+.luma-artists-cta {
+  background: $color-accent;
+  color: $color-white;
+  padding: $space-20 $container-padding;
+  text-align: center;
+
+  &__inner {
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  &__eyebrow {
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: .75;
+    margin-bottom: $space-4;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: clamp(#{$fs-2xl}, 4vw, #{$fs-4xl});
+    font-weight: $fw-light;
+    margin-bottom: $space-4;
+    line-height: $lh-tight;
+  }
+
+  &__text {
+    font-size: $fs-base;
+    opacity: .85;
+    margin-bottom: $space-8;
+    line-height: $lh-normal;
+  }
+}

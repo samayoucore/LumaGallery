@@ -1,0 +1,98 @@
+// ─── Luma Gallery — Featured Exhibition ──────────────────────────────────────
+
+.luma-featured-exhibition {
+
+  &__inner {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: clamp($space-10, 6vw, $space-16);
+    align-items: center;
+
+    @media (max-width: $bp-lg) {
+      grid-template-columns: 1fr;
+      gap: $space-10;
+    }
+  }
+
+  &__cover-link {
+    display: block;
+    border-radius: $radius-lg;
+    overflow: hidden;
+  }
+
+  &__cover {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: $radius-lg;
+    background: $color-dark-bg;
+    transition: transform $t-slow $t-ease;
+
+    &:hover .luma-featured-exhibition__cover-img,
+    &:hover .luma-featured-exhibition__cover-placeholder {
+      transform: scale(1.04);
+    }
+  }
+
+  &__cover-img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform $t-slow $t-ease;
+  }
+
+  &__cover-placeholder {
+    position: absolute; inset: 0;
+    transition: transform $t-slow $t-ease;
+  }
+
+  &__cover-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba($color-dark, .55) 0%, transparent 60%);
+  }
+
+  &__tags {
+    position: absolute;
+    bottom: $space-5; left: $space-5;
+    display: flex;
+    gap: $space-1;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: $space-5;
+  }
+
+  &__subtitle {
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: $color-accent;
+  }
+
+  &__title {
+    color: $color-dark;
+    font-size: clamp($fs-3xl, 4vw, $fs-4xl);
+  }
+
+  &__curator {
+    font-size: $fs-md;
+    line-height: $lh-loose;
+    color: $color-gray-500;
+    font-style: italic;
+    padding-left: $space-4;
+    border-left: 2px solid $color-accent;
+  }
+
+  &__meta {
+    font-size: $fs-sm;
+    color: $color-gray-400;
+  }
+
+  &__actions {
+    display: flex;
+    gap: $space-3;
+    flex-wrap: wrap;
+  }
+}

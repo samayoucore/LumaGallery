@@ -1,0 +1,321 @@
+// ─── Luma Gallery — Header ────────────────────────────────────────────────────
+
+.luma-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: $z-header;
+  height: $header-height;
+  transition: background $t-mid $t-ease, box-shadow $t-mid $t-ease;
+
+  // Transparent on hero
+  &:not(.is-solid) {
+    background: transparent;
+  }
+
+  // Solid after scroll — frosted glass effect
+  &.is-solid {
+    background: rgba($color-white, .72);
+    backdrop-filter: blur(20px) saturate(1.06);
+    -webkit-backdrop-filter: blur(20px) saturate(1.06);
+    box-shadow: 0 1px 0 rgba($color-dark, .07);
+  }
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    gap: $space-8;
+    height: 100%;
+    max-width: $container-max;
+    margin-inline: auto;
+    padding-inline: $container-padding;
+  }
+
+  // ── Logo ──────────────────────────────────────────────────────────────────
+  &__logo {
+    flex-shrink: 0;
+    z-index: 2;
+    text-decoration: none;
+  }
+
+  &__logo-text {
+    font-family: $font-heading;
+    font-size: $fs-2xl;
+    font-weight: $fw-light;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: $color-dark;
+    transition: color $t-fast;
+
+    .luma-header:not(.is-solid) & { color: $color-white; }
+  }
+
+  &__logo-luma    { font-weight: $fw-semibold; }
+  &__logo-gallery {
+    font-weight: $fw-light;
+    opacity: .55;
+    letter-spacing: 0.02em;
+  }
+
+  // ── Nav ───────────────────────────────────────────────────────────────────
+  &__nav {
+    // Left-aligned: sits next to logo, actions pushed right via margin-left:auto
+    display: flex;
+
+    @media (max-width: $bp-lg) { display: none; }
+  }
+
+  &__nav-list {
+    display: flex;
+    gap: $space-8;
+    list-style: none;
+
+    a {
+      font-size: $fs-xs;
+      font-weight: $fw-semibold;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: $color-dark;
+      opacity: .5;
+      transition: opacity $t-fast, color $t-fast;
+      text-decoration: none;
+      padding-bottom: 2px;
+
+      &:hover { opacity: 1; }
+
+      .luma-header:not(.is-solid) & {
+        color: $color-white;
+        opacity: .6;
+        &:hover { opacity: 1; }
+      }
+    }
+
+    .current-menu-item > a {
+      opacity: 1;
+      border-bottom: 1.5px solid $color-accent;
+    }
+  }
+
+  // ── Actions ───────────────────────────────────────────────────────────────
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: $space-1;
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+
+  &__action-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: $radius-md;
+    color: $color-dark;
+    transition: background $t-fast, color $t-fast;
+
+    .luma-header:not(.is-solid) & { color: $color-white; }
+
+    &:hover {
+      background: rgba($color-dark, .07);
+      .luma-header:not(.is-solid) & { background: rgba($color-white, .10); }
+    }
+  }
+
+  &__action-count {
+    position: absolute;
+    top: 4px; right: 4px;
+    min-width: 16px; height: 16px;
+    padding: 0 3px;
+    background: $color-accent;
+    color: $color-white;
+    font-size: 10px;
+    font-weight: $fw-bold;
+    border-radius: $radius-full;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+
+  &__cta {
+    margin-left: $space-4;
+
+    @media (max-width: $bp-xl) { display: none; }
+
+    .luma-header:not(.is-solid) & {
+      background: transparent;
+      color: $color-white;
+      border-color: rgba($color-white, .45);
+
+      &:hover {
+        background: rgba($color-white, .10);
+        border-color: $color-white;
+      }
+    }
+  }
+
+  // ── Burger ────────────────────────────────────────────────────────────────
+  &__burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    width: 36px; height: 36px;
+    align-items: center;
+    justify-content: center;
+    padding: $space-2;
+    border-radius: $radius-sm;
+
+    @media (max-width: $bp-lg) { display: flex; }
+
+    span {
+      display: block;
+      width: 22px; height: 1.5px;
+      background: currentColor;
+      transition: transform $t-mid $t-ease, opacity $t-fast;
+      transform-origin: center;
+    }
+
+    color: $color-dark;
+    .luma-header:not(.is-solid) & { color: $color-white; }
+
+    &[aria-expanded='true'] {
+      span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+      span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+      span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    }
+  }
+
+  // ── Mobile menu ───────────────────────────────────────────────────────────
+  &__mobile-menu {
+    position: fixed;
+    inset: 0;
+    background: $color-white;
+    z-index: calc($z-header - 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateX(100%);
+    transition: transform $t-mid $t-ease;
+
+    &.is-open { transform: translateX(0); }
+  }
+
+  &__mobile-nav {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: $space-10;
+  }
+
+  &__mobile-nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: $space-6;
+
+    a {
+      font-family: $font-heading;
+      font-size: clamp($fs-3xl, 7vw, $fs-4xl);
+      font-weight: $fw-light;
+      color: $color-dark;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+      transition: color $t-fast;
+
+      &:hover { color: $color-accent; }
+    }
+  }
+
+  &__mobile-cta { align-self: center; }
+
+  // ── Search overlay ────────────────────────────────────────────────────────
+  &__search {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: $header-height;
+    background: $color-white;
+    z-index: calc($z-header + 1);
+    display: flex;
+    align-items: center;
+    transform: translateY(-100%);
+    transition: transform $t-mid $t-ease;
+    box-shadow: $shadow-sm;
+
+    &.is-open { transform: translateY(0); }
+  }
+
+  &__search-inner {
+    display: flex;
+    align-items: center;
+    gap: $space-4;
+    width: 100%;
+    max-width: $container-max;
+    margin-inline: auto;
+    padding-inline: $container-padding;
+  }
+
+  &__search-form {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    border-bottom: 1.5px solid $color-gray-300;
+    transition: border-color $t-fast;
+
+    &:focus-within { border-color: $color-dark; }
+  }
+
+  &__search-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: $space-3 0;
+    font-size: $fs-xl;
+    font-family: $font-heading;
+    font-weight: $fw-light;
+    letter-spacing: -0.01em;
+    color: $color-dark;
+
+    &::placeholder { color: $color-gray-300; }
+  }
+
+  &__search-submit { color: $color-gray-400; transition: color $t-fast; &:hover { color: $color-dark; } }
+  &__search-close  { color: $color-gray-400; transition: color $t-fast; &:hover { color: $color-dark; } }
+}
+
+// ─── Home page: hero background is white, transparent header needs dark text ───
+// WordPress adds .home to <body> on the front page.
+// Without this override the default white text is invisible on the white hero.
+.home .luma-header:not(.is-solid) {
+
+  .luma-header__logo-text {
+    color: $color-dark;
+  }
+
+  .luma-header__nav-list a {
+    color: $color-dark;
+    opacity: .5;
+    &:hover { opacity: 1; }
+  }
+
+  .luma-header__action-btn {
+    color: $color-dark;
+    &:hover { background: rgba($color-dark, .07); }
+  }
+
+  .luma-header__burger {
+    color: $color-dark;
+  }
+
+  .luma-header__cta {
+    color:        $color-dark;
+    border-color: rgba($color-dark, .28);
+    background:   transparent;
+    &:hover {
+      background:   $color-dark;
+      color:        $color-white;
+      border-color: $color-dark;
+    }
+  }
+}

@@ -1,0 +1,55 @@
+// ─── Luma Gallery — Badges ────────────────────────────────────────────────────
+
+.luma-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px $space-3;
+  font-size: 10px;
+  font-weight: $fw-semibold;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: $radius-full;
+  border: 1px solid transparent;
+  line-height: 1.5;
+
+  &--available {
+    background: rgba($color-available, .10);
+    color: $color-available;
+    border-color: rgba($color-available, .22);
+  }
+
+  &--reserved {
+    background: rgba($color-reserved, .10);
+    color: $color-reserved;
+    border-color: rgba($color-reserved, .22);
+  }
+
+  &--sold {
+    background: rgba($color-sold, .08);
+    color: $color-sold;
+    border-color: rgba($color-sold, .18);
+  }
+
+  // Mood tag — on dark backgrounds
+  &--mood {
+    background: rgba($color-white, .08);
+    color: rgba($color-white, .80);
+    border-color: rgba($color-white, .15);
+    font-size: 10px;
+    padding: 2px $space-2;
+  }
+
+  // Generic tag — on light backgrounds
+  &--tag {
+    background: $color-gray-100;
+    color: $color-gray-600;
+    border-color: $color-gray-200;
+  }
+
+  // Accent
+  &--accent {
+    background: rgba($color-accent, .10);
+    color: $color-accent;
+    border-color: rgba($color-accent, .20);
+  }
+}

@@ -1,0 +1,40 @@
+// ─── Luma Gallery — Main SCSS Entry Point ─────────────────────────────────────
+// This file is compiled by Gulp into assets/css/main.min.css
+// Do not add styles directly here — import partials only.
+
+// ─── Base ─────────────────────────────────────────────────────────────────────
+@import 'base/variables';
+@import 'base/helpers';
+@import 'base/reset';
+@import 'base/typography';
+@import 'base/global';
+
+// ─── Components ───────────────────────────────────────────────────────────────
+@import 'components/buttons';
+@import 'components/badges';
+@import 'components/header';
+@import 'components/footer';
+@import 'components/artwork-card';
+@import 'components/artist-card';
+@import 'components/exhibition-card';
+@import 'components/modal';
+@import 'components/forms';
+
+// ─── Sections ─────────────────────────────────────────────────────────────────
+@import 'sections/hero';
+@import 'sections/gallery-walk';
+@import 'sections/featured-exhibition';
+@import 'sections/popular-artworks';
+@import 'sections/mood-picker';
+@import 'sections/new-artists';
+@import 'sections/how-it-works';
+@import 'sections/ai-curator';
+@import 'sections/cta';
+
+// ─── Pages ────────────────────────────────────────────────────────────────────
+@import 'pages/home';
+@import 'pages/gallery';
+@import 'pages/artwork';
+@import 'pages/artists';
+@import 'pages/artist';
+@import 'pages/exhibitions';

@@ -1,0 +1,307 @@
+// ─── Luma Gallery — Global Layout ────────────────────────────────────────────
+
+.luma-container {
+  width: 100%;
+  max-width: $container-max;
+  margin-inline: auto;
+  padding-inline: $container-padding;
+
+  &--narrow { max-width: $container-narrow; }
+  &--wide   { max-width: $container-wide; }
+}
+
+.luma-main {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+// ─── Sections ────────────────────────────────────────────────────────────────
+
+.luma-section {
+  padding-block: clamp($space-16, 9vw, $space-32);
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .65s $t-ease, transform .65s $t-ease;
+
+  &.is-visible  { opacity: 1; transform: none; }
+  &--spacious   { padding-block: clamp($space-20, 11vw, 160px); }
+  &--tight      { padding-block: $space-8; }
+  &--flush      { padding-block: 0; }
+
+  &--dark    { background: $color-dark-section; color: $color-white; }
+  &--darker  { background: $color-dark-bg; color: $color-white; }
+  &--light   { background: $color-gray-50; }
+}
+
+// Hero never hidden by scroll-reveal
+.luma-hero { opacity: 1 !important; transform: none !important; }
+
+// ─── Section header ───────────────────────────────────────────────────────────
+
+.luma-section__header {
+  margin-bottom: clamp($space-10, 5vw, $space-20);
+
+  &--split {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: $space-6;
+
+    @media (max-width: $bp-md) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+}
+
+.luma-section__sub {
+  margin-top: $space-5;
+  max-width: 500px;
+  color: $color-gray-500;
+  font-size: $fs-md;
+  line-height: $lh-loose;
+}
+
+// ─── Grids ───────────────────────────────────────────────────────────────────
+
+.luma-artwork-grid {
+  display: grid;
+  gap: clamp($space-4, 2vw, $space-6);
+
+  &--4col {
+    grid-template-columns: repeat(4, 1fr);
+    @media (max-width: $bp-xl) { grid-template-columns: repeat(3, 1fr); }
+    @media (max-width: $bp-lg) { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: $bp-sm) { grid-template-columns: 1fr; }
+  }
+
+  &--3col {
+    grid-template-columns: repeat(3, 1fr);
+    @media (max-width: $bp-lg) { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: $bp-sm) { grid-template-columns: 1fr; }
+  }
+}
+
+.luma-artist-grid {
+  display: grid;
+  gap: clamp($space-4, 2vw, $space-6);
+
+  &--3col {
+    grid-template-columns: repeat(3, 1fr);
+    @media (max-width: $bp-lg) { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: $bp-sm) { grid-template-columns: 1fr; }
+  }
+}
+
+.luma-post-grid {
+  display: grid;
+  gap: $space-6;
+  grid-template-columns: repeat(3, 1fr);
+  @media (max-width: $bp-lg) { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: $bp-sm) { grid-template-columns: 1fr; }
+}
+
+// ─── Empty state ─────────────────────────────────────────────────────────────
+
+.luma-empty-state {
+  text-align: center;
+  padding: $space-24 $space-6;
+
+  &__text {
+    font-family: $font-heading;
+    font-size: $fs-xl;
+    font-weight: $fw-light;
+    color: $color-gray-400;
+    margin-bottom: $space-8;
+  }
+}
+
+// ─── Pagination ──────────────────────────────────────────────────────────────
+
+.luma-pagination {
+  margin-top: $space-16;
+  display: flex;
+  gap: $space-1;
+  justify-content: center;
+
+  .page-numbers {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid $color-gray-200;
+    border-radius: $radius-sm;
+    font-size: $fs-sm;
+    color: $color-gray-500;
+    transition: all $t-fast;
+
+    &:hover { border-color: $color-dark; color: $color-dark; }
+    &.current { background: $color-dark; border-color: $color-dark; color: $color-white; }
+  }
+}
+
+// ─── Page hero (simple pages) ─────────────────────────────────────────────────
+
+.luma-page-hero {
+  padding-top: calc($header-height + $space-20);
+  padding-bottom: $space-20;
+
+  &--simple {
+    background: $color-white;
+    border-bottom: 1px solid $color-gray-200;
+  }
+}
+
+// ─── Post nav ────────────────────────────────────────────────────────────────
+
+.luma-post-nav {
+  display: flex;
+  gap: $space-4;
+
+  .nav-previous, .nav-next { flex: 1; }
+
+  a {
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+    padding: $space-6;
+    background: $color-gray-50;
+    border: 1px solid $color-gray-200;
+    border-radius: $radius-md;
+    transition: all $t-fast;
+
+    &:hover { background: $color-white; border-color: $color-dark; }
+  }
+
+  &__label {
+    font-size: $fs-xs;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: $color-accent;
+    font-weight: $fw-semibold;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: $fs-lg;
+    font-weight: $fw-light;
+  }
+}
+
+// ─── Chip ────────────────────────────────────────────────────────────────────
+
+.luma-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: $space-1 $space-4;
+  border: 1px solid $color-dark-border;
+  border-radius: $radius-full;
+  font-size: $fs-xs;
+  color: rgba($color-white, .65);
+  letter-spacing: 0.04em;
+  background: rgba($color-white, .04);
+}
+
+// ─── AI icon spin ─────────────────────────────────────────────────────────────
+
+.luma-ai-icon {
+  display: inline-flex;
+  color: $color-accent;
+  svg { animation: luma-spin-slow 8s linear infinite; }
+}
+
+@keyframes luma-spin-slow { to { transform: rotate(360deg); } }
+
+// ─── Skeleton shimmer ─────────────────────────────────────────────────────────
+
+@keyframes luma-shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position: 600px 0; }
+}
+
+.luma-skeleton {
+  background: linear-gradient(90deg, $color-gray-100 25%, $color-gray-200 50%, $color-gray-100 75%);
+  background-size: 1200px 100%;
+  animation: luma-shimmer 1.6s infinite;
+  border-radius: $radius-sm;
+}
+
+// ─── Post card (archive) ─────────────────────────────────────────────────────
+
+.luma-post-card {
+  background: $color-white;
+  border: 1px solid $color-gray-200;
+  border-radius: $radius-md;
+  overflow: hidden;
+  transition: transform $t-mid $t-ease, box-shadow $t-mid $t-ease, border-color $t-fast;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-lg;
+    border-color: $color-dark;
+  }
+
+  &__image-link {
+    display: block;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: $color-gray-100;
+  }
+
+  &__image {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform $t-slow $t-ease;
+  }
+
+  &:hover &__image { transform: scale(1.04); }
+
+  &__body {
+    padding: $space-5;
+    display: flex;
+    flex-direction: column;
+    gap: $space-3;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: $fs-xl;
+    font-weight: $fw-light;
+    letter-spacing: -0.01em;
+    a { color: $color-dark; text-decoration: none; transition: color $t-fast; }
+    a:hover { color: $color-accent; }
+  }
+
+  &__excerpt {
+    font-size: $fs-sm;
+    color: $color-gray-500;
+    line-height: $lh-snug;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+// ─── Accessible hidden ───────────────────────────────────────────────────────
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// ─── Focus ───────────────────────────────────────────────────────────────────
+
+:focus { outline: none; }
+
+:focus-visible {
+  outline: 2px solid $color-accent;
+  outline-offset: 3px;
+  border-radius: $radius-sm;
+}

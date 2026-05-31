@@ -1,0 +1,327 @@
+// ─── Gallery Catalog Page ─────────────────────────────────────────────────────
+
+// ── Page hero dark variant ────────────────────────────────────────────────────
+.luma-page-hero--gallery,
+.luma-page-hero--artists,
+.luma-page-hero--exhibitions {
+  background: $color-dark;
+  color: $color-white;
+  overflow: hidden;
+  padding-top: calc(#{$header-height} + clamp(#{$space-16}, 9vw, #{$space-24}));
+  padding-bottom: clamp(#{$space-10}, 5vw, #{$space-16});
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba($color-accent, .04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+}
+
+.luma-page-hero__inner {
+  position: relative;
+  z-index: 2;
+}
+
+.luma-page-hero__eyebrow {
+  font-size: $fs-xs;
+  font-weight: $fw-semibold;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: $color-accent;
+  margin-bottom: $space-4;
+}
+
+.luma-page-hero__title {
+  font-family: $font-heading;
+  font-size: clamp($fs-4xl, 8vw, $fs-6xl);
+  font-weight: $fw-light;
+  line-height: $lh-tight;
+  letter-spacing: -0.02em;
+  color: $color-white;
+  margin-bottom: $space-5;
+}
+
+.luma-page-hero__subtitle {
+  font-size: $fs-md;
+  color: $color-gray-400;
+  max-width: 500px;
+  line-height: $lh-normal;
+}
+
+.luma-page-hero__word {
+  position: absolute;
+  right: $container-padding;
+  bottom: -0.1em;
+  z-index: 1;
+  font-family: $font-heading;
+  font-size: clamp(80px, 14vw, 200px);
+  font-weight: $fw-light;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: rgba($color-white, .035);
+  pointer-events: none;
+  user-select: none;
+
+  @media (max-width: $bp-md) { display: none; }
+}
+
+// ── Gallery body ──────────────────────────────────────────────────────────────
+.luma-gallery-body {
+  background: $color-gray-50;
+  padding-top: $space-8;
+  padding-bottom: $space-24;
+  min-height: 60vh;
+}
+
+// ── Standalone input / select (filter form) ───────────────────────────────────
+.luma-input {
+  width: 100%;
+  padding: $space-2 $space-3;
+  border: 1px solid $color-gray-200;
+  border-radius: $radius-sm;
+  font-family: $font-body;
+  font-size: $fs-sm;
+  color: $color-dark;
+  background: $color-white;
+  transition: border-color $t-fast, box-shadow $t-fast;
+  appearance: none;
+
+  &::placeholder { color: $color-gray-400; }
+
+  &:focus {
+    border-color: $color-dark;
+    box-shadow: 0 0 0 3px rgba($color-dark, .06);
+    outline: none;
+  }
+}
+
+.luma-select {
+  padding: $space-2 $space-8 $space-2 $space-3;
+  border: 1px solid $color-gray-200;
+  border-radius: $radius-sm;
+  font-family: $font-body;
+  font-size: $fs-sm;
+  color: $color-dark;
+  background: $color-white;
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%231d1d1f' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right $space-3 center;
+  cursor: pointer;
+  appearance: none;
+  transition: border-color $t-fast;
+
+  &:focus { border-color: $color-dark; outline: none; }
+  &--full { width: 100%; }
+}
+
+// ── Topbar ────────────────────────────────────────────────────────────────────
+.luma-gallery-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-4;
+  padding-bottom: $space-6;
+  border-bottom: 1px solid $color-gray-200;
+  margin-bottom: $space-8;
+  flex-wrap: wrap;
+
+  &__left,
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: $space-4;
+  }
+
+  &__count {
+    font-size: $fs-sm;
+    color: $color-gray-500;
+    font-weight: $fw-medium;
+    white-space: nowrap;
+  }
+}
+
+// ── Layout (sidebar + main) ───────────────────────────────────────────────────
+.luma-gallery-layout {
+  display: grid;
+  grid-template-columns: 228px 1fr;
+  gap: $space-10;
+  align-items: start;
+
+  @media (max-width: $bp-lg) { grid-template-columns: 1fr; }
+}
+
+// ── Sidebar ───────────────────────────────────────────────────────────────────
+.luma-gallery-sidebar {
+  position: sticky;
+  top: calc(#{$header-height} + #{$space-4});
+  background: $color-white;
+  border: 1px solid $color-gray-200;
+  border-radius: $radius-md;
+  padding: $space-5;
+
+  @media (max-width: $bp-lg) {
+    position: static;
+    display: none;
+
+    &.is-open { display: block; }
+  }
+}
+
+// ── Filter form ───────────────────────────────────────────────────────────────
+.luma-filter-form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-5;
+}
+
+.luma-filter-group {
+  &__label {
+    display: block;
+    font-size: 10px;
+    font-weight: $fw-semibold;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: $color-gray-500;
+    margin-bottom: $space-2;
+  }
+}
+
+.luma-filter-reset {
+  width: 100%;
+  justify-content: center;
+  margin-top: $space-2;
+  font-size: 10px;
+  color: $color-gray-500;
+  border-color: $color-gray-300;
+
+  &:hover { background: $color-gray-50; color: $color-dark; }
+}
+
+// ── Price range ───────────────────────────────────────────────────────────────
+.luma-filter-range {
+  &__labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: $fs-xs;
+    color: $color-gray-500;
+    margin-top: $space-2;
+  }
+}
+
+.luma-range {
+  width: 100%;
+  accent-color: $color-accent;
+  cursor: pointer;
+}
+
+// ── Color swatches ────────────────────────────────────────────────────────────
+.luma-color-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+}
+
+.luma-color-filter {
+  cursor: pointer;
+
+  &__input { display: none; }
+
+  &__swatch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    transition: border-color $t-fast, transform $t-fast;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .10);
+
+    &--any {
+      background: $color-gray-100;
+      color: $color-gray-500;
+      font-size: 13px;
+      line-height: 1;
+    }
+  }
+
+  &__input:checked + &__swatch {
+    border-color: $color-accent;
+    transform: scale(1.15);
+  }
+}
+
+// ── View toggle ───────────────────────────────────────────────────────────────
+.luma-view-toggle {
+  display: flex;
+  gap: 2px;
+  background: $color-gray-100;
+  border-radius: $radius-sm;
+  padding: 2px;
+
+  &__btn {
+    width: 30px;
+    height: 30px;
+    border-radius: calc(#{$radius-sm} - 1px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-gray-400;
+    transition: background $t-fast, color $t-fast;
+
+    &:hover { color: $color-dark; }
+
+    &.is-active {
+      background: $color-white;
+      color: $color-dark;
+      box-shadow: $shadow-sm;
+    }
+  }
+}
+
+// ── Gallery wall view modifier ────────────────────────────────────────────────
+.luma-artwork-grid--wall {
+  grid-template-columns: repeat(3, 1fr) !important;
+
+  .luma-artwork-card {
+    &:nth-child(3n+1) { margin-top: 0; }
+    &:nth-child(3n+2) { margin-top: $space-10; }
+    &:nth-child(3n)   { margin-top: $space-5; }
+  }
+
+  @media (max-width: $bp-lg) {
+    grid-template-columns: repeat(2, 1fr) !important;
+    .luma-artwork-card { margin-top: 0 !important; }
+  }
+
+  @media (max-width: $bp-sm) { grid-template-columns: 1fr !important; }
+}
+
+// ── Gallery main area ─────────────────────────────────────────────────────────
+.luma-gallery-main { min-width: 0; }
+
+// ── Empty state ───────────────────────────────────────────────────────────────
+.luma-gallery-empty {
+  text-align: center;
+  padding: $space-24 $space-6;
+  color: $color-gray-400;
+
+  svg {
+    margin: 0 auto $space-6;
+    display: block;
+    opacity: .35;
+  }
+
+  h3 {
+    font-family: $font-heading;
+    font-size: $fs-2xl;
+    font-weight: $fw-light;
+    color: $color-gray-600;
+    margin-bottom: $space-3;
+  }
+
+  p { font-size: $fs-sm; color: $color-gray-500; }
+}

@@ -1,0 +1,156 @@
+// ─── Luma Gallery — Footer ────────────────────────────────────────────────────
+
+.luma-footer {
+  background: $color-dark;
+  color: $color-white;
+
+  &__inner {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 2fr;
+    gap: $space-12;
+    max-width: $container-max;
+    margin-inline: auto;
+    padding: $space-20 $container-padding $space-16;
+
+    @media (max-width: $bp-xl) { grid-template-columns: 1fr 1fr; gap: $space-10; }
+    @media (max-width: $bp-md) { grid-template-columns: 1fr; gap: $space-10; }
+  }
+
+  &__logo {
+    display: inline-flex;
+    gap: $space-1;
+    font-family: $font-heading;
+    font-size: $fs-2xl;
+    font-weight: $fw-light;
+    color: $color-white;
+    margin-bottom: $space-5;
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+
+  &__logo-luma    { font-weight: $fw-semibold; }
+  &__logo-gallery { opacity: .45; }
+
+  &__tagline {
+    color: rgba($color-white, .40);
+    font-size: $fs-sm;
+    line-height: $lh-loose;
+    max-width: 260px;
+    margin-bottom: $space-8;
+  }
+
+  &__social {
+    display: flex;
+    gap: $space-4;
+  }
+
+  &__social-link {
+    color: rgba($color-white, .35);
+    transition: color $t-fast;
+    &:hover { color: $color-accent; }
+  }
+
+  &__nav-title {
+    font-size: $fs-xs;
+    font-family: $font-body;
+    font-weight: $fw-semibold;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: $color-accent;
+    margin-bottom: $space-5;
+  }
+
+  &__nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: $space-3;
+
+    a {
+      font-size: $fs-sm;
+      color: rgba($color-white, .50);
+      transition: color $t-fast;
+      text-decoration: none;
+      &:hover { color: $color-white; }
+    }
+  }
+
+  &__newsletter-text {
+    font-size: $fs-sm;
+    color: rgba($color-white, .45);
+    line-height: $lh-loose;
+    margin-bottom: $space-5;
+  }
+
+  &__newsletter-form {
+    display: flex;
+    gap: $space-2;
+  }
+
+  &__newsletter-input {
+    flex: 1;
+    background: rgba($color-white, .05);
+    border: 1px solid rgba($color-white, .10);
+    border-radius: $radius-sm;
+    padding: $space-3 $space-4;
+    font-size: $fs-sm;
+    color: $color-white;
+    transition: border-color $t-fast;
+
+    &::placeholder { color: rgba($color-white, .25); }
+    &:focus { border-color: rgba($color-white, .30); }
+  }
+
+  &__newsletter-btn {
+    flex-shrink: 0;
+    background: $color-accent;
+    border-color: $color-accent;
+    color: $color-white;
+
+    &:hover {
+      background: $color-accent-hover;
+      border-color: $color-accent-hover;
+    }
+  }
+
+  // Bottom bar
+  &__bottom {
+    border-top: 1px solid rgba($color-white, .06);
+  }
+
+  &__bottom-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: $space-4;
+    max-width: $container-max;
+    margin-inline: auto;
+    padding: $space-6 $container-padding;
+
+    @media (max-width: $bp-md) { flex-direction: column; text-align: center; }
+  }
+
+  &__copyright {
+    font-size: $fs-xs;
+    color: rgba($color-white, .30);
+  }
+
+  &__disclaimer {
+    font-size: $fs-xs;
+    color: rgba($color-white, .20);
+  }
+
+  &__legal-list {
+    display: flex;
+    gap: $space-5;
+    list-style: none;
+
+    a {
+      font-size: $fs-xs;
+      color: rgba($color-white, .30);
+      text-decoration: none;
+      transition: color $t-fast;
+      &:hover { color: rgba($color-white, .65); }
+    }
+  }
+}

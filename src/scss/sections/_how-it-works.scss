@@ -1,0 +1,64 @@
+// ─── Luma Gallery — How It Works ─────────────────────────────────────────────
+
+.luma-how-it-works {
+  background: $color-white;
+  border-top: 1px solid $color-gray-200;
+  border-bottom: 1px solid $color-gray-200;
+
+  &__steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $space-1;
+
+    @media (max-width: $bp-md) {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+  }
+
+  &__step {
+    display: flex;
+    flex-direction: column;
+    gap: $space-5;
+    padding: $space-12;
+    border-right: 1px solid $color-gray-200;
+    position: relative;
+
+    &:last-child { border-right: none; }
+
+    @media (max-width: $bp-md) {
+      border-right: none;
+      border-bottom: 1px solid $color-gray-200;
+      &:last-child { border-bottom: none; }
+    }
+  }
+
+  &__num {
+    font-family: $font-heading;
+    font-size: $fs-6xl;
+    font-weight: $fw-light;
+    color: $color-accent;
+    line-height: 1;
+    opacity: .15;
+    position: absolute;
+    top: $space-8;
+    right: $space-8;
+    pointer-events: none;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: $fs-2xl;
+    font-weight: $fw-light;
+    color: $color-dark;
+    letter-spacing: -0.02em;
+    position: relative;
+  }
+
+  &__text {
+    font-size: $fs-base;
+    line-height: $lh-loose;
+    color: $color-gray-500;
+    max-width: 280px;
+  }
+}

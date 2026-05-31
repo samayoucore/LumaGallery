@@ -1,0 +1,398 @@
+// ─── Luma Gallery — Hero (editorial brutalist, white bg + frosted glass) ───────
+//
+// Z-index layers:
+//   bg            (0)  — white background
+//   __object-wrap (1)  — PNG sculpture, behind glass
+//   __glass       (2)  — frosted glass panel, left side
+//   __circle      (3)  — decorative outline circles
+//   __word        (3)  — DISCOVER / GALLERY display type
+//   __intro       (4)  — bottom-left text block
+//
+// Mobile (≤ 768): vertical stack, glass hidden, single bg.
+
+$font-display: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+
+.luma-hero {
+
+  // ── CSS custom properties ──────────────────────────────────────────────────
+  --pad-x:      #{$container-padding};
+  --glass-w:    46%;
+  --c-ghost:    rgba(0, 0, 0, .18);   // DISCOVER ghost text on glass
+  --c-gallery:  #0B0B0C;              // GALLERY dark text
+  --c-circle:   rgba(0, 0, 0, .09);   // circles on white bg
+  --c-glass-bg: rgba(255, 255, 255, .70);
+  --ease:       cubic-bezier(.22, 1, .36, 1);
+  --z-bg:       0;
+  --z-object:   1;
+  --z-glass:    2;
+  --z-decor:    3;
+  --z-word:     3;
+  --z-intro:    4;
+
+  // ── Section root ───────────────────────────────────────────────────────────
+  position: relative;
+  height: 100vh;      // always full viewport — no max-height cap
+  min-height: 640px;
+  overflow: hidden;
+  background: $color-white;
+
+  @media (max-width: $bp-md) {
+    height: auto;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    background: $color-white;
+  }
+
+  // ── 0 · Background (white) ────────────────────────────────────────────────
+  // Kept as a div so the split can be reintroduced easily via CSS var if needed
+  &__bg {
+    position: absolute;
+    inset: 0;
+    z-index: var(--z-bg);
+    background: $color-white;
+
+    @media (max-width: $bp-md) {
+      background: $color-white;
+    }
+  }
+
+  // ── 1 · Sculpture — bottom-anchored, behind glass ─────────────────────────
+  &__object-wrap {
+    position: absolute;
+    bottom: 0;                        // anchored to screen bottom
+    left: 46%;                        // center on the glass boundary → max bleed into glass
+    transform: translateX(-50%);      // center on the 46% point
+    z-index: var(--z-object);
+    will-change: transform;           // smooth parallax
+
+    // Load animation
+    opacity: 0;
+    animation: luma-hero-object-in 1.4s var(--ease) .22s forwards;
+
+    @media (max-width: $bp-md) {
+      position: relative;
+      bottom: auto;
+      left: auto;
+      transform: none;
+      display: flex;
+      justify-content: center;
+      order: 3;
+      padding: $space-2 0 0;
+      animation: luma-hero-object-mob 1s var(--ease) .15s forwards;
+    }
+  }
+
+  &__object {
+    line-height: 0;    // eliminate any inline baseline gap under the img
+    font-size: 0;
+
+    img {
+      display: block;
+      // Full height: from bottom edge to ~8vh from top
+      height: clamp(480px, 91vh, 1080px);
+      width: auto;
+      max-width: none;
+      object-fit: contain;
+      object-position: bottom center;
+      // PNG transparency → shadow cast only from sculpture shape
+      filter:
+        drop-shadow(-28px 16px 60px rgba(0, 0, 0, .20))
+        drop-shadow(  4px  8px 20px rgba(0, 0, 0, .10));
+      // Prevent drag / context-menu save
+      -webkit-user-drag: none;
+      -khtml-user-drag: none;
+      -moz-user-drag: none;
+      user-drag: none;
+      pointer-events: none;
+      -webkit-user-select: none;
+      user-select: none;
+
+      @media (max-width: $bp-md) {
+        height: clamp(260px, 50vh, 520px);
+        filter: drop-shadow(0 10px 36px rgba(0, 0, 0, .16));
+      }
+    }
+  }
+
+  &__object-placeholder {
+    height: clamp(480px, 91vh, 1080px);
+    width: 280px;
+    background: rgba(0, 0, 0, .05);
+    border: 1px dashed rgba(0, 0, 0, .12);
+    border-bottom: none;
+  }
+
+  // ── 2 · Frosted glass panel — covers left side, over sculpture ────────────
+  //
+  // The sculpture is centered at left:46%, so its left edge sits at ~24-25%.
+  // The glass covers 0→46%, giving a ~21% overlap zone where blur is visible.
+  // NO mask-image — it was hiding the blur exactly where sculpture bleeds in.
+  &__glass {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: var(--glass-w);
+    z-index: var(--z-glass);
+    // Subtle warm-white tint — light enough to feel premium, not heavy
+    background: rgba(255, 255, 255, .58);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    // Thin divider line on right edge
+    border-right: 1px solid rgba(0, 0, 0, .07);
+    pointer-events: none;
+
+    @media (max-width: $bp-lg) { width: 52%; }
+    @media (max-width: $bp-md) { display: none; }
+  }
+
+  // ── 3 · Decorative outline circles — right side, abstract composition ───────
+  //
+  // Two circles with different sizes AND different anchor corners so they
+  // don't share a visual center — feels compositional, not geometric/symmetric.
+  &__circle {
+    position: absolute;
+    border-radius: 50%;
+    z-index: var(--z-decor);
+    pointer-events: none;
+    opacity: 0;
+    animation: luma-hero-circle-in 1.6s var(--ease) .4s forwards;
+
+    // Large — top-right corner, mostly off-screen, very faint
+    &--lg {
+      width: 700px;
+      height: 700px;
+      right: -220px;         // large portion hidden off right edge
+      top: -80px;            // also clipped by top
+      border: 1px solid rgba($color-dark, .07);
+    }
+
+    // Small — bottom-right, separate from the large one, slightly bolder
+    &--sm {
+      width: 310px;
+      height: 310px;
+      right: 48px;           // inset from right edge — mostly visible
+      bottom: 80px;          // anchored near bottom, away from the large circle
+      border: 1px solid rgba($color-dark, .10);
+    }
+
+    @media (max-width: $bp-md) { display: none; }
+  }
+
+  // ── 3 · Display words ──────────────────────────────────────────────────────
+  &__word {
+    position: absolute;
+    z-index: var(--z-word);
+    font-family: $font-display;
+    font-size: clamp(72px, 15vw, 220px);
+    font-weight: 400;
+    line-height: .88;
+    letter-spacing: -.025em;
+    text-transform: uppercase;
+    pointer-events: none;
+    user-select: none;
+
+    // DISCOVER — ghost text on frosted glass
+    &--top {
+      top: clamp(40px, 8.5vh, 110px);
+      left: var(--pad-x);
+      color: var(--c-ghost);
+      opacity: 0;
+      animation: luma-hero-word-fade-in 1.2s var(--ease) .05s forwards;
+
+      @media (max-width: $bp-md) {
+        position: relative;
+        top: auto; left: auto;
+        padding: $space-6 $space-6 0;
+        font-size: clamp(48px, 15vw, 92px);
+        color: rgba(0, 0, 0, .12);
+        order: 2;
+      }
+    }
+
+    // GALLERY — strong dark, fully visible at bottom-right
+    &--bottom {
+      bottom: clamp(6px, 1.5vh, 18px);
+      right: var(--pad-x);
+      color: var(--c-gallery);
+      opacity: 0;
+      animation: luma-hero-word-fade-in 1.2s var(--ease) .18s forwards;
+
+      @media (max-width: $bp-md) {
+        position: relative;
+        bottom: auto; right: auto;
+        text-align: right;
+        padding: 0 $space-6 $space-4;
+        font-size: clamp(48px, 15vw, 92px);
+        order: 4;
+      }
+    }
+  }
+
+  // ── 4 · Bottom-left intro block ────────────────────────────────────────────
+  &__intro {
+    position: absolute;
+    z-index: var(--z-intro);
+    bottom: clamp(28px, 4vh, 52px);
+    left: var(--pad-x);
+    max-width: 480px;
+    opacity: 0;
+    animation: luma-hero-intro-in 1s var(--ease) .5s forwards;
+
+    @media (max-width: $bp-md) {
+      position: relative;
+      bottom: auto; left: auto;
+      max-width: 100%;
+      padding: $space-8 $space-6 $space-10;
+      opacity: 1;
+      animation: none;
+      order: 5;
+    }
+  }
+
+  &__intro-line {
+    width: clamp(140px, 26vw, 420px);
+    height: 1px;
+    background: rgba(0, 0, 0, .18);
+    margin-bottom: $space-5;
+
+    @media (max-width: $bp-md) { width: 55%; }
+  }
+
+  &__intro-label {
+    margin: 0 0 $space-3;
+    font-family: $font-body;
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, .40);
+  }
+
+  &__intro-text {
+    margin: 0 0 $space-5;
+    font-family: $font-heading;
+    font-size: clamp(13px, 1.05vw, $fs-base);
+    color: #2A2A2A;
+    line-height: 1.58;
+    max-width: 400px;
+  }
+
+  &__intro-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+    margin-bottom: $space-6;
+    font-family: $font-body;
+    font-size: $fs-xs;
+    font-weight: $fw-bold;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: $color-dark;
+    text-decoration: none;
+    border-bottom: 1.5px solid rgba(0, 0, 0, .30);
+    padding-bottom: 2px;
+    transition: border-color $t-fast, color $t-fast;
+
+    &:hover {
+      color: $color-accent;
+      border-color: $color-accent;
+    }
+  }
+
+  &__intro-stats {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    font-family: $font-body;
+    font-size: $fs-xs;
+    color: rgba(0, 0, 0, .35);
+    font-weight: $fw-semibold;
+    letter-spacing: 0.04em;
+
+    strong { color: rgba(0, 0, 0, .55); }
+  }
+
+  &__intro-sep { opacity: .3; }
+
+  // ── Container-bound content wrapper ───────────────────────────────────────
+  //
+  // Mirrors .luma-container: max-width 1440px, centred, same horizontal padding.
+  // Full-width visual layers (bg, glass, object, circles) live outside this.
+  // pointer-events:none so clicks pass through to decorative layers beneath.
+  // Interactive children (intro-cta, stats) re-enable pointer-events themselves.
+  &__content-wrap {
+    position: absolute;
+    inset: 0;
+    max-width: $container-max;   // 1440px — same as .luma-container
+    margin-inline: auto;         // centres on viewports wider than 1440px
+    z-index: var(--z-intro);     // above glass (z:2) and circles (z:3)
+    pointer-events: none;
+
+    // Re-enable interactions for the clickable intro block
+    .luma-hero__intro {
+      pointer-events: auto;
+    }
+
+    // Mobile: display:contents makes the wrapper transparent to flex layout.
+    // Children participate directly in .luma-hero's flex column with their
+    // own order: values, as if the wrapper didn't exist.
+    @media (max-width: $bp-md) {
+      display: contents;
+    }
+  }
+
+}
+
+// ── Mobile: make positioned elements flow ─────────────────────────────────────
+@media (max-width: $bp-md) {
+  .luma-hero__bg,
+  .luma-hero__word--top,
+  .luma-hero__object-wrap,
+  .luma-hero__word--bottom,
+  .luma-hero__intro {
+    position: relative;
+  }
+}
+
+// ── Load animations ───────────────────────────────────────────────────────────
+
+// Sculpture: scale-in from bottom anchor (no Y translate — translateX only)
+@keyframes luma-hero-object-in {
+  from { opacity: 0; transform: translateX(-50%) scale(1.04); }
+  to   { opacity: 1; transform: translateX(-50%) scale(1); }
+}
+
+@keyframes luma-hero-object-mob {
+  from { opacity: 0; transform: scale(1.04); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+// Display words & intro: slide up + fade
+@keyframes luma-hero-word-fade-in {
+  from { opacity: 0; transform: translateY(42px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes luma-hero-intro-in {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes luma-hero-circle-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+// ── Reduced motion ────────────────────────────────────────────────────────────
+@media (prefers-reduced-motion: reduce) {
+  .luma-hero {
+    &__word--top    { animation: none; opacity: 1; }
+    &__word--bottom { animation: none; opacity: 1; }
+    &__object-wrap  { animation: none; opacity: 1; transform: translateX(-50%); }
+    &__intro        { animation: none; opacity: 1; }
+    &__circle       { animation: none; opacity: 1; }
+    // scroll-hint removed from design
+  }
+}

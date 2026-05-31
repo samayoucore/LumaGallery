@@ -1,0 +1,167 @@
+// ─── Luma Gallery — AI Curator Teaser ────────────────────────────────────────
+
+.luma-ai-curator-teaser {
+  background: $color-dark-section;
+  color: $color-white;
+
+  &__inner {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: clamp($space-12, 8vw, $space-24);
+    align-items: center;
+
+    @media (max-width: $bp-lg) {
+      grid-template-columns: 1fr;
+      gap: $space-12;
+    }
+  }
+
+  &__copy {
+    display: flex;
+    flex-direction: column;
+    gap: $space-6;
+  }
+
+  &__desc {
+    font-size: $fs-md;
+    color: rgba($color-white, .55);
+    line-height: $lh-loose;
+    max-width: 400px;
+  }
+
+  &__chips {
+    display: flex;
+    gap: $space-2;
+    flex-wrap: wrap;
+  }
+
+  &__disclaimer {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    font-size: $fs-xs;
+    color: rgba($color-white, .25);
+    letter-spacing: 0.04em;
+  }
+
+  // ── Decorative panel ─────────────────────────────────────────────────────
+  &__form-preview {
+    display: flex;
+    justify-content: center;
+
+    @media (max-width: $bp-lg) { display: none; }
+  }
+
+  &__panel {
+    width: 340px;
+    background: rgba($color-white, .03);
+    border: 1px solid rgba($color-white, .08);
+    border-radius: $radius-xl;
+    overflow: hidden;
+    box-shadow: $shadow-xl;
+  }
+
+  &__panel-header {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    padding: $space-4 $space-5;
+    border-bottom: 1px solid rgba($color-white, .06);
+  }
+
+  &__panel-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: rgba($color-white, .10);
+  }
+
+  &__panel-title {
+    margin-left: $space-3;
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba($color-white, .30);
+  }
+
+  &__panel-body {
+    padding: $space-6;
+    display: flex;
+    flex-direction: column;
+    gap: $space-5;
+  }
+
+  &__field {
+    label {
+      display: block;
+      font-size: $fs-xs;
+      font-weight: $fw-semibold;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba($color-white, .28);
+      margin-bottom: $space-2;
+    }
+  }
+
+  &__select-mock {
+    padding: $space-3 $space-4;
+    background: rgba($color-white, .04);
+    border: 1px solid rgba($color-white, .08);
+    border-radius: $radius-sm;
+    font-size: $fs-sm;
+    color: rgba($color-white, .55);
+  }
+
+  &__loader {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+
+    span { font-size: $fs-xs; color: rgba($color-white, .35); }
+  }
+
+  &__loader-bar {
+    flex: 1;
+    height: 2px;
+    background: rgba($color-white, .06);
+    border-radius: $radius-full;
+    overflow: hidden;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 60%; height: 100%;
+      background: $color-accent;
+      border-radius: $radius-full;
+      animation: luma-ai-progress 1.8s ease-in-out infinite;
+    }
+  }
+
+  @keyframes luma-ai-progress {
+    0%   { left: -60%; }
+    100% { left: 110%; }
+  }
+
+  &__result-row {
+    display: flex;
+    gap: $space-2;
+  }
+
+  &__result-frame {
+    flex: 1;
+    aspect-ratio: 3 / 4;
+    border-radius: $radius-sm;
+    opacity: .75;
+    border: 1px solid rgba($color-white, .06);
+  }
+
+  &__result-summary {
+    font-size: $fs-xs;
+    color: $color-accent;
+    text-align: center;
+    font-weight: $fw-medium;
+    letter-spacing: 0.04em;
+  }
+}

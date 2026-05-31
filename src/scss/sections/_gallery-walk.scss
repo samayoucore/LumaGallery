@@ -1,0 +1,256 @@
+// ─── Luma Gallery — Gallery Walk ──────────────────────────────────────────────
+
+// ── Homepage teaser strip ────────────────────────────────────────────────────
+
+.luma-gallery-walk-section {
+  background: $color-dark-section;
+  color: $color-white;
+  overflow: hidden;
+
+  .luma-section__label { color: $color-accent; }
+
+  .luma-heading--section { color: $color-white; }
+
+  &__strip {
+    scrollbar-width: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    cursor: grab;
+    margin-top: $space-10;
+    &:active { cursor: grabbing; }
+    &::-webkit-scrollbar { display: none; }
+  }
+
+  &__track {
+    display: flex;
+    gap: $space-3;
+    padding: 0 $container-padding $space-2;
+    width: max-content;
+  }
+
+  &__frame {
+    flex-shrink: 0;
+    width: 220px;
+    cursor: pointer;
+    transition: transform $t-mid $t-ease;
+
+    @media (max-width: $bp-md) { width: 160px; }
+
+    &:hover { transform: translateY(-8px); }
+  }
+
+  &__frame-inner {
+    aspect-ratio: 3 / 4;
+    border-radius: $radius-md;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba($color-white, .06);
+
+    img { width: 100%; height: 100%; object-fit: cover; }
+
+    // Subtle bottom gradient
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 40%;
+      background: linear-gradient(to top, rgba($color-dark, .6), transparent);
+    }
+  }
+
+  &__frame-label {
+    margin-top: $space-2;
+    font-family: $font-heading;
+    font-size: $fs-sm;
+    font-weight: $fw-light;
+    color: rgba($color-white, .45);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+    padding: 0 $space-2;
+    letter-spacing: 0.01em;
+  }
+
+  &__hint {
+    font-size: $fs-xs;
+    color: rgba($color-white, .20);
+    text-align: center;
+    padding: $space-6 $container-padding $space-2;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+}
+
+// ── Fullscreen Gallery Walk overlay ──────────────────────────────────────────
+
+.luma-gallery-walk {
+  position: fixed;
+  inset: 0;
+  z-index: $z-gallery-walk;
+  background: $color-dark-bg;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity $t-mid $t-ease;
+
+  &[aria-hidden='false'],
+  &.is-open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  &__wall {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__active-frame {
+    position: absolute;
+    max-width: 55vw;
+    max-height: 72vh;
+    transition: all .5s $t-ease;
+
+    img, .gw-placeholder {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      border-radius: $radius-sm;
+      box-shadow: $shadow-artwork;
+    }
+
+    .gw-placeholder {
+      min-width: 280px;
+      min-height: 360px;
+    }
+  }
+
+  &__spotlight {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse 50% 65% at var(--gw-spotlight-x, 50%) var(--gw-spotlight-y, 45%),
+      rgba($color-white, .04) 0%,
+      transparent 65%
+    );
+    transition: background .3s ease;
+  }
+
+  // Controls
+  &__controls {
+    position: absolute;
+    bottom: $space-8;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: $space-8;
+    z-index: 2;
+  }
+
+  &__btn {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: rgba($color-white, .06);
+    border: 1px solid rgba($color-white, .12);
+    color: $color-white;
+    display: flex; align-items: center; justify-content: center;
+    transition: all $t-fast;
+
+    &:hover {
+      background: rgba($color-white, .12);
+      border-color: rgba($color-white, .25);
+    }
+  }
+
+  &__progress {
+    font-family: $font-heading;
+    font-size: $fs-lg;
+    color: rgba($color-white, .55);
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    min-width: 70px;
+    justify-content: center;
+  }
+
+  &__sep { color: rgba($color-white, .20); }
+
+  // Info panel
+  &__info {
+    position: absolute;
+    right: $space-8; top: 50%;
+    transform: translateY(-50%);
+    width: 250px;
+    background: rgba($color-dark-card, .88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba($color-white, .07);
+    border-radius: $radius-lg;
+    padding: $space-5;
+    display: flex;
+    flex-direction: column;
+    gap: $space-3;
+
+    @media (max-width: $bp-lg) {
+      position: static;
+      transform: none;
+      width: auto;
+      margin: 0 $space-4;
+    }
+  }
+
+  &__info-title  { font-family: $font-heading; font-size: $fs-xl; font-weight: $fw-light; color: $color-white; line-height: $lh-snug; }
+  &__info-artist { font-size: $fs-xs; color: $color-accent; font-weight: $fw-semibold; letter-spacing: 0.10em; text-transform: uppercase; }
+  &__info-price  { font-size: $fs-md; font-weight: $fw-semibold; color: $color-white; }
+
+  &__info-actions { display: flex; gap: $space-2; flex-wrap: wrap; }
+
+  // Thumbnail strip
+  &__thumbs {
+    position: absolute;
+    bottom: $space-20;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: $space-2;
+    z-index: 2;
+
+    @media (max-width: $bp-lg) { display: none; }
+  }
+
+  &__thumb {
+    width: 40px; height: 50px;
+    border-radius: $radius-sm;
+    overflow: hidden;
+    opacity: .3;
+    cursor: pointer;
+    transition: opacity $t-fast, transform $t-fast, border-color $t-fast;
+    border: 1px solid transparent;
+
+    &.is-active { opacity: 1; border-color: $color-accent; transform: translateY(-2px); }
+    &:hover { opacity: .7; }
+
+    img, div { width: 100%; height: 100%; object-fit: cover; }
+  }
+
+  // Close
+  &__close {
+    position: absolute;
+    top: $space-5; right: $space-5;
+    z-index: 3;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: rgba($color-white, .07);
+    border: 1px solid rgba($color-white, .12);
+    color: $color-white;
+    display: flex; align-items: center; justify-content: center;
+    transition: all $t-fast;
+
+    &:hover { background: rgba($color-white, .14); }
+  }
+}
