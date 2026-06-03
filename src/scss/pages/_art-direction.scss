@@ -1,0 +1,4207 @@
+// Luma Gallery 2026 art direction layer.
+// Imported last on purpose: this file replaces the visible product language
+// while preserving the existing WordPress markup and JS hooks.
+
+$ad-paper: #ffffff;
+$ad-ink: $color-dark;
+$ad-accent: $color-accent;
+$ad-soft: #f4f4f2;
+$ad-line: rgba($ad-ink, .14);
+$ad-line-strong: rgba($ad-ink, .28);
+$ad-white-line: rgba($color-white, .18);
+$ad-shadow-frame: 0 26px 70px rgba(29, 29, 31, .18), 0 2px 0 rgba(29, 29, 31, .10);
+$ad-ease: cubic-bezier(.19, 1, .22, 1);
+
+html {
+  overflow-x: hidden;
+  background: $ad-paper;
+}
+
+body {
+  --luma-cursor-x: 50%;
+  --luma-cursor-y: 20%;
+  min-height: 100vh;
+  background:
+    linear-gradient(90deg, rgba($ad-ink, .035) 1px, transparent 1px) 0 0 / 96px 96px,
+    linear-gradient(rgba($ad-ink, .03) 1px, transparent 1px) 0 0 / 96px 96px,
+    $ad-paper;
+  color: $ad-ink;
+  font-family: $font-body;
+  font-size: $fs-base;
+  font-weight: $fw-regular;
+  line-height: $lh-normal;
+  font-feature-settings: "liga" 1, "kern" 1;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle 320px at var(--luma-cursor-x) var(--luma-cursor-y),
+      rgba($ad-accent, .105),
+      rgba($ad-accent, .035) 36%,
+      transparent 68%);
+  mix-blend-mode: multiply;
+  opacity: .72;
+}
+
+::selection {
+  background: $ad-accent;
+  color: $color-white;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+body.no-scroll {
+  overflow: hidden;
+}
+
+.luma-container {
+  width: 100%;
+  max-width: $container-wide;
+  margin-inline: auto;
+  padding-inline: $container-padding;
+
+  &--narrow {
+    max-width: 860px;
+  }
+
+  &--wide {
+    max-width: $container-wide;
+  }
+}
+
+.luma-main {
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.luma-heading {
+  font-family: $font-heading;
+  font-weight: $fw-light;
+  line-height: $lh-tight;
+  color: inherit;
+
+  &--display {
+    font-size: clamp(4.25rem, 11vw, 13.5rem);
+    line-height: .82;
+  }
+
+  &--section {
+    font-size: clamp(3rem, 6vw, 6.5rem);
+  }
+
+  &--card {
+    font-size: clamp($fs-xl, 2.5vw, $fs-2xl);
+  }
+
+  &--sm {
+    font-family: $font-body;
+    font-size: $fs-lg;
+    font-weight: $fw-bold;
+  }
+}
+
+.luma-section {
+  position: relative;
+
+  &--dark,
+  &--darker {
+    background: $ad-ink;
+    color: $color-white;
+  }
+
+  &--light {
+    background: $ad-soft;
+  }
+
+  &--tight {
+    padding-block: clamp($space-10, 6vw, $space-20);
+  }
+
+  &--spacious {
+    padding-block: clamp($space-20, 12vw, $space-32);
+  }
+
+  &--flush {
+    padding-block: 0;
+  }
+}
+
+.luma-section__label {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-3;
+  font-family: $font-body;
+  font-size: 10px;
+  font-weight: $fw-bold;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: $ad-accent;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 26px;
+    height: 2px;
+    background: currentColor;
+  }
+
+  &--light {
+    color: rgba($color-white, .64);
+  }
+}
+
+.luma-section__sub {
+  max-width: 560px;
+  margin-top: $space-5;
+  color: rgba($ad-ink, .58);
+  font-size: $fs-md;
+
+  .luma-section--dark &,
+  .luma-section--darker & {
+    color: rgba($color-white, .62);
+  }
+}
+
+.wp-content {
+  color: rgba($ad-ink, .72);
+  font-size: $fs-md;
+  line-height: $lh-loose;
+
+  > * + * {
+    margin-top: $space-5;
+  }
+
+  h2,
+  h3,
+  h4 {
+    color: $ad-ink;
+    font-family: $font-heading;
+    font-weight: $fw-light;
+    line-height: $lh-tight;
+  }
+
+  h2 { font-size: $fs-3xl; }
+  h3 { font-size: $fs-2xl; }
+  h4 { font-size: $fs-xl; }
+
+  a {
+    color: $ad-accent;
+    text-decoration: underline;
+  }
+
+  ul,
+  ol {
+    list-style: revert;
+    padding-left: $space-6;
+  }
+
+  blockquote {
+    border-left: 3px solid $ad-accent;
+    padding: $space-4 $space-6;
+    background: rgba($ad-ink, .045);
+    color: $ad-ink;
+    font-family: $font-heading;
+    font-size: $fs-xl;
+  }
+}
+
+.luma-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  min-height: 44px;
+  padding: 12px 24px;
+  border: 1px solid $ad-ink;
+  background: transparent;
+  color: $ad-ink;
+  font-size: $fs-xs;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background $t-fast,
+    border-color $t-fast,
+    color $t-fast,
+    box-shadow $t-fast,
+    transform $t-fast;
+
+  svg {
+    flex: 0 0 auto;
+    transition: transform $t-fast;
+  }
+
+  &:disabled,
+  &[disabled] {
+    opacity: .45;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  &--xs {
+    min-height: 30px;
+    padding: 6px 11px;
+    font-size: 10px;
+  }
+
+  &--sm {
+    min-height: 36px;
+    padding: 9px 16px;
+    font-size: 10px;
+  }
+
+  &--lg {
+    min-height: 54px;
+    padding: 16px 32px;
+  }
+
+  &--ghost {
+    background: transparent;
+    color: $ad-ink;
+    border-color: rgba($ad-ink, .38);
+
+    &:hover,
+    &:focus-visible {
+      background: $ad-ink;
+      border-color: $ad-ink;
+      color: $color-white;
+    }
+  }
+
+  &--ghost-light {
+    background: transparent;
+    color: $color-white;
+    border-color: rgba($color-white, .42);
+
+    &:hover,
+    &:focus-visible {
+      background: $color-white;
+      border-color: $color-white;
+      color: $ad-ink;
+    }
+  }
+
+  &.is-loading {
+    pointer-events: none;
+    opacity: .68;
+  }
+}
+
+.luma-badge,
+.luma-chip,
+.luma-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  padding: 4px 12px;
+  border: 1px solid $ad-line;
+  background: rgba($ad-paper, .78);
+  color: rgba($ad-ink, .72);
+  font-size: 10px;
+  font-weight: $fw-bold;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.luma-badge--available { color: $color-available; border-color: rgba($color-available, .32); background: rgba($color-available, .08); }
+.luma-badge--reserved  { color: $color-reserved; border-color: rgba($color-reserved, .32); background: rgba($color-reserved, .08); }
+.luma-badge--sold      { color: $color-sold; border-color: rgba($color-sold, .28); background: rgba($color-sold, .08); }
+.luma-badge--accent    { color: $ad-accent; border-color: rgba($ad-accent, .32); background: rgba($ad-accent, .08); }
+.luma-badge--mood,
+.luma-badge--tag {
+  color: rgba($color-white, .82);
+  border-color: rgba($color-white, .18);
+  background: rgba($color-white, .08);
+}
+
+.luma-input,
+.luma-select,
+.luma-textarea,
+.luma-footer__newsletter-input {
+  width: 100%;
+  min-height: 46px;
+  padding: 12px 14px;
+  border: 1px solid $ad-line-strong;
+  background: rgba($ad-paper, .86);
+  color: $ad-ink;
+  transition: border-color $t-fast, box-shadow $t-fast, background $t-fast;
+
+  &::placeholder {
+    color: rgba($ad-ink, .36);
+  }
+}
+
+.luma-textarea {
+  min-height: 132px;
+  resize: vertical;
+}
+
+.luma-form,
+.luma-field,
+.luma-filter-group,
+.luma-curator-field {
+  display: grid;
+  gap: $space-3;
+}
+
+.luma-artwork-grid,
+.luma-artists-grid,
+.luma-artist-grid,
+.luma-artist-similar__grid,
+.luma-artist-artworks__grid,
+.luma-exhibitions-grid,
+.luma-exhibition-artworks__grid,
+.luma-artwork-similar__grid,
+.luma-recently-viewed__grid,
+.luma-favorites-grid,
+.luma-favorites-grid--artworks,
+.luma-favorites-grid--artists,
+.luma-favorites-grid--exhibitions,
+.luma-post-grid,
+.luma-gallery-layout,
+.luma-curator-layout,
+.luma-artwork-hero,
+.luma-artwork-body,
+.luma-journal-featured {
+  display: grid;
+  gap: clamp($space-5, 3vw, $space-10);
+}
+
+.luma-empty-state,
+.luma-favorites-empty,
+.luma-curator-empty {
+  padding: clamp($space-12, 8vw, $space-24);
+  text-align: center;
+}
+
+.luma-pagination {
+  display: flex;
+  justify-content: center;
+  gap: $space-2;
+  margin-top: $space-16;
+
+  .page-numbers {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 42px;
+    height: 42px;
+    border: 1px solid $ad-line;
+    color: rgba($ad-ink, .58);
+    text-decoration: none;
+
+    &:hover,
+    &.current {
+      background: $ad-ink;
+      border-color: $ad-ink;
+      color: $color-white;
+    }
+  }
+}
+
+.luma-ai-icon {
+  display: inline-flex;
+  color: $ad-accent;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .js-anim [data-reveal],
+  .js-anim [data-reveal-children] > * {
+    opacity: 0;
+  }
+
+  .js-anim [data-reveal].is-revealed,
+  .js-anim [data-reveal-children].is-revealed > * {
+    opacity: 1;
+    animation: luma-reveal-in .75s $ad-ease backwards;
+  }
+
+  [data-magnetic] {
+    transition: transform .3s $ad-ease;
+  }
+}
+
+@keyframes luma-reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.luma-distort {
+  position: relative;
+  overflow: hidden;
+}
+
+.luma-distort__word {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .01em;
+}
+
+.luma-distort__char {
+  display: inline-block;
+  transform-origin: 50% 65%;
+  transition:
+    transform .65s $ad-ease,
+    opacity .65s $ad-ease,
+    filter .65s $ad-ease;
+  will-change: transform, opacity;
+}
+
+.luma-header,
+.luma-gallery-walk,
+.luma-modal {
+  z-index: $z-header;
+}
+
+.luma-main,
+.luma-footer {
+  position: relative;
+  z-index: 2;
+}
+
+a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.luma-container {
+  max-width: 1540px;
+}
+
+.luma-heading,
+.luma-page-hero__title,
+.luma-journal-hero__title,
+.luma-curator-hero__title,
+.luma-favorites-hero__title {
+  letter-spacing: 0;
+}
+
+// Header: floating museum navigation bar.
+.luma-header {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  z-index: $z-header;
+  height: 62px;
+  border: 1px solid rgba($ad-ink, .16);
+  background: rgba($ad-paper, .78);
+  backdrop-filter: blur(22px) saturate(1.1);
+  -webkit-backdrop-filter: blur(22px) saturate(1.1);
+  box-shadow: 0 14px 45px rgba($ad-ink, .08);
+  transition: background $t-mid $ad-ease, border-color $t-mid $ad-ease, transform $t-mid $ad-ease;
+
+  &.is-solid {
+    background: rgba($ad-paper, .94);
+    border-color: rgba($ad-ink, .24);
+    box-shadow: 0 18px 60px rgba($ad-ink, .12);
+  }
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    max-width: none;
+    margin-inline: auto;
+    padding-inline: clamp(14px, 2.5vw, 30px);
+    gap: clamp($space-4, 3vw, $space-10);
+  }
+
+  &__logo {
+    flex: 0 0 auto;
+    position: relative;
+    z-index: 2;
+    text-decoration: none;
+  }
+
+  &__nav {
+    display: flex;
+    min-width: 0;
+  }
+
+  &__logo-text {
+    display: inline-grid;
+    grid-template-columns: auto auto;
+    align-items: baseline;
+    gap: 6px;
+    font-family: $font-body;
+    font-size: 13px;
+    font-weight: $fw-bold;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    color: $ad-ink !important;
+  }
+
+  &__logo-luma {
+    font-weight: $fw-bold;
+  }
+
+  &__logo-gallery {
+    opacity: 1;
+    color: $ad-accent;
+    font-weight: $fw-bold;
+  }
+
+  &__nav-list {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: clamp($space-4, 2.3vw, $space-8);
+
+    a {
+      position: relative;
+      color: rgba($ad-ink, .7) !important;
+      opacity: 1 !important;
+      font-size: 10px;
+      font-weight: $fw-bold;
+      letter-spacing: .18em;
+      padding: 10px 0;
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 5px;
+        height: 2px;
+        background: $ad-accent;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform $t-mid $ad-ease;
+      }
+
+      &:hover,
+      &:focus-visible {
+        color: $ad-ink !important;
+      }
+
+      &:hover::after,
+      &:focus-visible::after {
+        transform: scaleX(1);
+      }
+    }
+
+    .current-menu-item > a {
+      border: 0;
+      color: $ad-ink !important;
+
+      &::after {
+        transform: scaleX(1);
+      }
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    margin-left: auto;
+    flex: 0 0 auto;
+  }
+
+  &__action-btn,
+  &__burger {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    color: $ad-ink !important;
+    border: 1px solid rgba($ad-ink, .12);
+    background: rgba($ad-paper, .72);
+    border-radius: 0;
+    transition: transform $t-fast $ad-ease, background $t-fast, border-color $t-fast;
+
+    &:hover {
+      background: $ad-ink !important;
+      border-color: $ad-ink;
+      color: $color-white !important;
+      transform: translateY(-2px);
+    }
+  }
+
+  &__action-count {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 17px;
+    height: 17px;
+    padding: 0 4px;
+    top: -5px;
+    right: -5px;
+    border: 2px solid $ad-paper;
+    background: $ad-accent;
+    color: $color-white;
+    font-size: 10px;
+    font-weight: $fw-bold;
+    line-height: 1;
+  }
+
+  &__burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+
+    span {
+      display: block;
+      width: 21px;
+      height: 1.5px;
+      background: currentColor;
+      transition: transform $t-fast, opacity $t-fast;
+    }
+
+    &[aria-expanded='true'] span:nth-child(1) {
+      transform: translateY(6.5px) rotate(45deg);
+    }
+
+    &[aria-expanded='true'] span:nth-child(2) {
+      opacity: 0;
+    }
+
+    &[aria-expanded='true'] span:nth-child(3) {
+      transform: translateY(-6.5px) rotate(-45deg);
+    }
+  }
+
+  &__cta {
+    border-radius: 0;
+    color: $ad-ink !important;
+    border-color: rgba($ad-ink, .24) !important;
+    background: transparent !important;
+
+    &:hover {
+      color: $color-white !important;
+      background: $ad-ink !important;
+      border-color: $ad-ink !important;
+    }
+  }
+
+  &__mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: $z-header - 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+      linear-gradient(90deg, rgba($ad-ink, .05) 1px, transparent 1px) 0 0 / 42px 42px,
+      $ad-paper;
+    transform: translateX(105%);
+    transition: transform .55s $ad-ease;
+    padding: $space-20 $container-padding;
+
+    &.is-open {
+      transform: translateX(0);
+    }
+  }
+
+  &__mobile-nav {
+    display: grid;
+    justify-items: center;
+    gap: $space-8;
+    text-align: center;
+  }
+
+  &__mobile-nav-list {
+    display: grid;
+    gap: $space-4;
+  }
+
+  &__mobile-nav-list a {
+    font-family: $font-heading;
+    font-size: 4.5rem;
+    letter-spacing: 0;
+  }
+
+  &__search {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    right: 16px;
+    z-index: $z-header + 1;
+    display: flex;
+    align-items: center;
+    height: 72px;
+    border: 1px solid $ad-line;
+    background: rgba($ad-paper, .96);
+    transform: translateY(-130%);
+    transition: transform $t-mid $ad-ease;
+
+    &.is-open {
+      transform: translateY(0);
+    }
+  }
+
+  &__search-inner {
+    display: flex;
+    align-items: center;
+    gap: $space-4;
+    width: 100%;
+    padding-inline: clamp(14px, 2.5vw, 30px);
+  }
+
+  &__search-form {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    border-bottom: 1px solid $ad-line-strong;
+  }
+
+  &__search-input {
+    width: 100%;
+    border: 0;
+    background: transparent;
+    padding: $space-3 0;
+    color: $ad-ink;
+    font-family: $font-heading;
+    font-size: $fs-xl;
+  }
+
+  &__search-submit,
+  &__search-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba($ad-ink, .56);
+    transition: color $t-fast;
+
+    &:hover {
+      color: $ad-ink;
+    }
+  }
+}
+
+@media (max-width: $bp-lg) {
+  .luma-header {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    height: 58px;
+  }
+
+  .luma-header__nav,
+  .luma-header__cta {
+    display: none;
+  }
+
+  .luma-header__burger {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: $bp-md) {
+  .luma-header__action-btn:not(.luma-header__action-btn--favorites):not(.luma-header__action-btn--cart) {
+    display: none;
+  }
+
+  .luma-header__mobile-nav-list a {
+    font-size: 3.2rem;
+  }
+}
+
+// Shared editorial section language.
+.luma-section {
+  padding-block: clamp($space-16, 9vw, 148px);
+}
+
+.luma-section__header {
+  display: grid;
+  grid-template-columns: minmax(120px, .32fr) minmax(0, 1fr);
+  align-items: end;
+  gap: clamp($space-5, 4vw, $space-16);
+  border-top: 2px solid currentColor;
+  padding-top: $space-5;
+  margin-bottom: clamp($space-8, 5vw, $space-16);
+
+  &::after {
+    content: 'LUMA / CURATED';
+    justify-self: end;
+    align-self: start;
+    font-size: 10px;
+    font-weight: $fw-bold;
+    letter-spacing: .22em;
+    color: rgba($ad-ink, .34);
+  }
+}
+
+// Split header: big title block (wide) + a compact action on the right baseline.
+.luma-section__header--split {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+
+  &::after { display: none; }
+
+  > :last-child {
+    justify-self: end;
+    align-self: end;
+    width: auto;
+    white-space: nowrap;
+  }
+
+  @media (max-width: $bp-md) {
+    grid-template-columns: 1fr;
+
+    > :last-child { justify-self: start; }
+  }
+}
+
+.luma-section__label {
+  margin: 0;
+  color: $ad-accent;
+  align-self: start;
+
+  &::before {
+    width: 22px;
+    height: 2px;
+    transform: none;
+  }
+}
+
+.luma-heading--section {
+  font-size: 5.8rem;
+  line-height: .92;
+  letter-spacing: 0;
+}
+
+@media (max-width: $bp-lg) {
+  .luma-heading--section {
+    font-size: 4.4rem;
+  }
+}
+
+@media (max-width: $bp-md) {
+  .luma-section__header {
+    grid-template-columns: 1fr;
+
+    &::after {
+      justify-self: start;
+      order: -1;
+    }
+  }
+
+  .luma-heading--section {
+    font-size: 3.1rem;
+  }
+}
+
+// Home hero: dark digital gallery poster, not the old white split.
+.luma-hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 100svh;
+  height: 100svh;
+  background: $ad-ink;
+  color: $color-white;
+  display: grid;
+  place-items: stretch;
+  padding-top: 96px;
+  isolation: isolate;
+
+  &::before {
+    content: 'LG-01 / DIGITAL GALLERY';
+    position: absolute;
+    z-index: 4;
+    top: 112px;
+    right: clamp(20px, 5vw, 86px);
+    writing-mode: vertical-rl;
+    font-size: 10px;
+    font-weight: $fw-bold;
+    letter-spacing: .24em;
+    color: rgba($color-white, .38);
+  }
+
+  &__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background:
+      linear-gradient(90deg, rgba($color-white, .055) 1px, transparent 1px) 0 0 / 72px 72px,
+      linear-gradient(rgba($color-white, .045) 1px, transparent 1px) 0 0 / 72px 72px,
+      radial-gradient(circle at 78% 26%, rgba($ad-accent, .22), transparent 38%),
+      $ad-ink;
+  }
+
+  &__glass {
+    position: absolute;
+    z-index: 2;
+    inset: 0 auto 0 0;
+    display: block;
+    width: 28vw;
+    min-width: 280px;
+    border-right: 1px solid rgba($color-white, .12);
+    background:
+      repeating-linear-gradient(0deg, rgba($color-white, .08) 0 1px, transparent 1px 13px),
+      rgba($color-white, .025);
+    backdrop-filter: blur(0);
+
+    &::after {
+      content: 'ARCHIVE\A COLLECT\A EXHIBIT';
+      white-space: pre;
+      position: absolute;
+      left: clamp(22px, 4vw, 70px);
+      bottom: clamp($space-10, 7vw, $space-24);
+      font-size: 10px;
+      font-weight: $fw-bold;
+      letter-spacing: .24em;
+      line-height: 2.2;
+      color: rgba($color-white, .35);
+    }
+  }
+
+  &__circle {
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+    border-radius: 0;
+    border-color: rgba($color-white, .14);
+    mix-blend-mode: screen;
+
+    &--lg {
+      width: 42vw;
+      height: 42vw;
+      top: 18vh;
+      right: 5vw;
+      transform: rotate(8deg);
+    }
+
+    &--sm {
+      width: 190px;
+      height: 190px;
+      right: auto;
+      left: 34vw;
+      bottom: 18vh;
+      transform: rotate(-11deg);
+      border-color: rgba($ad-accent, .44);
+    }
+  }
+
+  &__object-wrap {
+    position: absolute;
+    left: min(70vw, 1020px);
+    right: auto;
+    bottom: clamp(34px, 6vh, 80px);
+    transform: translateX(-50%);
+    z-index: 3;
+    width: min(36vw, 520px);
+    animation: luma-ad-hero-art-in 1s $ad-ease .12s both;
+  }
+
+  &__object {
+    position: relative;
+    padding: clamp(8px, 1.1vw, 16px);
+    background: $ad-paper;
+    box-shadow: $ad-shadow-frame;
+    transform: rotate(2.4deg);
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: -16px;
+      border: 1px solid rgba($color-white, .22);
+      transform: rotate(-3.5deg);
+      pointer-events: none;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      max-height: 68vh;
+      object-fit: contain;
+      filter: saturate(.94) contrast(1.04);
+      background: $ad-soft;
+    }
+  }
+
+  &__content-wrap {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    max-width: 1680px;
+    margin-inline: auto;
+    z-index: 5;
+    pointer-events: none;
+  }
+
+  &__word {
+    position: absolute;
+    font-family: $font-heading;
+    font-weight: $fw-light;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    z-index: 4;
+    pointer-events: none;
+
+    &--top {
+      top: 18vh;
+      left: clamp(20px, 5vw, 96px);
+      color: transparent;
+      -webkit-text-stroke: 1px rgba($color-white, .36);
+      font-size: 9.2rem;
+      max-width: 64vw;
+      line-height: .82;
+    }
+
+    &--bottom {
+      right: clamp(20px, 5vw, 96px);
+      bottom: 8vh;
+      color: rgba($color-white, .95);
+      font-size: 8.4rem;
+      max-width: 70vw;
+      line-height: .88;
+      mix-blend-mode: difference;
+    }
+  }
+
+  &__intro {
+    position: absolute;
+    left: clamp(20px, 5vw, 96px);
+    bottom: clamp(32px, 10vh, 128px);
+    max-width: 420px;
+    padding: $space-6;
+    border-left: 3px solid $ad-accent;
+    background: rgba($ad-ink, .76);
+    backdrop-filter: blur(18px);
+    box-shadow: 0 25px 70px rgba($color-black, .22);
+    pointer-events: auto;
+  }
+
+  &__intro-line {
+    width: 100%;
+    background: rgba($color-white, .22);
+  }
+
+  &__intro-label {
+    color: $ad-accent;
+  }
+
+  &__intro-text {
+    color: rgba($color-white, .76);
+  }
+
+  &__intro-cta {
+    color: $color-white;
+    border-color: rgba($color-white, .34);
+
+    &:hover {
+      color: $ad-accent;
+      border-color: $ad-accent;
+    }
+  }
+
+  &__intro-stats {
+    color: rgba($color-white, .46);
+
+    strong {
+      color: $color-white;
+    }
+  }
+}
+
+@keyframes luma-ad-hero-art-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(34px) rotate(-2deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) rotate(0);
+  }
+}
+
+@media (max-width: $bp-xl) {
+  .luma-hero__word--top {
+    font-size: 7.2rem;
+  }
+
+  .luma-hero__word--bottom {
+    font-size: 6.6rem;
+  }
+}
+
+@media (max-width: $bp-md) {
+  .luma-hero {
+    min-height: auto;
+    height: auto;
+    padding-top: 90px;
+    display: flex;
+    flex-direction: column;
+    gap: $space-4;
+
+    &::before,
+    &__glass,
+    &__circle {
+      display: none;
+    }
+
+    &__word--top,
+    &__word--bottom {
+      position: relative;
+      inset: auto;
+      left: auto;
+      right: auto;
+      top: auto;
+      bottom: auto;
+      max-width: none;
+      padding-inline: $space-5;
+      font-size: 4.4rem;
+      mix-blend-mode: normal;
+    }
+
+    &__word--top {
+      order: 1;
+    }
+
+    &__object-wrap {
+      order: 2;
+      position: relative;
+      left: auto;
+      right: auto;
+      bottom: auto;
+      width: auto;
+      padding: $space-8 $space-5 $space-4;
+      transform: none;
+      animation: none;
+    }
+
+    &__content-wrap {
+      position: relative;
+      inset: auto;
+      display: contents;
+    }
+
+    &__word--bottom {
+      order: 3;
+    }
+
+    &__object {
+      transform: rotate(1deg);
+      max-width: min(86vw, 420px);
+      margin-inline: auto;
+
+      img {
+        height: auto;
+        width: 100%;
+      }
+    }
+
+    &__intro {
+      order: 4;
+      position: relative;
+      inset: auto;
+      left: auto;
+      right: auto;
+      top: auto;
+      bottom: auto;
+      max-width: none;
+      margin: $space-6 $space-5 $space-10;
+    }
+  }
+}
+
+// Shared page hero: catalog masthead.
+.luma-page-hero,
+.luma-journal-hero,
+.luma-curator-hero,
+.luma-favorites-hero {
+  position: relative;
+  overflow: hidden;
+  padding-top: calc(92px + #{$space-20});
+  padding-bottom: $space-16;
+  min-height: 430px;
+  border-bottom: 1px solid rgba($color-white, .1);
+  background:
+    linear-gradient(90deg, rgba($color-white, .06) 1px, transparent 1px) 0 0 / 84px 84px,
+    linear-gradient(rgba($color-white, .045) 1px, transparent 1px) 0 0 / 84px 84px,
+    $ad-ink;
+  color: $color-white;
+
+  &::before {
+    content: 'LUMA / INDEX';
+    position: absolute;
+    top: 112px;
+    right: clamp($space-5, 5vw, $space-20);
+    z-index: 2;
+    writing-mode: vertical-rl;
+    font-size: 10px;
+    font-weight: $fw-bold;
+    letter-spacing: .26em;
+    color: rgba($color-white, .35);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0;
+    height: 42%;
+    background: linear-gradient(to top, rgba($ad-accent, .22), transparent);
+    opacity: .44;
+    pointer-events: none;
+  }
+
+  > .luma-container {
+    position: relative;
+    z-index: 3;
+  }
+}
+
+.luma-page-hero__inner {
+  width: min(820px, 76vw);
+}
+
+.luma-page-hero__eyebrow,
+.luma-journal-hero__eyebrow,
+.luma-curator-hero__eyebrow,
+.luma-favorites-hero__eyebrow {
+  color: $ad-accent;
+  font-size: 10px;
+  font-weight: $fw-bold;
+  letter-spacing: .28em;
+}
+
+.luma-page-hero__title,
+.luma-journal-hero__title,
+.luma-curator-hero__title,
+.luma-favorites-hero__title {
+  color: $color-white;
+  font-size: 6.5rem;
+  line-height: .9;
+  margin-bottom: $space-5;
+}
+
+.luma-page-hero__subtitle,
+.luma-journal-hero__subtitle,
+.luma-curator-hero__subtitle,
+.luma-favorites-hero__subtitle,
+.luma-favorites-hero__note {
+  color: rgba($color-white, .66);
+  font-size: $fs-md;
+}
+
+.luma-page-hero__word,
+.luma-journal-hero__word {
+  position: absolute;        // decorative — must not take flow height
+  right: auto;
+  left: clamp(20px, 4vw, 76px);
+  bottom: -32px;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba($color-white, .18);
+  font-size: 8.8rem;
+  letter-spacing: 0;
+  white-space: nowrap;       // long words (EXHIBITIONS) bleed + get clipped, never wrap
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+}
+
+.luma-page-hero--gallery,
+.luma-page-hero--artists,
+.luma-page-hero--exhibitions {
+  background:
+    linear-gradient(90deg, rgba($color-white, .06) 1px, transparent 1px) 0 0 / 84px 84px,
+    linear-gradient(rgba($color-white, .045) 1px, transparent 1px) 0 0 / 84px 84px,
+    $ad-ink;
+}
+
+.luma-favorites-hero {
+  .luma-container {
+    position: relative;
+    z-index: 3;
+  }
+
+  &__total {
+    color: rgba($color-white, .58);
+
+    .js-fav-total {
+      color: $ad-accent;
+      font-size: $fs-3xl;
+    }
+  }
+}
+
+@media (max-width: $bp-lg) {
+  .luma-page-hero__title,
+  .luma-journal-hero__title,
+  .luma-curator-hero__title,
+  .luma-favorites-hero__title {
+    font-size: 4.8rem;
+  }
+}
+
+@media (max-width: $bp-md) {
+  .luma-page-hero,
+  .luma-journal-hero,
+  .luma-curator-hero,
+  .luma-favorites-hero {
+    min-height: 340px;
+    padding-top: 116px;
+    padding-bottom: $space-10;
+
+    &::before {
+      display: none;
+    }
+  }
+
+  .luma-page-hero__inner {
+    width: 100%;
+  }
+
+  .luma-page-hero__title,
+  .luma-journal-hero__title,
+  .luma-curator-hero__title,
+  .luma-favorites-hero__title {
+    font-size: 3.3rem;
+  }
+
+  .luma-page-hero__word,
+  .luma-journal-hero__word {
+    font-size: 4.4rem;
+    bottom: -14px;
+    opacity: .7;
+  }
+}
+
+// Inputs, buttons and controls.
+.luma-button,
+.luma-style-chip,
+.luma-mood-chip,
+.luma-favorites-tab,
+.luma-view-toggle__btn {
+  border-radius: 0 !important;
+}
+
+.luma-button {
+  position: relative;
+  overflow: hidden;
+  min-height: 44px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font-weight: $fw-bold;
+
+  &:not(.is-loading)::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba($color-white, .24), transparent);
+    transform: translateX(-115%);
+    transition: transform .55s $ad-ease;
+  }
+
+  &:not(.is-loading):hover::after {
+    transform: translateX(115%);
+  }
+}
+
+.luma-button--primary,
+.luma-button--accent {
+  background: $ad-accent;
+  border-color: $ad-accent;
+  color: $color-white;
+
+  &:hover {
+    background: $ad-ink;
+    border-color: $ad-ink;
+    color: $color-white;
+  }
+}
+
+.luma-input,
+.luma-select,
+.luma-textarea,
+.luma-footer__newsletter-input {
+  border-radius: 0;
+  border-color: $ad-line-strong;
+  background: rgba($ad-paper, .82);
+  box-shadow: inset 0 0 0 1px rgba($color-white, .4);
+
+  &:focus {
+    border-color: $ad-accent;
+    box-shadow: 0 0 0 3px rgba($ad-accent, .16);
+  }
+}
+
+.luma-badge,
+.luma-tag,
+.luma-chip {
+  border-radius: 0;
+  letter-spacing: .16em;
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// Listing-page repairs (artists / exhibitions / journal / ai-curator).
+// These sections used their own __inner / header / grid wrappers, which lost
+// container insets, vertical rhythm, filter-chip and form styling when the old
+// page partials were dropped from the build. Restore them here.
+// ════════════════════════════════════════════════════════════════════════════
+
+// Vertical rhythm for full-bleed bands.
+.luma-artists-featured,
+.luma-artists-body,
+.luma-artists-cta,
+.luma-exhibitions-body,
+.luma-exhibitions-cta {
+  padding-block: clamp($space-12, 7vw, $space-24);
+}
+
+.luma-artists-toolbar,
+.luma-exhibitions-filter {
+  padding-block: $space-4;
+}
+
+// Horizontal container insets for content wrappers (match .luma-container).
+.luma-artists-featured__inner,
+.luma-artists-toolbar__inner,
+.luma-artists-header,
+.luma-artists-grid,
+.luma-artists-cta__inner,
+.luma-exhibitions-filter__inner,
+.luma-exhibitions-body__header,
+.luma-exhibitions-grid,
+.luma-exhibitions-cta__inner {
+  width: 100%;
+  max-width: 1540px;
+  margin-inline: auto;
+  padding-inline: $container-padding;
+}
+
+.luma-exhibitions-featured__content {
+  padding-inline: $container-padding;
+}
+
+// Header rows: title left, count right.
+.luma-artists-header,
+.luma-exhibitions-body__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: $space-4;
+}
+
+// Toolbar: search left, filter right.
+.luma-artists-toolbar__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-4;
+}
+
+// Filter chip rows were display:block.
+.luma-journal-filters,
+.luma-style-filter,
+.luma-exhibitions-filter__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $space-3;
+}
+
+// Filter chips had only border-radius:0 — give them real button styling.
+.luma-mood-chip,
+.luma-style-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0 $space-5;
+  border: 1px solid $ad-line-strong;
+  background: transparent;
+  color: inherit;
+  font-size: $fs-xs;
+  font-weight: $fw-bold;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background .2s $ad-ease, color .2s $ad-ease, border-color .2s $ad-ease;
+
+  &:hover { border-color: $ad-ink; }
+
+  &.is-active {
+    background: $ad-ink;
+    border-color: $ad-ink;
+    color: $color-white;
+  }
+}
+
+// AI Curator form panel had no inner padding.
+.luma-curator-form {
+  padding: clamp($space-5, 2vw, $space-8);
+}
+
+// Journal featured body: keep text off the accent rule.
+.luma-journal-featured__body {
+  padding-left: clamp($space-5, 2.4vw, $space-10);
+}
+
+// Journal filter bar: breathing room around the topic chips.
+.luma-journal-filterbar {
+  padding-block: $space-4;
+}
+
+// Rebuilt card foundations. No previous component partials are imported.
+.luma-artwork-card,
+.luma-artist-card,
+.luma-exhibition-card,
+.luma-post-card {
+  position: relative;
+  color: inherit;
+  text-decoration: none;
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+.luma-artwork-card__image-wrap,
+.luma-artist-card__image-wrap,
+.luma-exhibition-card__cover,
+.luma-post-card__image-link {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background: $ad-soft;
+}
+
+.luma-artwork-card__image-wrap {
+  aspect-ratio: 4 / 5;
+}
+
+.luma-artist-card__image-wrap {
+  aspect-ratio: 4 / 5.35;
+}
+
+.luma-exhibition-card__cover {
+  min-height: 430px;
+}
+
+.luma-post-card__image-link {
+  aspect-ratio: 16 / 10;
+}
+
+.luma-artwork-card__image,
+.luma-artwork-card__placeholder,
+.luma-artist-card__avatar,
+.luma-artist-card__avatar-placeholder,
+.luma-exhibition-card__cover-img,
+.luma-exhibition-card__cover-placeholder,
+.luma-post-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .6s $ad-ease, filter .35s $ad-ease;
+}
+
+.luma-artwork-card__placeholder,
+.luma-artist-card__avatar-placeholder,
+.luma-exhibition-card__cover-placeholder {
+  display: grid;
+  place-items: center;
+  min-height: 100%;
+}
+
+.luma-artist-card__initial {
+  color: rgba($color-white, .82);
+  font-family: $font-heading;
+  font-size: 6rem;
+  line-height: 1;
+}
+
+.luma-artwork-card__scrim,
+.luma-artist-card__scrim,
+.luma-exhibition-card__cover-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.luma-artwork-card__scrim,
+.luma-artist-card__scrim {
+  background: linear-gradient(to top, rgba($ad-ink, .32), transparent 52%);
+  opacity: 0;
+  transition: opacity $t-mid $ad-ease;
+}
+
+.luma-artwork-card__overlay {
+  position: absolute;
+  inset: auto 0 0;
+  display: flex;
+  justify-content: flex-end;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity $t-mid $ad-ease, transform $t-mid $ad-ease;
+  pointer-events: none;
+}
+
+.luma-artwork-card__overlay-actions {
+  display: flex;
+  gap: $space-2;
+  pointer-events: auto;
+}
+
+.luma-artwork-card:hover,
+.luma-artist-card:hover {
+  .luma-artwork-card__image,
+  .luma-artwork-card__placeholder,
+  .luma-artist-card__avatar,
+  .luma-artist-card__avatar-placeholder {
+    transform: scale(1.045);
+  }
+
+  .luma-artwork-card__overlay,
+  .luma-artist-card__view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .luma-artwork-card__scrim,
+  .luma-artist-card__scrim {
+    opacity: 1;
+  }
+}
+
+.luma-artwork-card__index,
+.luma-artist-card__index,
+.luma-exhibition-card__index {
+  position: absolute;
+  z-index: 3;
+  font-size: 10px;
+  font-weight: $fw-bold;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.luma-artist-card__view {
+  position: absolute;
+  left: $space-4;
+  bottom: $space-4;
+  z-index: 3;
+  color: $color-white;
+  font-size: 10px;
+  font-weight: $fw-bold;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity $t-mid $ad-ease, transform $t-mid $ad-ease;
+}
+
+.luma-artwork-card__favorite,
+.luma-artist-card__follow,
+.luma-exhibition-card__favorite,
+.luma-artwork-card__quick-view {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 38px;
+  min-height: 38px;
+  border: 1px solid $ad-line;
+  background: rgba($ad-paper, .92);
+  color: $ad-ink;
+  transition: background $t-fast, color $t-fast, border-color $t-fast, transform $t-fast;
+
+  &:hover,
+  &.is-active {
+    background: $ad-accent;
+    border-color: $ad-accent;
+    color: $color-white;
+  }
+}
+
+.luma-artwork-card__favorite,
+.luma-exhibition-card__favorite {
+  position: absolute;
+  z-index: 4;
+}
+
+.luma-artist-card__follow {
+  gap: $space-2;
+  padding: 0 $space-3;
+  font-size: 10px;
+  font-weight: $fw-bold;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.luma-artwork-card__body,
+.luma-artist-card__body,
+.luma-post-card__body {
+  display: grid;
+  gap: $space-3;
+}
+
+.luma-artwork-card__meta,
+.luma-artist-card__head,
+.luma-artist-card__footer,
+.luma-artwork-card__footer,
+.luma-exhibition-card__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-3;
+}
+
+.luma-artwork-card__artist,
+.luma-artist-card__location,
+.luma-artist-card__count,
+.luma-artwork-card__status,
+.luma-exhibition-card__subtitle,
+.luma-exhibition-card__count,
+.luma-post-card__meta {
+  color: rgba($ad-ink, .54);
+  font-size: 10px;
+  font-weight: $fw-bold;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.luma-artwork-card__title,
+.luma-artist-card__name,
+.luma-exhibition-card__title,
+.luma-post-card__title {
+  font-family: $font-heading;
+  font-weight: $fw-light;
+  line-height: $lh-tight;
+}
+
+.luma-artwork-card__price {
+  font-weight: $fw-bold;
+}
+
+.luma-exhibition-card__cover-link {
+  display: block;
+  color: $color-white;
+  text-decoration: none;
+}
+
+.luma-exhibition-card__content {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 2;
+  display: grid;
+  gap: $space-4;
+  color: $color-white;
+}
+
+.luma-exhibition-card__mood-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+}
+
+.luma-exhibition-card__mood {
+  display: inline-flex;
+  border: 1px solid rgba($color-white, .18);
+  padding: 3px 8px;
+  color: rgba($color-white, .78);
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.luma-exhibition-card__curator {
+  color: rgba($color-white, .66);
+}
+
+.luma-exhibition-card__enter {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  color: $ad-accent;
+  font-size: 10px;
+  font-weight: $fw-bold;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+// Cards: gallery objects with plaques, not generic cards.
+.luma-artwork-card,
+.luma-artist-card,
+.luma-exhibition-card,
+.luma-post-card,
+.luma-journal-featured {
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  --card-lift: 0px;
+  transform:
+    perspective(1200px)
+    rotateX(var(--tilt-y))
+    rotateY(var(--tilt-x))
+    translate3d(0, var(--card-lift), 0)
+    rotate(var(--wall-rot, 0deg));
+  transform-style: preserve-3d;
+}
+
+.luma-artwork-card,
+.luma-artist-card {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  overflow: visible;
+  box-shadow: none;
+  transition: transform .35s $ad-ease, filter .35s $ad-ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 8px -8px -8px 8px;
+    border: 1px solid rgba($ad-ink, .12);
+    transform: translateZ(-1px);
+    pointer-events: none;
+  }
+
+  &:hover {
+    --card-lift: -10px;
+    border-color: transparent;
+    box-shadow: none;
+    filter: saturate(1.04);
+  }
+
+  &__image-wrap {
+    border: 10px solid $ad-paper;
+    background: $ad-paper;
+    border-radius: 0;
+    box-shadow: $ad-shadow-frame;
+  }
+
+  &__image,
+  &__placeholder,
+  &__avatar,
+  &__avatar-placeholder {
+    filter: saturate(.92) contrast(1.04);
+  }
+
+  &__index {
+    top: 12px;
+    left: 12px;
+    padding: 5px 7px;
+    background: $ad-paper;
+    color: $ad-ink;
+    mix-blend-mode: normal;
+    font-weight: $fw-bold;
+  }
+
+  &__favorite {
+    border-radius: 0;
+    top: 10px;
+    right: 10px;
+    background: $ad-paper;
+    border: 1px solid $ad-line;
+    box-shadow: none;
+  }
+
+  &__body {
+    margin-top: $space-4;
+    padding: $space-4 0 0 $space-4;
+    border-left: 2px solid $ad-ink;
+    background: transparent;
+  }
+
+  &__artist,
+  &__location,
+  &__count,
+  &__status {
+    letter-spacing: .18em;
+  }
+
+  &__title,
+  &__name {
+    font-size: $fs-xl;
+    letter-spacing: 0;
+  }
+
+  &__footer {
+    border-top: 1px solid $ad-line;
+  }
+}
+
+.luma-artwork-card__overlay {
+  padding: $space-5;
+  background: linear-gradient(to top, rgba($ad-ink, .84), transparent 62%);
+}
+
+.luma-artwork-card__quick-view,
+.luma-exhibition-card__favorite {
+  border-radius: 0;
+}
+
+.luma-exhibition-card {
+  border: 0;
+  border-radius: 0;
+  overflow: visible;
+  background: transparent;
+  transition: transform .35s $ad-ease, filter .35s $ad-ease;
+
+  &:hover {
+    --card-lift: -10px;
+    box-shadow: none;
+  }
+
+  &__cover {
+    border: 10px solid $ad-paper;
+    box-shadow: $ad-shadow-frame;
+    border-radius: 0;
+  }
+
+  &__cover-overlay {
+    background:
+      linear-gradient(to top, rgba($ad-ink, .95) 0%, rgba($ad-ink, .42) 48%, transparent 78%),
+      linear-gradient(135deg, rgba($ad-accent, .16), transparent 55%);
+  }
+
+  &__content {
+    padding: $space-6;
+  }
+
+  &__title {
+    letter-spacing: 0;
+  }
+}
+
+.luma-post-card {
+  border-radius: 0;
+  border: 0;
+  background: transparent;
+  overflow: visible;
+
+  &:hover {
+    --card-lift: -8px;
+    box-shadow: none;
+  }
+
+  &__image-link {
+    border: 8px solid $ad-paper;
+    box-shadow: $ad-shadow-frame;
+    border-radius: 0;
+  }
+
+  &__body {
+    padding: $space-5 0 0;
+    border-top: 2px solid $ad-ink;
+  }
+
+  &__title {
+    letter-spacing: 0;
+  }
+}
+
+// Fluid gallery grids with asymmetry.
+.luma-artwork-grid--4col,
+.luma-artwork-grid--3col,
+.luma-artwork-similar__grid,
+.luma-artist-artworks__grid,
+.luma-exhibition-artworks__grid,
+.luma-recently-viewed__grid,
+.luma-post-related .luma-artwork-grid {
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: clamp($space-6, 3vw, $space-12);
+
+  > .luma-artwork-card {
+    grid-column: span 3;
+  }
+
+  > .luma-artwork-card:nth-child(7n+2),
+  > .luma-artwork-card:nth-child(7n+6) {
+    grid-column: span 4;
+  }
+
+  > .luma-artwork-card:nth-child(7n+4) {
+    grid-column: span 5;
+  }
+}
+
+.luma-artists-grid,
+.luma-artist-grid,
+.luma-artist-grid--3col,
+.luma-favorites-grid--artists,
+.luma-artist-similar__grid,
+.luma-post-grid {
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+
+  > * {
+    grid-column: span 4;
+  }
+
+  > *:nth-child(5n+2) {
+    margin-top: $space-12;
+  }
+}
+
+.luma-exhibitions-grid,
+.luma-favorites-grid--exhibitions {
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: clamp($space-6, 3vw, $space-12);
+
+  > * {
+    grid-column: span 6;
+  }
+
+  > *:nth-child(3n+1) {
+    grid-column: span 7;
+  }
+
+  > *:nth-child(3n+2) {
+    grid-column: span 5;
+    margin-top: $space-12;
+  }
+}
+
+@media (max-width: $bp-xl) {
+  .luma-artwork-grid--4col,
+  .luma-artwork-grid--3col,
+  .luma-artwork-similar__grid,
+  .luma-artist-artworks__grid,
+  .luma-exhibition-artworks__grid,
+  .luma-recently-viewed__grid,
+  .luma-post-related .luma-artwork-grid {
+    > .luma-artwork-card,
+    > .luma-artwork-card:nth-child(n) {
+      grid-column: span 4; // 3-up on laptops (1025–1280)
+    }
+  }
+
+  .luma-artists-grid,
+  .luma-artist-grid,
+  .luma-artist-grid--3col,
+  .luma-favorites-grid--artists,
+  .luma-artist-similar__grid,
+  .luma-post-grid {
+    > *,
+    > *:nth-child(n) {
+      grid-column: span 4; // keep 3-up on laptops
+      margin-top: 0;
+    }
+  }
+
+  .luma-exhibitions-grid,
+  .luma-favorites-grid--exhibitions {
+    > *,
+    > *:nth-child(n) {
+      grid-column: span 6;
+      margin-top: 0;
+    }
+  }
+}
+
+// Tablet / small laptop: 2-up.
+@media (max-width: $bp-lg) {
+  .luma-artwork-grid--4col,
+  .luma-artwork-grid--3col,
+  .luma-artwork-similar__grid,
+  .luma-artist-artworks__grid,
+  .luma-exhibition-artworks__grid,
+  .luma-recently-viewed__grid,
+  .luma-post-related .luma-artwork-grid,
+  .luma-artists-grid,
+  .luma-artist-grid,
+  .luma-artist-grid--3col,
+  .luma-favorites-grid--artists,
+  .luma-artist-similar__grid,
+  .luma-post-grid {
+    > *,
+    > *:nth-child(n),
+    > .luma-artwork-card,
+    > .luma-artwork-card:nth-child(n) {
+      grid-column: span 6;
+      margin-top: 0;
+    }
+  }
+}
+
+@media (max-width: $bp-sm) {
+  .luma-artwork-grid--4col,
+  .luma-artwork-grid--3col,
+  .luma-artwork-similar__grid,
+  .luma-artist-artworks__grid,
+  .luma-exhibition-artworks__grid,
+  .luma-recently-viewed__grid,
+  .luma-post-related .luma-artwork-grid,
+  .luma-artists-grid,
+  .luma-artist-grid,
+  .luma-artist-grid--3col,
+  .luma-favorites-grid--artists,
+  .luma-artist-similar__grid,
+  .luma-post-grid,
+  .luma-exhibitions-grid,
+  .luma-favorites-grid--exhibitions {
+    grid-template-columns: 1fr;
+
+    > *,
+    > *:nth-child(n) {
+      grid-column: auto;
+      margin-top: 0;
+    }
+  }
+}
+
+// Home sections.
+.luma-gallery-walk-section {
+  background:
+    linear-gradient(90deg, rgba($color-white, .06) 1px, transparent 1px) 0 0 / 84px 84px,
+    $ad-ink;
+  color: $color-white;
+
+  &__strip {
+    margin-inline: calc(#{$container-padding} * -1);
+    padding-inline: $container-padding;
+    padding-block: $space-4 $space-8;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    cursor: grab;
+
+    &::-webkit-scrollbar { display: none; }
+    &.is-dragging { cursor: grabbing; }
+  }
+
+  &__track {
+    display: flex;
+    width: max-content;
+    max-width: none;
+    align-items: flex-start;
+    gap: clamp($space-4, 2.4vw, $space-8);
+  }
+
+  &__frame {
+    flex: 0 0 270px;
+    width: 270px;
+
+    &:nth-child(even) {
+      margin-top: $space-10;
+    }
+
+    @media (max-width: $bp-sm) { flex-basis: 220px; width: 220px; }
+  }
+
+  &__frame-inner {
+    border-radius: 0;
+    border: 8px solid $ad-paper;
+    box-shadow: 0 24px 60px rgba($color-black, .28);
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__frame-label {
+    margin-top: $space-3;
+    color: rgba($color-white, .58);
+    font-size: $fs-sm;
+    text-align: center;
+  }
+
+  &__hint {
+    margin-top: $space-8;
+    color: rgba($color-white, .32);
+    font-size: 10px;
+    font-weight: $fw-bold;
+    letter-spacing: .22em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+}
+
+.luma-gallery-walk {
+  position: fixed;
+  inset: 0;
+  z-index: $z-gallery-walk;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 42%, rgba($ad-accent, .16), transparent 38%),
+    linear-gradient(90deg, rgba($color-white, .055) 1px, transparent 1px) 0 0 / 74px 74px,
+    linear-gradient(rgba($color-white, .04) 1px, transparent 1px) 0 0 / 74px 74px,
+    $color-black;
+  color: $color-white;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity $t-mid $ad-ease;
+
+  &[aria-hidden='false'],
+  &.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  &::before {
+    content: 'GALLERY WALK / IMMERSIVE VIEW';
+    position: absolute;
+    top: $space-6;
+    left: $space-6;
+    z-index: 4;
+    color: rgba($color-white, .34);
+    font-size: 10px;
+    font-weight: $fw-bold;
+    letter-spacing: .28em;
+  }
+
+  &__wall {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    perspective: 1400px;
+  }
+
+  &__active-frame {
+    position: absolute;
+    max-width: min(56vw, 760px);
+    max-height: 74vh;
+    padding: clamp(8px, 1vw, 16px);
+    background: $ad-paper;
+    box-shadow: 0 38px 120px rgba($color-black, .48), 0 0 0 1px rgba($color-white, .18);
+    transition: transform .55s $ad-ease, opacity .55s $ad-ease, filter .55s $ad-ease;
+
+    &.is-active {
+      z-index: 2;
+    }
+
+    img,
+    .gw-placeholder {
+      width: 100%;
+      height: 100%;
+      min-width: 280px;
+      min-height: 360px;
+      object-fit: contain;
+      background: $ad-soft;
+    }
+  }
+
+  &__spotlight {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(circle 440px at var(--gw-spotlight-x, 50%) var(--gw-spotlight-y, 45%),
+      rgba($color-white, .12),
+      rgba($color-white, .025) 45%,
+      transparent 72%);
+    mix-blend-mode: screen;
+  }
+
+  &__controls,
+  &__thumbs,
+  &__info,
+  &__close {
+    position: absolute;
+    z-index: 5;
+  }
+
+  &__controls {
+    left: 50%;
+    bottom: $space-8;
+    display: flex;
+    align-items: center;
+    gap: $space-5;
+    transform: translateX(-50%);
+  }
+
+  &__btn,
+  &__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba($color-white, .18);
+    background: rgba($color-white, .06);
+    color: $color-white;
+    transition: background $t-fast, border-color $t-fast, transform $t-fast;
+
+    &:hover {
+      background: $ad-accent;
+      border-color: $ad-accent;
+      transform: translateY(-2px);
+    }
+  }
+
+  &__progress {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    min-width: 82px;
+    color: rgba($color-white, .62);
+    font-family: $font-heading;
+    font-size: $fs-xl;
+    line-height: 1;
+  }
+
+  &__sep {
+    color: rgba($color-white, .24);
+  }
+
+  &__info {
+    top: 50%;
+    right: clamp($space-5, 4vw, $space-16);
+    width: min(290px, 82vw);
+    padding: $space-5;
+    border-left: 3px solid $ad-accent;
+    background: rgba($ad-ink, .82);
+    backdrop-filter: blur(18px);
+    transform: translateY(-50%);
+  }
+
+  &__info-title {
+    color: $color-white;
+    font-family: $font-heading;
+    font-size: $fs-xl;
+    line-height: $lh-snug;
+  }
+
+  &__info-artist {
+    margin-top: $space-2;
+    color: $ad-accent;
+    font-size: 10px;
+    font-weight: $fw-bold;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+  }
+
+  &__info-price {
+    margin-top: $space-3;
+    font-weight: $fw-bold;
+  }
+
+  &__info-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-2;
+    margin-top: $space-5;
+  }
+
+  &__thumbs {
+    left: 50%;
+    bottom: $space-20;
+    display: flex;
+    gap: $space-2;
+    transform: translateX(-50%);
+  }
+
+  &__thumb {
+    width: 42px;
+    height: 56px;
+    overflow: hidden;
+    border: 1px solid rgba($color-white, .16);
+    background: $ad-paper;
+    opacity: .38;
+    cursor: pointer;
+    transition: opacity $t-fast, border-color $t-fast, transform $t-fast;
+
+    img,
+    div {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    &:hover,
+    &.is-active {
+      opacity: 1;
+      border-color: $ad-accent;
+      transform: translateY(-3px);
+    }
+  }
+
+  &__close {
+    top: $space-5;
+    right: $space-5;
+  }
+}
+
+.luma-featured-exhibition,
+.luma-popular-artworks,
+.luma-new-artists,
+.luma-ai-curator,
+.luma-how-it-works {
+  background: transparent;
+}
+
+.luma-popular-artworks,
+.luma-new-artists {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba($ad-ink, .05) 1px, transparent 1px) 0 0 / 72px 72px,
+      linear-gradient(rgba($ad-ink, .035) 1px, transparent 1px) 0 0 / 72px 72px;
+    pointer-events: none;
+  }
+
+  > * {
+    position: relative;
+  }
+}
+
+.luma-featured-exhibition {
+  &__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(360px, .75fr);
+    gap: clamp($space-8, 6vw, $space-24);
+    align-items: end;
+  }
+
+  &__cover-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  &__cover {
+    position: relative;
+    min-height: min(72vh, 720px);
+    overflow: hidden;
+    border: 12px solid $ad-paper;
+    background: $ad-soft;
+    box-shadow: $ad-shadow-frame;
+    transform: rotate(-1.4deg);
+  }
+
+  &__cover-img,
+  &__cover-placeholder {
+    width: 100%;
+    height: 100%;
+    min-height: inherit;
+    object-fit: cover;
+  }
+
+  &__cover-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to top, rgba($ad-ink, .76), transparent 52%),
+      linear-gradient(135deg, rgba($ad-accent, .18), transparent 48%);
+  }
+
+  &__tags {
+    position: absolute;
+    left: $space-5;
+    bottom: $space-5;
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-2;
+  }
+
+  &__info {
+    display: grid;
+    gap: $space-5;
+    padding: $space-8 0 $space-8 $space-8;
+    border-left: 3px solid $ad-ink;
+  }
+
+  &__subtitle,
+  &__meta {
+    color: rgba($ad-ink, .52);
+    font-size: 10px;
+    font-weight: $fw-bold;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+  }
+
+  &__title {
+    font-size: clamp(4rem, 7.5vw, 9rem);
+    line-height: .86;
+  }
+
+  &__curator {
+    max-width: 520px;
+    color: rgba($ad-ink, .64);
+    font-size: $fs-md;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-3;
+  }
+}
+
+.luma-mood-picker {
+  background: $ad-ink;
+  color: $color-white;
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: $space-4;
+  }
+
+  &__item {
+    display: grid;
+    gap: $space-3;
+    grid-column: span 3;
+    align-items: flex-start;
+    min-height: 230px;
+    padding: $space-8;
+    background: transparent;
+    border: 1px solid rgba($color-white, .18);
+    color: $color-white;
+    text-align: left;
+    text-decoration: none;
+    border-radius: 0;
+
+    &:nth-child(even) {
+      margin-top: $space-10;
+    }
+
+    &:hover {
+      background: $ad-paper;
+      color: $ad-ink;
+      border-color: $ad-paper;
+      box-shadow: none;
+    }
+  }
+
+  &__icon {
+    font-size: $fs-4xl;
+  }
+
+  &__label {
+    font-family: $font-heading;
+    font-size: $fs-2xl;
+    line-height: 1;
+    letter-spacing: 0;
+  }
+
+  &__desc {
+    color: rgba($color-white, .56);
+  }
+}
+
+.luma-ai-curator-teaser {
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: 'AI CURATOR';
+    position: absolute;
+    left: -2vw;
+    bottom: -3.5vw;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba($color-white, .12);
+    font-family: $font-heading;
+    font-size: clamp(5rem, 14vw, 15rem);
+    line-height: .8;
+    pointer-events: none;
+  }
+
+  &__inner {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: minmax(0, .9fr) minmax(360px, .65fr);
+    gap: clamp($space-8, 5vw, $space-20);
+    align-items: center;
+  }
+
+  &__copy {
+    display: grid;
+    gap: $space-5;
+  }
+
+  &__desc,
+  &__disclaimer {
+    color: rgba($color-white, .62);
+  }
+
+  &__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-2;
+  }
+
+  &__disclaimer {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    font-size: $fs-xs;
+  }
+
+  &__form-preview {
+    transform: rotate(1.2deg);
+  }
+
+  &__panel {
+    border: 1px solid rgba($color-white, .16);
+    background: rgba($color-white, .075);
+    box-shadow: 16px 16px 0 $ad-accent;
+    backdrop-filter: blur(18px);
+  }
+
+  &__panel-header,
+  &__panel-body {
+    padding: $space-5;
+  }
+
+  &__panel-header {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    border-bottom: 1px solid rgba($color-white, .12);
+  }
+
+  &__panel-dot {
+    width: 8px;
+    height: 8px;
+    background: rgba($color-white, .3);
+  }
+
+  &__panel-title {
+    margin-left: auto;
+    color: rgba($color-white, .58);
+    font-size: 10px;
+    font-weight: $fw-bold;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+  }
+
+  &__panel-body,
+  &__field {
+    display: grid;
+    gap: $space-3;
+  }
+
+  &__field label {
+    color: rgba($color-white, .52);
+    font-size: 10px;
+    font-weight: $fw-bold;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+  }
+
+  &__select-mock {
+    border: 1px solid rgba($color-white, .18);
+    padding: $space-3;
+    color: rgba($color-white, .82);
+  }
+
+  &__loader {
+    display: grid;
+    gap: $space-2;
+    color: rgba($color-white, .48);
+    font-size: $fs-xs;
+  }
+
+  &__loader-bar {
+    height: 3px;
+    background: linear-gradient(90deg, $ad-accent, rgba($color-white, .34));
+  }
+
+  &__result-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $space-3;
+  }
+
+  &__result-frame {
+    aspect-ratio: 4 / 5;
+    border: 6px solid $ad-paper;
+  }
+
+  &__result-summary {
+    color: rgba($color-white, .72);
+  }
+}
+
+.luma-how-it-works {
+  .luma-how-it-works__steps {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: $space-6;
+  }
+
+  .luma-how-it-works__step {
+    grid-column: span 4;
+    min-height: 260px;
+    padding: $space-8;
+    border: 1px solid $ad-line;
+    background: rgba($ad-paper, .72);
+
+    &:nth-child(2) {
+      margin-top: $space-12;
+    }
+  }
+}
+
+.luma-cta {
+  background: $ad-accent !important;
+  color: $color-white;
+
+  &__inner {
+    max-width: 1040px;
+    text-align: left;
+  }
+
+  &__heading {
+    font-size: 6rem;
+    letter-spacing: 0;
+  }
+}
+
+@media (max-width: $bp-md) {
+  .luma-mood-picker__item,
+  .luma-mood-picker__item:nth-child(n),
+  .luma-how-it-works .luma-how-it-works__step,
+  .luma-how-it-works .luma-how-it-works__step:nth-child(n) {
+    grid-column: 1 / -1;
+    margin-top: 0;
+  }
+
+  .luma-cta__heading {
+    font-size: 3.2rem;
+  }
+}
+
+// Distorted text band becomes a stark installation.
+.luma-distort {
+  background: $ad-paper;
+  color: $ad-ink;
+  border-block: 1px solid $ad-line;
+
+  &::before {
+    display: none;
+  }
+
+  &__ghost {
+    color: rgba($ad-ink, .045);
+  }
+
+  &__eyebrow {
+    color: $ad-accent;
+
+    &::before,
+    &::after {
+      background: $ad-line-strong;
+    }
+  }
+
+  &__word {
+    color: $ad-ink;
+    -webkit-text-stroke: 0;
+    font-size: 10rem;
+    letter-spacing: 0;
+  }
+
+  &__sub {
+    color: rgba($ad-ink, .58);
+  }
+}
+
+// Gallery catalog.
+.luma-gallery-body,
+.luma-artists-body,
+.luma-exhibitions-body,
+.luma-favorites-body,
+.luma-curator-body,
+.luma-journal-body {
+  background:
+    linear-gradient(90deg, rgba($ad-ink, .04) 1px, transparent 1px) 0 0 / 84px 84px,
+    linear-gradient(rgba($ad-ink, .03) 1px, transparent 1px) 0 0 / 84px 84px,
+    $ad-soft;
+}
+
+.luma-gallery-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-4;
+  padding: $space-5;
+  border: 1px solid $ad-line;
+  background: rgba($ad-paper, .78);
+  backdrop-filter: blur(16px);
+  margin-bottom: $space-10;
+
+  &__left,
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    min-width: 0;
+  }
+
+  &__count {
+    color: rgba($ad-ink, .58);
+    font-size: $fs-sm;
+  }
+
+  .luma-select {
+    width: auto;
+    min-width: 210px;
+  }
+}
+
+.luma-gallery-layout {
+  grid-template-columns: minmax(250px, 300px) 1fr;
+  gap: clamp($space-8, 4vw, $space-20);
+}
+
+.luma-gallery-sidebar {
+  position: sticky;
+  top: 110px;
+  align-self: start;
+  padding: $space-6;
+  border-radius: 0;
+  border: 1px solid $ad-ink;
+  background: $ad-ink;
+  color: $color-white;
+  box-shadow: 14px 14px 0 $ad-accent;
+
+  .luma-filter-group__label {
+    display: inline-flex;
+    color: rgba($color-white, .58);
+    font-size: 10px;
+    font-weight: $fw-bold;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+  }
+
+  .luma-input,
+  .luma-select {
+    background: rgba($color-white, .08);
+    color: $color-white;
+    border-color: rgba($color-white, .22);
+  }
+
+  .luma-filter-range__labels,
+  .luma-filter-reset {
+    color: rgba($color-white, .58);
+  }
+
+  .luma-filter-form {
+    display: grid;
+    gap: $space-5;
+  }
+}
+
+.luma-filter-range__labels {
+  display: flex;
+  justify-content: space-between;
+  gap: $space-3;
+  font-size: $fs-xs;
+}
+
+.luma-range {
+  width: 100%;
+  accent-color: $ad-accent;
+}
+
+.luma-color-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+}
+
+.luma-color-filter {
+  position: relative;
+  display: inline-flex;
+  cursor: pointer;
+
+  &__input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &__swatch {
+    display: inline-grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border: 1px solid rgba($color-white, .3);
+    color: $color-white;
+    font-size: 12px;
+    transition: transform $t-fast, box-shadow $t-fast, border-color $t-fast;
+  }
+
+  &__input:checked + &__swatch {
+    border-color: $ad-accent;
+    box-shadow: 0 0 0 2px rgba($ad-accent, .32);
+    transform: translateY(-2px);
+  }
+}
+
+.luma-view-toggle {
+  display: inline-flex;
+  background: transparent;
+  border: 1px solid $ad-line;
+
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    color: rgba($ad-ink, .58);
+  }
+
+  &__btn.is-active {
+    background: $ad-ink;
+    color: $color-white;
+  }
+}
+
+.luma-artwork-grid--wall {
+  padding: clamp($space-6, 3vw, $space-10);
+  background:
+    linear-gradient(90deg, rgba($ad-ink, .06) 1px, transparent 1px) 0 0 / 52px 52px,
+    $ad-paper;
+  border: 1px solid $ad-line;
+
+  .luma-artwork-card:nth-child(4n+1) { --wall-rot: -1.2deg; }
+  .luma-artwork-card:nth-child(4n+2) { --wall-rot: .8deg; }
+  .luma-artwork-card:nth-child(4n+3) { --wall-rot: 1.4deg; }
+  .luma-artwork-card:nth-child(4n)   { --wall-rot: -.7deg; }
+  .luma-artwork-card:hover { --wall-rot: 0deg; }
+}
+
+// Artwork single.
+.luma-artwork-hero {
+  min-height: 100svh;
+  grid-template-columns: minmax(0, 1.15fr) minmax(420px, .85fr);
+  background: $ad-ink;
+  color: $color-white;
+  padding-top: 0;
+
+  &__image-panel {
+    min-height: 100svh;
+    background:
+      linear-gradient(90deg, rgba($color-white, .055) 1px, transparent 1px) 0 0 / 70px 70px,
+      $ad-ink;
+    padding: 100px clamp($space-5, 5vw, $space-20) $space-10;
+    overflow: visible;
+
+    &::before {
+      content: 'ARTWORK / DETAIL';
+      position: absolute;
+      left: clamp($space-5, 5vw, $space-16);
+      top: 110px;
+      font-size: 10px;
+      font-weight: $fw-bold;
+      letter-spacing: .28em;
+      color: rgba($color-white, .38);
+    }
+
+    img {
+      max-height: 74vh;
+      padding: clamp(10px, 1.4vw, 18px);
+      background: $ad-paper;
+      box-shadow: 0 35px 90px rgba($color-black, .34);
+      transform: rotate(-1.5deg);
+    }
+  }
+
+  &__info {
+    position: sticky;
+    top: 0;
+    min-height: 100svh;
+    padding-top: 120px;
+    background: $ad-paper;
+    color: $ad-ink;
+    border-left: 0;
+    box-shadow: -18px 0 0 $ad-accent;
+  }
+
+  &__title {
+    font-size: 4.8rem;
+    color: $ad-ink;
+    letter-spacing: 0;
+  }
+
+  &__artist,
+  &__price {
+    color: $ad-ink;
+  }
+
+  &__actions {
+    border-block: 1px solid $ad-line;
+    padding-block: $space-5;
+  }
+}
+
+.luma-artwork-body {
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: clamp($space-10, 7vw, $space-24);
+
+  &__aside {
+    position: sticky;
+    top: 110px;
+  }
+}
+
+.luma-artwork-section {
+  border-top: 2px solid $ad-ink;
+  padding-top: $space-5;
+
+  &__title {
+    border: 0;
+    font-size: $fs-2xl;
+    letter-spacing: 0;
+  }
+}
+
+.luma-artwork-details,
+.luma-artwork-artist-preview {
+  border-radius: 0;
+  border-color: $ad-line-strong;
+}
+
+// Artist pages.
+.luma-artists-featured,
+.luma-artist-hero,
+.luma-exhibitions-featured,
+.luma-exhibition-hero {
+  background: $ad-ink;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba($color-white, .06) 1px, transparent 1px) 0 0 / 80px 80px,
+      linear-gradient(rgba($color-white, .04) 1px, transparent 1px) 0 0 / 80px 80px;
+    pointer-events: none;
+  }
+}
+
+.luma-artists-featured {
+  position: relative;
+  overflow: hidden;
+
+  &__inner {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: .85fr 1.15fr;
+    gap: clamp($space-8, 5vw, $space-20);
+    align-items: end;
+  }
+
+  &__image {
+    border-radius: 0;
+    border: 10px solid $ad-paper;
+    box-shadow: 20px 20px 0 $ad-accent;
+    transform: rotate(1.5deg);
+  }
+
+  &__name {
+    letter-spacing: 0;
+  }
+}
+
+.luma-artists-toolbar {
+  background: $ad-paper;
+  border-block: 1px solid $ad-line;
+}
+
+.luma-artists-cta,
+.luma-exhibitions-cta,
+.luma-exhibition-cta,
+.luma-post-cta {
+  background: $ad-accent;
+  color: $color-white;
+
+  .luma-button {
+    background: $ad-paper;
+    border-color: $ad-paper;
+    color: $ad-ink;
+  }
+}
+
+.luma-artist-hero {
+  min-height: 88svh;
+
+  &__content {
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr);
+    align-items: end;
+  }
+
+  &__avatar,
+  &__avatar-placeholder {
+    width: 170px;
+    height: 230px;
+    border-radius: 0;
+    border: 8px solid $ad-paper;
+    box-shadow: 16px 16px 0 $ad-accent;
+  }
+
+  &__name {
+    font-size: 5.8rem;
+    letter-spacing: 0;
+  }
+
+  &__bio {
+    font-style: normal;
+    font-size: $fs-xl;
+  }
+}
+
+.luma-artist-body,
+.luma-exhibition-commentary {
+  position: relative;
+
+  &::before {
+    content: 'PROFILE NOTES';
+    position: sticky;
+    top: 110px;
+    float: left;
+    width: 80px;
+    margin-left: -110px;
+    writing-mode: vertical-rl;
+    font-size: 10px;
+    font-weight: $fw-bold;
+    letter-spacing: .24em;
+    color: rgba($ad-ink, .34);
+  }
+}
+
+.luma-artist-section,
+.luma-commentary-block {
+  border-top: 2px solid $ad-ink;
+  border-bottom: 0;
+  padding-top: $space-5;
+}
+
+// Exhibitions.
+.luma-exhibitions-featured {
+  min-height: 78svh;
+
+  &__content {
+    z-index: 2;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 380px;
+    gap: $space-12;
+    align-items: end;
+  }
+
+  &__title {
+    font-size: 6rem;
+    letter-spacing: 0;
+  }
+
+  &__curator {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    align-self: end;
+    padding: $space-6;
+    border: 1px solid $ad-white-line;
+    background: rgba($ad-ink, .64);
+  }
+}
+
+.luma-exhibitions-filter,
+.luma-journal-filterbar {
+  background: rgba($ad-paper, .92);
+  backdrop-filter: blur(18px);
+  border-bottom-color: $ad-line;
+}
+
+.luma-exhibition-hero {
+  min-height: 92svh;
+
+  &__content {
+    z-index: 2;
+  }
+
+  &__title {
+    font-size: 6.6rem;
+    letter-spacing: 0;
+  }
+}
+
+.luma-exhibition-intro {
+  max-width: 1060px;
+  text-align: left;
+
+  p {
+    font-size: $fs-2xl;
+    line-height: $lh-snug;
+  }
+}
+
+.luma-exhibition-artworks__grid {
+  padding: $space-8;
+  background: $ad-paper;
+  border: 1px solid $ad-line;
+}
+
+// Favorites.
+.luma-favorites-tabs {
+  border: 1px solid $ad-line;
+  background: $ad-paper;
+  padding: $space-2;
+  gap: $space-2;
+}
+
+.luma-favorites-tab {
+  padding: $space-4 $space-5;
+  border: 1px solid transparent;
+  margin: 0;
+
+  &.is-active {
+    background: $ad-ink;
+    color: $color-white;
+    border-color: $ad-ink;
+  }
+}
+
+.luma-favorites-empty {
+  border: 1px dashed $ad-line-strong;
+  background: rgba($ad-paper, .72);
+}
+
+.luma-favorites-recommended {
+  border-top: 2px solid $ad-ink;
+}
+
+// AI Curator: more tool-like, more futuristic.
+.luma-curator-hero {
+  &::before {
+    content: 'RULE-BASED / NO API';
+  }
+}
+
+.luma-curator-layout {
+  grid-template-columns: minmax(340px, 440px) minmax(0, 1fr);
+}
+
+.luma-curator-form {
+  border-radius: 0;
+  border: 1px solid $ad-ink;
+  background: $ad-ink;
+  color: $color-white;
+  box-shadow: 14px 14px 0 $ad-accent;
+
+  .luma-curator-field__label,
+  &__hint {
+    color: rgba($color-white, .6);
+  }
+
+  .luma-input,
+  .luma-select,
+  .luma-textarea {
+    background: rgba($color-white, .08);
+    color: $color-white;
+    border-color: rgba($color-white, .22);
+  }
+}
+
+.luma-curator-summary {
+  border-left: 0;
+  border-top: 2px solid $ad-accent;
+  padding: $space-5 0 0;
+}
+
+.luma-curator-empty,
+.luma-curator-how__col {
+  border-radius: 0;
+}
+
+.luma-curator-how {
+  background: $ad-paper;
+}
+
+// Journal: art magazine.
+.luma-journal-featured {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  grid-template-columns: minmax(0, .9fr) minmax(360px, .7fr);
+  gap: clamp($space-6, 4vw, $space-16);
+
+  &:hover {
+    box-shadow: none;
+  }
+
+  &__media {
+    border: 10px solid $ad-paper;
+    box-shadow: $ad-shadow-frame;
+    min-height: 560px;
+    transform: rotate(-1.2deg);
+  }
+
+  &__body {
+    justify-content: end;
+    border-top: 2px solid $ad-ink;
+    padding: $space-8 0 0;
+  }
+
+  &__title {
+    letter-spacing: 0;
+  }
+}
+
+.luma-journal-card {
+  &:nth-child(4n+2) {
+    margin-top: $space-12;
+  }
+}
+
+.luma-post-hero {
+  text-align: left;
+  background: $ad-paper;
+
+  .luma-container--narrow {
+    max-width: 980px;
+  }
+
+  &__title {
+    font-size: 5.6rem;
+    letter-spacing: 0;
+  }
+
+  &__meta {
+    justify-content: flex-start;
+  }
+
+  &__media {
+    border-radius: 0;
+    border-block: 1px solid $ad-line;
+    max-width: none;
+  }
+}
+
+.luma-post-content {
+  max-width: 820px;
+
+  > p:first-of-type::first-letter {
+    color: $ad-ink;
+    border: 1px solid $ad-line;
+    padding: 4px $space-3;
+    margin-right: $space-3;
+  }
+}
+
+.luma-post-artist__inner {
+  border-radius: 0;
+  background: $ad-ink;
+  color: $color-white;
+
+  .luma-post-artist__name,
+  .luma-post-artist__bio {
+    color: $color-white;
+  }
+}
+
+// Modal system: rebuilt in the same gallery language.
+.luma-modal {
+  position: fixed;
+  inset: 0;
+  z-index: $z-modal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp($space-4, 4vw, $space-10);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity $t-mid $ad-ease;
+
+  &[aria-hidden='false'],
+  &.is-open {
+    opacity: 1;
+    pointer-events: auto;
+
+    .luma-modal__panel {
+      opacity: 1;
+      transform: translateY(0) rotate(0);
+    }
+  }
+
+  &__backdrop {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 50% 38%, rgba($ad-accent, .14), transparent 38%),
+      rgba($color-black, .82);
+    backdrop-filter: blur(14px);
+  }
+
+  &__panel {
+    position: relative;
+    z-index: 1;
+    width: min(92vw, 720px);
+    max-height: min(88vh, 920px);
+    overflow: auto;
+    border: 1px solid rgba($ad-ink, .18);
+    background: $ad-paper;
+    color: $ad-ink;
+    box-shadow: 22px 22px 0 rgba($ad-accent, .82), 0 34px 110px rgba($color-black, .38);
+    opacity: 0;
+    transform: translateY(24px) rotate(-.6deg);
+    transition: opacity $t-mid $ad-ease, transform $t-mid $ad-ease;
+
+    &--room {
+      width: min(96vw, 1040px);
+    }
+
+    &--ai {
+      width: min(94vw, 760px);
+    }
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-4;
+    padding: $space-5 $space-6;
+    border-bottom: 1px solid $ad-line;
+    background:
+      linear-gradient(90deg, rgba($ad-ink, .045) 1px, transparent 1px) 0 0 / 32px 32px,
+      $ad-paper;
+  }
+
+  &__header-brand {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+  }
+
+  &__title {
+    color: $ad-ink;
+    font-family: $font-heading;
+    font-size: $fs-xl;
+    font-weight: $fw-light;
+    line-height: $lh-tight;
+  }
+
+  &__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid $ad-line;
+    color: rgba($ad-ink, .58);
+    transition: background $t-fast, color $t-fast, border-color $t-fast;
+
+    &:hover {
+      background: $ad-ink;
+      border-color: $ad-ink;
+      color: $color-white;
+    }
+  }
+
+  &__room-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-4;
+    padding: $space-5 $space-6;
+    border-top: 1px solid $ad-line;
+    background: $ad-paper;
+  }
+
+  &__room-info-text {
+    display: grid;
+    gap: $space-1;
+  }
+
+  &__room-info-title {
+    font-family: $font-heading;
+    font-size: $fs-lg;
+  }
+
+  &__room-info-size {
+    color: rgba($ad-ink, .48);
+    font-size: $fs-xs;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+}
+
+.luma-room-switcher {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+  margin-left: auto;
+
+  &__btn {
+    min-height: 34px;
+    padding: 0 $space-3;
+    border: 1px solid $ad-line;
+    color: rgba($ad-ink, .56);
+    font-size: 10px;
+    font-weight: $fw-bold;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    transition: background $t-fast, border-color $t-fast, color $t-fast;
+
+    &:hover,
+    &.is-active {
+      background: $ad-ink;
+      border-color: $ad-ink;
+      color: $color-white;
+    }
+  }
+}
+
+.luma-room {
+  position: relative;
+  height: min(58vh, 560px);
+  min-height: 390px;
+  overflow: hidden;
+  background: $ad-ink;
+
+  &__wall,
+  &__floor,
+  &__furniture {
+    position: absolute;
+    inset-inline: 0;
+  }
+
+  &__wall {
+    top: 0;
+    bottom: 30%;
+    background:
+      linear-gradient(90deg, rgba($color-white, .055) 1px, transparent 1px) 0 0 / 56px 56px,
+      linear-gradient(rgba($color-white, .04) 1px, transparent 1px) 0 0 / 56px 56px,
+      #202022;
+  }
+
+  &__wainscot {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 72px;
+    border-top: 1px solid rgba($color-white, .14);
+    background: rgba($color-white, .035);
+  }
+
+  &__light {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 4px;
+    height: 48px;
+    background: rgba($color-white, .28);
+    transform: translateX(-50%);
+  }
+
+  &__light-cone {
+    position: absolute;
+    top: 34px;
+    left: 50%;
+    width: 380px;
+    height: 300px;
+    background: radial-gradient(ellipse at 50% 0%, rgba($ad-accent, .18), transparent 66%);
+    clip-path: polygon(48% 0, 52% 0, 100% 100%, 0 100%);
+    transform: translateX(-50%);
+    opacity: .75;
+  }
+
+  &__frame {
+    position: absolute;
+    z-index: 3;
+    top: 49%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-1deg);
+  }
+
+  &__frame-border {
+    padding: 9px;
+    background: $ad-paper;
+    box-shadow: 0 28px 80px rgba($color-black, .46);
+  }
+
+  &__frame-mat {
+    padding: 16px;
+    background: #f5f2eb;
+  }
+
+  &__frame-image {
+    display: grid;
+    place-items: center;
+    width: clamp(180px, 26vw, 320px);
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: $ad-soft;
+
+    img,
+    div {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__frame-shadow {
+    position: absolute;
+    left: 9%;
+    right: 9%;
+    bottom: -14px;
+    height: 20px;
+    background: rgba($color-black, .36);
+    filter: blur(12px);
+  }
+
+  &__floor {
+    bottom: 0;
+    height: 30%;
+    background:
+      linear-gradient(90deg, rgba($color-black, .16) 1px, transparent 1px) 0 0 / 86px 100%,
+      #6d604f;
+  }
+
+  &__floor-planks {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba($color-white, .07), transparent 48%);
+  }
+
+  &__furniture {
+    bottom: 0;
+    z-index: 4;
+    height: 30%;
+    pointer-events: none;
+  }
+
+  &__sofa,
+  &__bed,
+  &__desk {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: min(330px, 46vw);
+    transform: translateX(-50%);
+  }
+
+  &__sofa-back,
+  &__sofa-seat,
+  &__sofa-cushion,
+  &__bed-frame,
+  &__bed-mattress,
+  &__bed-blanket,
+  &__bed-pillow,
+  &__desk-top,
+  &__chair-back,
+  &__chair-seat,
+  &__nightstand-top,
+  &__side-table-top,
+  &__plant-pot {
+    background: rgba($color-white, .16);
+    border: 1px solid rgba($color-white, .08);
+  }
+
+  &__sofa-back { height: 58px; margin-inline: 12px; }
+  &__sofa-seat { height: 34px; margin-top: 4px; }
+  &__sofa-cushion { position: absolute; bottom: 36px; width: 38%; height: 46px; }
+  &__sofa-cushion--1 { left: 26px; }
+  &__sofa-cushion--2 { right: 26px; }
+
+  &__side-table,
+  &__nightstand,
+  &__office-chair {
+    position: absolute;
+    right: calc(50% - 250px);
+    bottom: 0;
+    width: 54px;
+  }
+
+  &__side-table-leg,
+  &__lamp-base,
+  &__monitor-stand,
+  &__desk-leg {
+    background: rgba($color-white, .28);
+  }
+
+  &__side-table-leg {
+    width: 4px;
+    height: 34px;
+    margin-inline: auto;
+  }
+
+  &__plant {
+    position: absolute;
+    left: calc(50% - 260px);
+    bottom: 0;
+  }
+
+  &__plant-pot {
+    width: 34px;
+    height: 26px;
+    margin-inline: auto;
+  }
+
+  &__plant-leaves {
+    width: 58px;
+    height: 70px;
+    margin-bottom: -3px;
+    background:
+      radial-gradient(ellipse at 50% 36%, rgba($ad-accent, .38) 0 34%, transparent 36%),
+      radial-gradient(ellipse at 24% 56%, rgba($ad-accent, .28) 0 31%, transparent 34%),
+      radial-gradient(ellipse at 76% 56%, rgba($ad-accent, .26) 0 31%, transparent 34%);
+  }
+
+  &__bed-frame { height: 14px; }
+  &__bed-mattress { height: 42px; margin-top: 4px; background: rgba($color-white, .22); }
+  &__bed-blanket { height: 30px; margin-top: 4px; background: rgba($ad-accent, .48); }
+  &__bed-pillow { position: absolute; top: 14px; width: 34%; height: 34px; background: rgba($color-white, .34); }
+  &__bed-pillow--1 { left: 10px; }
+  &__bed-pillow--2 { left: 39%; }
+
+  &__nightstand-lamp {
+    position: absolute;
+    left: 50%;
+    top: -40px;
+    transform: translateX(-50%);
+  }
+
+  &__lamp-shade {
+    width: 28px;
+    height: 18px;
+    background: $ad-accent;
+    clip-path: polygon(12% 0, 88% 0, 100% 100%, 0 100%);
+  }
+
+  &__lamp-base {
+    width: 4px;
+    height: 24px;
+    margin-inline: auto;
+  }
+
+  &__desk-top { height: 10px; }
+  &__desk-leg { position: absolute; top: 10px; width: 5px; height: 48px; }
+  &__desk-leg--1 { left: 12px; }
+  &__desk-leg--2 { right: 12px; }
+  &__desk-monitor { position: absolute; left: 50%; top: -84px; transform: translateX(-50%); }
+  &__monitor-screen { width: 110px; height: 70px; border: 4px solid rgba($color-white, .22); background: $color-black; }
+  &__monitor-stand { width: 5px; height: 20px; margin-inline: auto; }
+  &__chair-back { height: 58px; margin-inline: 6px; }
+  &__chair-seat { height: 24px; margin-top: 4px; }
+}
+
+.luma-ai-panel {
+  &__tones,
+  &__actions,
+  &__generated-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-2;
+  }
+
+  &__tones,
+  &__actions {
+    padding: $space-4 $space-6;
+    border-bottom: 1px solid $ad-line;
+  }
+
+  &__tones-label {
+    align-self: center;
+    color: rgba($ad-ink, .52);
+    font-size: 10px;
+    font-weight: $fw-bold;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+  }
+
+  &__tone-btn {
+    min-height: 32px;
+    padding: 0 $space-3;
+    border: 1px solid $ad-line;
+    color: rgba($ad-ink, .62);
+    font-size: 10px;
+    font-weight: $fw-bold;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+
+    &:hover,
+    &.is-active {
+      background: $ad-accent;
+      border-color: $ad-accent;
+      color: $color-white;
+    }
+  }
+
+  &__output {
+    min-height: 220px;
+    padding: $space-6;
+  }
+
+  &__state--empty,
+  &__loader {
+    display: grid;
+    place-items: center;
+    gap: $space-4;
+    min-height: 180px;
+    color: rgba($ad-ink, .46);
+    text-align: center;
+  }
+
+  &__loader-dots {
+    display: flex;
+    gap: $space-2;
+
+    span {
+      width: 8px;
+      height: 8px;
+      background: $ad-accent;
+      animation: luma-ai-pulse 1.1s ease-in-out infinite;
+
+      &:nth-child(2) { animation-delay: .18s; }
+      &:nth-child(3) { animation-delay: .36s; }
+    }
+  }
+
+  &__generated-type {
+    margin-bottom: $space-4;
+    color: $ad-accent;
+    font-size: 10px;
+    font-weight: $fw-bold;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+  }
+
+  &__generated-text {
+    min-height: 110px;
+    margin-bottom: $space-5;
+    padding: $space-5;
+    border: 1px solid $ad-line;
+    background:
+      linear-gradient(90deg, rgba($ad-ink, .045) 1px, transparent 1px) 0 0 / 34px 34px,
+      $ad-soft;
+    color: rgba($ad-ink, .76);
+    line-height: $lh-loose;
+
+    &[contenteditable='true'] {
+      outline: 2px solid rgba($ad-accent, .32);
+      background: $ad-paper;
+    }
+  }
+
+  &__disclaimer {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    padding: $space-4 $space-6 $space-5;
+    border-top: 1px solid $ad-line;
+    color: rgba($ad-ink, .44);
+    font-size: $fs-xs;
+  }
+}
+
+@keyframes luma-ai-pulse {
+  0%,
+  100% {
+    opacity: .35;
+    transform: scale(.82);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+// Footer: strong end wall.
+.luma-footer {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba($color-white, .06) 1px, transparent 1px) 0 0 / 90px 90px,
+    $ad-ink;
+
+  &::before {
+    content: 'COLLECT / DISCOVER / RETURN';
+    position: absolute;
+    top: $space-10;
+    right: $space-8;
+    writing-mode: vertical-rl;
+    font-size: 10px;
+    font-weight: $fw-bold;
+    letter-spacing: .26em;
+    color: rgba($color-white, .26);
+  }
+
+  &__inner {
+    display: grid;
+    grid-template-columns: minmax(280px, 1.35fr) repeat(3, minmax(160px, .6fr));
+    gap: clamp($space-8, 4vw, $space-16);
+    max-width: $container-wide;
+    margin-inline: auto;
+    padding-inline: $container-padding;
+    padding-top: clamp($space-16, 9vw, 150px);
+  }
+
+  &__logo {
+    display: inline-flex;
+    gap: $space-2;
+    color: $color-white;
+    text-decoration: none;
+  }
+
+  &__logo {
+    font-family: $font-body;
+    font-size: $fs-sm;
+    font-weight: $fw-bold;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+  }
+
+  &__tagline {
+    max-width: 520px;
+    font-family: $font-heading;
+    font-size: $fs-2xl;
+    line-height: $lh-snug;
+    color: rgba($color-white, .75);
+  }
+
+  &__social,
+  &__newsletter-form,
+  &__legal-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-3;
+  }
+
+  &__social {
+    margin-top: $space-8;
+  }
+
+  &__social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba($color-white, .16);
+    color: rgba($color-white, .64);
+
+    &:hover {
+      border-color: $ad-accent;
+      color: $ad-accent;
+    }
+  }
+
+  &__nav-title {
+    margin-bottom: $space-5;
+    color: $ad-accent;
+    font-size: 10px;
+    font-weight: $fw-bold;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+  }
+
+  &__nav-list {
+    display: grid;
+    gap: $space-3;
+
+    a {
+      color: rgba($color-white, .56);
+      text-decoration: none;
+
+      &:hover {
+        color: $color-white;
+      }
+    }
+  }
+
+  &__newsletter-text {
+    margin-bottom: $space-5;
+    color: rgba($color-white, .56);
+  }
+
+  &__newsletter-form {
+    align-items: stretch;
+  }
+
+  &__newsletter-input {
+    min-width: min(100%, 260px);
+    flex: 1 1 190px;
+    background: rgba($color-white, .08);
+    color: $color-white;
+    border-color: rgba($color-white, .18);
+  }
+
+  &__newsletter-btn {
+    flex: 0 0 auto;
+  }
+
+  &__wordmark-row {
+    max-width: $container-wide;
+    margin-inline: auto;
+    padding: clamp($space-12, 8vw, $space-24) $container-padding $space-10;
+    overflow: hidden;
+  }
+
+  &__wordmark {
+    display: block;
+    font-size: 11rem;
+    line-height: .82;
+    letter-spacing: 0;
+    color: rgba($color-white, .08);
+    -webkit-text-stroke: 1px rgba($color-white, .18);
+  }
+
+  &__bottom {
+    border-top: 1px solid rgba($color-white, .1);
+  }
+
+  &__bottom-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-4;
+    max-width: $container-wide;
+    margin-inline: auto;
+    padding: $space-6 $container-padding;
+    color: rgba($color-white, .38);
+    font-size: $fs-xs;
+  }
+
+  &__legal-list a {
+    color: rgba($color-white, .44);
+    text-decoration: none;
+
+    &:hover {
+      color: $color-white;
+    }
+  }
+}
+
+@media (max-width: $bp-lg) {
+  .luma-gallery-layout,
+  .luma-curator-layout,
+  .luma-artwork-hero,
+  .luma-artwork-body,
+  .luma-exhibitions-featured__content,
+  .luma-journal-featured {
+    grid-template-columns: 1fr;
+  }
+
+  .luma-gallery-sidebar,
+  .luma-curator-panel,
+  .luma-artwork-body__aside,
+  .luma-artwork-hero__info {
+    position: static;
+  }
+
+  .luma-artwork-hero__image-panel,
+  .luma-artwork-hero__info {
+    min-height: auto;
+  }
+
+  .luma-artwork-hero__title,
+  .luma-artist-hero__name,
+  .luma-exhibitions-featured__title,
+  .luma-exhibition-hero__title,
+  .luma-post-hero__title {
+    font-size: 4rem;
+  }
+}
+
+@media (max-width: $bp-md) {
+  body::before {
+    display: none;
+  }
+
+  .luma-artwork-card,
+  .luma-artist-card,
+  .luma-exhibition-card,
+  .luma-post-card,
+  .luma-journal-featured {
+    transform: none !important;
+  }
+
+  .luma-gallery-walk-section__frame:nth-child(n),
+  .luma-mood-picker__item:nth-child(n),
+  .luma-journal-card:nth-child(n) {
+    margin-top: 0;
+  }
+
+  .luma-artwork-hero__image-panel {
+    padding-top: 100px;
+  }
+
+  .luma-artwork-hero__image-panel img,
+  .luma-journal-featured__media,
+  .luma-artists-featured__image,
+  .luma-artist-hero__avatar,
+  .luma-artist-hero__avatar-placeholder {
+    transform: none;
+  }
+
+  .luma-artwork-hero__title,
+  .luma-artist-hero__name,
+  .luma-exhibitions-featured__title,
+  .luma-exhibition-hero__title,
+  .luma-post-hero__title {
+    font-size: 3rem;
+  }
+
+  .luma-distort__word,
+  .luma-footer__wordmark {
+    font-size: 4rem;
+  }
+
+  .luma-footer__inner {
+    grid-template-columns: 1fr;
+  }
+
+  // AI Curator teaser: stack and fit (2-col grid had a 360px-min column
+  // that overflowed small phones and clipped the mock panel).
+  .luma-ai-curator-teaser__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .luma-ai-curator-teaser__form-preview {
+    transform: none;
+    max-width: 100%;
+  }
+
+  .luma-ai-curator-teaser__panel {
+    box-shadow: 8px 8px 0 $ad-accent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before {
+    display: none;
+  }
+
+  .luma-artwork-card,
+  .luma-artist-card,
+  .luma-exhibition-card,
+  .luma-post-card,
+  .luma-journal-featured {
+    transform: none !important;
+  }
+}

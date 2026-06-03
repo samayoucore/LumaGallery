@@ -39,7 +39,14 @@
 // ─── Section header ───────────────────────────────────────────────────────────
 
 .luma-section__header {
+  position: relative;
   margin-bottom: clamp($space-10, 5vw, $space-20);
+  padding-top: $space-6;
+  border-top: 1px solid rgba($color-dark, .14);
+
+  // Adapt the rule on dark sections
+  .luma-section--dark &,
+  .luma-section--darker & { border-top-color: rgba($color-white, .16); }
 
   &--split {
     display: flex;
@@ -305,3 +312,9 @@
   outline-offset: 3px;
   border-radius: $radius-sm;
 }
+
+// ─── Hidden attribute ────────────────────────────────────────────────────────
+// Ensure the [hidden] attribute always wins over component display rules
+// (e.g. flex/grid cards toggled by JS on the favorites & curator pages).
+
+[hidden] { display: none !important; }

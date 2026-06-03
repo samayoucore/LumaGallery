@@ -99,3 +99,12 @@
 }
 
 @keyframes luma-btn-spin { to { transform: rotate(360deg); } }
+
+// ── Trailing-icon microinteraction ────────────────────────────────────────────
+// Arrow/chevron icons drift on hover. Only affects real .luma-button elements
+// (icon-only controls use their own classes), and is suppressed for the spinner.
+.luma-button {
+  svg { transition: transform $t-fast $t-ease; }
+  &:hover svg { transform: translateX(2px); }
+  &.is-loading svg { transform: none; }
+}

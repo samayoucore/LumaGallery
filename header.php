@@ -55,7 +55,7 @@
             </a>
 
             <!-- Cart -->
-            <a href="<?php echo esc_url( luma_is_woocommerce_active() ? wc_get_cart_url() : home_url( '/cart-demo/' ) ); ?>" class="luma-header__action-btn luma-header__action-btn--cart" aria-label="<?php esc_attr_e( 'Cart', 'luma-gallery' ); ?>">
+            <a href="<?php echo esc_url( luma_is_woocommerce_active() ? wc_get_cart_url() : home_url( '/cart/' ) ); ?>" class="luma-header__action-btn luma-header__action-btn--cart" aria-label="<?php esc_attr_e( 'Cart', 'luma-gallery' ); ?>">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                     <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
                 </svg>
@@ -74,7 +74,7 @@
             </a>
 
             <!-- Become an Artist CTA -->
-            <a href="<?php echo esc_url( home_url( '/artist-studio/' ) ); ?>" class="luma-button luma-button--ghost luma-header__cta">
+            <a href="<?php echo esc_url( home_url( '/studio/' ) ); ?>" class="luma-button luma-button--ghost luma-header__cta">
                 <?php esc_html_e( 'Become an Artist', 'luma-gallery' ); ?>
             </a>
 
@@ -98,7 +98,7 @@
                 'fallback_cb'    => 'luma_header_fallback_nav',
             ] );
             ?>
-            <a href="<?php echo esc_url( home_url( '/artist-studio/' ) ); ?>" class="luma-button luma-button--primary luma-header__mobile-cta">
+            <a href="<?php echo esc_url( home_url( '/studio/' ) ); ?>" class="luma-button luma-button--primary luma-header__mobile-cta">
                 <?php esc_html_e( 'Become an Artist', 'luma-gallery' ); ?>
             </a>
         </nav>
@@ -133,6 +133,8 @@ function luma_header_fallback_nav(): void {
         '/artists/'     => 'Artists',
         '/exhibitions/' => 'Exhibitions',
         '/journal/'     => 'Journal',
+        '/ai-curator/'  => 'AI Curator',
+        '/studio/'      => 'Studio',
         '/about/'       => 'About',
     ];
     foreach ( $pages as $url => $label ) {

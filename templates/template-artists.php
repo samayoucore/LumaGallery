@@ -81,7 +81,7 @@ $style_filters = [ 'Abstract', 'Figurative', 'Landscape', 'Minimalist', 'Express
                 <p class="luma-page-hero__subtitle"><?php esc_html_e( 'Meet the artists behind the works', 'luma-gallery' ); ?></p>
             </div>
         </div>
-        <div class="luma-page-hero__word" aria-hidden="true">ARTISTS</div>
+        <div class="luma-page-hero__word js-distort-text" aria-hidden="true">ARTISTS</div>
     </section>
 
     <!-- ─── Featured artist ───────────────────────────────────────────────── -->
@@ -157,7 +157,7 @@ $style_filters = [ 'Abstract', 'Figurative', 'Landscape', 'Minimalist', 'Express
                 ?>
             </span>
         </div>
-        <div class="luma-artists-grid js-artists-grid">
+        <div class="luma-artists-grid js-artists-grid" data-reveal-children="55">
             <?php foreach ( $artists as $i => $a ) :
                 get_template_part( 'template-parts/artist-card', null, [
                     'post_id'        => $a['id']       ?? 0,

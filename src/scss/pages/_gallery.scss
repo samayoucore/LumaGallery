@@ -325,3 +325,35 @@
 
   p { font-size: $fs-sm; color: $color-gray-500; }
 }
+
+// ── Gallery Wall — curated, hand-hung composition ─────────────────────────────
+// Augments the base --wall (staggered margins) with a salon-hang feel: airier
+// gaps, gentle rotations and a soft framed shadow that straightens on hover.
+.luma-artwork-grid--wall {
+  gap: clamp($space-6, 3.5vw, $space-12) clamp($space-5, 2.5vw, $space-10);
+
+  .luma-artwork-card {
+    box-shadow: 0 0 0 1px rgba($color-dark, .04), 0 10px 30px rgba($color-dark, .07);
+    transition: transform $t-mid $t-spring, box-shadow $t-mid $t-ease, border-color $t-fast;
+  }
+
+  // Subtle, varied tilt — never enough to hurt readability
+  .luma-artwork-card:nth-child(4n+1) { transform: rotate(-0.8deg); }
+  .luma-artwork-card:nth-child(4n+2) { transform: rotate(0.6deg); }
+  .luma-artwork-card:nth-child(4n+3) { transform: rotate(0.9deg); }
+  .luma-artwork-card:nth-child(4n)   { transform: rotate(-0.5deg); }
+
+  // Hover straightens the work and lifts it off the wall
+  .luma-artwork-card:hover {
+    transform: rotate(0deg) translateY(-6px);
+    box-shadow: 0 0 0 1px rgba($color-dark, .06), $shadow-artwork;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .luma-artwork-card { transform: none !important; }
+  }
+
+  @media (max-width: $bp-sm) {
+    .luma-artwork-card { transform: none; } // no tilt in single column
+  }
+}

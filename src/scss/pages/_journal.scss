@@ -1,0 +1,490 @@
+// ─── Journal — Archive & Single ───────────────────────────────────────────────
+
+.luma-page--journal,
+.luma-page--journal-single { background: $color-white; }
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ARCHIVE
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// ── Hero ──────────────────────────────────────────────────────────────────────
+.luma-journal-hero {
+  position: relative;
+  background: $color-dark;
+  color: $color-white;
+  overflow: hidden;
+  padding-top: calc(#{$header-height} + clamp(#{$space-12}, 8vw, #{$space-20}));
+  padding-bottom: clamp($space-10, 5vw, $space-16);
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba($color-accent, .05) 0%, transparent 55%);
+    pointer-events: none;
+  }
+
+  > .luma-container { position: relative; z-index: 2; }
+
+  &__eyebrow {
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: $color-accent;
+    margin-bottom: $space-4;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: clamp($fs-4xl, 8vw, $fs-6xl);
+    font-weight: $fw-light;
+    line-height: $lh-tight;
+    letter-spacing: -0.02em;
+    margin-bottom: $space-4;
+  }
+
+  &__subtitle {
+    font-size: $fs-md;
+    color: $color-gray-400;
+    max-width: 540px;
+    line-height: $lh-normal;
+  }
+
+  &__word {
+    position: absolute;
+    right: $container-padding;
+    bottom: -0.12em;
+    z-index: 1;
+    font-family: $font-heading;
+    font-size: clamp(80px, 14vw, 200px);
+    font-weight: $fw-light;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: rgba($color-white, .035);
+    pointer-events: none;
+    user-select: none;
+
+    @media (max-width: $bp-md) { display: none; }
+  }
+}
+
+// ── Featured story ────────────────────────────────────────────────────────────
+.luma-journal-featured-wrap {
+  background: $color-white;
+  padding-top: clamp($space-10, 5vw, $space-16);
+  padding-bottom: clamp($space-6, 3vw, $space-10);
+}
+
+.luma-journal-featured {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  align-items: stretch;
+  border: 1px solid $color-gray-200;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  background: $color-white;
+  transition: box-shadow $t-mid $t-ease, border-color $t-fast;
+
+  &:hover { box-shadow: $shadow-lg; border-color: $color-gray-300; }
+
+  @media (max-width: $bp-md) { grid-template-columns: 1fr; }
+
+  &__media {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    min-height: 320px;
+
+    @media (max-width: $bp-md) { min-height: 0; aspect-ratio: 16 / 9; }
+
+    img { width: 100%; height: 100%; object-fit: cover; }
+  }
+
+  &__placeholder { position: absolute; inset: 0; }
+
+  &__topic {
+    position: absolute;
+    top: $space-5; left: $space-5;
+    z-index: 2;
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: $color-white;
+    background: $color-accent;
+    padding: 4px 12px;
+    border-radius: $radius-full;
+  }
+
+  &__body {
+    padding: clamp($space-6, 4vw, $space-12);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__label {
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: $color-accent;
+    margin-bottom: $space-4;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: clamp($fs-2xl, 3.5vw, $fs-4xl);
+    font-weight: $fw-light;
+    line-height: $lh-tight;
+    letter-spacing: -0.01em;
+    margin-bottom: $space-4;
+
+    a { color: $color-dark; text-decoration: none; transition: color $t-fast; }
+    a:hover { color: $color-accent; }
+  }
+
+  &__excerpt {
+    font-size: $fs-base;
+    color: $color-gray-600;
+    line-height: $lh-normal;
+    margin-bottom: $space-6;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: $space-4;
+    margin-bottom: $space-8;
+    font-size: $fs-xs;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: $color-gray-500;
+  }
+
+  &__artist a { color: $color-accent; text-decoration: none; }
+
+  &__cta { align-self: flex-start; }
+}
+
+// ── Filter bar ────────────────────────────────────────────────────────────────
+.luma-journal-filterbar {
+  position: sticky;
+  top: $header-height;
+  z-index: $z-card;
+  background: rgba($color-white, .92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid $color-gray-200;
+  padding: $space-4 0;
+
+  .luma-journal-filters {
+    display: flex;
+    gap: $space-2;
+    flex-wrap: wrap;
+    @include scrollbar-hidden;
+
+    @media (max-width: $bp-sm) {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding-bottom: $space-1;
+    }
+  }
+}
+
+// ── Body / grid ───────────────────────────────────────────────────────────────
+.luma-journal-body {
+  padding-top: clamp($space-10, 5vw, $space-16);
+  padding-bottom: clamp($space-16, 8vw, $space-24);
+  min-height: 40vh;
+}
+
+// ── Journal card (extends .luma-post-card) ────────────────────────────────────
+.luma-journal-card {
+  display: flex;
+  flex-direction: column;
+
+  &__media { position: relative; display: block; }
+
+  &__placeholder { position: absolute; inset: 0; }
+
+  &__topic {
+    position: absolute;
+    top: $space-3; left: $space-3;
+    z-index: 2;
+    font-size: 10px;
+    font-weight: $fw-semibold;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: $color-white;
+    background: rgba($color-dark, .82);
+    padding: 4px 10px;
+    border-radius: $radius-full;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    font-size: $fs-xs;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: $color-gray-400;
+  }
+
+  &__artist { color: $color-accent; font-weight: $fw-medium; }
+
+  &__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+    margin-top: $space-1;
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: $color-dark;
+    text-decoration: none;
+    transition: gap $t-fast, color $t-fast;
+
+    &:hover { gap: $space-3; color: $color-accent; }
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// SINGLE POST
+// ═══════════════════════════════════════════════════════════════════════════════
+
+.luma-post-hero {
+  padding-top: calc(#{$header-height} + clamp(#{$space-12}, 7vw, #{$space-20}));
+  text-align: center;
+
+  &__topic {
+    display: inline-block;
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: $color-accent;
+    margin-bottom: $space-5;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: clamp($fs-3xl, 6vw, $fs-5xl);
+    font-weight: $fw-light;
+    line-height: $lh-tight;
+    letter-spacing: -0.02em;
+    color: $color-dark;
+    margin-bottom: $space-5;
+  }
+
+  &__excerpt {
+    font-family: $font-heading;
+    font-size: clamp($fs-lg, 2.4vw, $fs-xl);
+    font-style: italic;
+    color: $color-gray-600;
+    line-height: $lh-normal;
+    max-width: 640px;
+    margin: 0 auto $space-6;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $space-3;
+    font-size: $fs-xs;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: $color-gray-500;
+    margin-bottom: clamp($space-10, 5vw, $space-16);
+  }
+
+  &__author { color: $color-dark; font-weight: $fw-medium; }
+
+  &__media {
+    position: relative;
+    max-width: $container-wide;
+    margin: 0 auto;
+    aspect-ratio: 16 / 8;
+    overflow: hidden;
+    border-radius: $radius-lg;
+
+    @media (max-width: $bp-md) { aspect-ratio: 4 / 3; border-radius: 0; }
+  }
+
+  &__image { width: 100%; height: 100%; object-fit: cover; }
+  &__placeholder { position: absolute; inset: 0; }
+}
+
+// ── Reading column ────────────────────────────────────────────────────────────
+.luma-post-content {
+  padding-top: clamp($space-12, 6vw, $space-20);
+  padding-bottom: clamp($space-12, 6vw, $space-20);
+  font-size: $fs-md;
+  line-height: $lh-loose;
+  color: $color-gray-800;
+
+  p { margin-bottom: $space-6; }
+
+  // Drop cap on the opening paragraph
+  > p:first-of-type::first-letter {
+    float: left;
+    font-family: $font-heading;
+    font-size: 4.4em;
+    line-height: 0.78;
+    font-weight: $fw-regular;
+    color: $color-accent;
+    padding: 6px $space-3 0 0;
+  }
+
+  h2, h3 {
+    font-family: $font-heading;
+    font-weight: $fw-regular;
+    color: $color-dark;
+    line-height: $lh-snug;
+    margin: $space-10 0 $space-4;
+  }
+
+  h2 { font-size: $fs-2xl; }
+  h3 { font-size: $fs-xl; }
+
+  blockquote {
+    margin: $space-8 0;
+    padding-left: $space-6;
+    border-left: 2px solid $color-accent;
+    font-family: $font-heading;
+    font-style: italic;
+    font-size: $fs-xl;
+    color: $color-gray-700;
+  }
+
+  a { color: $color-accent; text-underline-offset: 3px; }
+
+  img { max-width: 100%; height: auto; border-radius: $radius-md; }
+}
+
+// ── Artist block ──────────────────────────────────────────────────────────────
+.luma-post-artist {
+  padding-bottom: clamp($space-12, 6vw, $space-20);
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    gap: $space-6;
+    padding: clamp($space-6, 3vw, $space-8);
+    background: $color-gray-50;
+    border: 1px solid $color-gray-200;
+    border-radius: $radius-lg;
+
+    @media (max-width: $bp-sm) { flex-direction: column; text-align: center; }
+  }
+
+  &__avatar {
+    flex-shrink: 0;
+    width: 88px; height: 88px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  &__initial {
+    font-family: $font-heading;
+    font-size: $fs-3xl;
+    font-weight: $fw-light;
+    color: rgba($color-white, .92);
+  }
+
+  &__eyebrow {
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: $color-accent;
+    margin-bottom: $space-2;
+  }
+
+  &__name {
+    font-family: $font-heading;
+    font-size: $fs-2xl;
+    font-weight: $fw-light;
+    color: $color-dark;
+    margin-bottom: $space-3;
+  }
+
+  &__bio {
+    font-size: $fs-sm;
+    color: $color-gray-600;
+    line-height: $lh-normal;
+    margin-bottom: $space-5;
+    max-width: 520px;
+  }
+}
+
+// ── Related artworks + More stories ───────────────────────────────────────────
+.luma-post-related {
+  background: $color-gray-50;
+  padding: clamp($space-12, 6vw, $space-16) 0;
+
+  &__header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: $space-8;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: $fs-2xl;
+    font-weight: $fw-light;
+    color: $color-dark;
+  }
+
+  &__link {
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: $color-accent;
+    text-decoration: none;
+  }
+}
+
+.luma-post-more {
+  padding: clamp($space-12, 6vw, $space-16) 0;
+
+  &__title {
+    font-family: $font-heading;
+    font-size: $fs-2xl;
+    font-weight: $fw-light;
+    color: $color-dark;
+    margin-bottom: $space-8;
+  }
+}
+
+// ── Closing CTA ───────────────────────────────────────────────────────────────
+.luma-post-cta {
+  background: $color-dark;
+  color: $color-white;
+  padding: clamp($space-16, 9vw, $space-24) 0;
+  text-align: center;
+
+  &__inner { max-width: 520px; margin: 0 auto; }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: clamp($fs-2xl, 4vw, $fs-4xl);
+    font-weight: $fw-light;
+    line-height: $lh-tight;
+    margin-bottom: $space-4;
+  }
+
+  &__text {
+    color: $color-gray-400;
+    line-height: $lh-normal;
+    margin-bottom: $space-8;
+  }
+}

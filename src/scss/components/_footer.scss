@@ -112,6 +112,34 @@
     }
   }
 
+  // Oversized editorial wordmark — bleeds off the right edge (overflow-clipped,
+  // so it never introduces horizontal page scroll). Interactive via distort.
+  &__wordmark-row {
+    overflow: hidden;
+    border-top: 1px solid rgba($color-white, .06);
+    padding: clamp($space-8, 5vw, $space-16) 0 0;
+  }
+
+  &__wordmark {
+    display: block;
+    max-width: $container-max;
+    margin-inline: auto;
+    padding-inline: $container-padding;
+    font-family: 'Playfair Display', $font-heading;
+    font-size: clamp(56px, 15vw, 260px);
+    font-weight: $fw-regular;
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    white-space: nowrap;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba($color-white, .14);
+    user-select: none;
+
+    @supports not (-webkit-text-stroke: 1px white) {
+      color: rgba($color-white, .10);
+    }
+  }
+
   // Bottom bar
   &__bottom {
     border-top: 1px solid rgba($color-white, .06);

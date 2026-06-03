@@ -20,9 +20,14 @@
     display: flex;
     flex-direction: column;
     gap: $space-5;
-    padding: $space-12;
+    padding: clamp($space-8, 4vw, $space-16) clamp($space-6, 3vw, $space-12);
     border-right: 1px solid $color-gray-200;
     position: relative;
+    overflow: hidden;
+    transition: background $t-mid $t-ease;
+
+    &:hover { background: $color-gray-50; }
+    &:hover .luma-how-it-works__num { color: $color-accent; opacity: .16; transform: translate(8%, 8%); }
 
     &:last-child { border-right: none; }
 
@@ -35,15 +40,16 @@
 
   &__num {
     font-family: $font-heading;
-    font-size: $fs-6xl;
+    font-size: clamp($fs-5xl, 11vw, $fs-7xl);
     font-weight: $fw-light;
-    color: $color-accent;
-    line-height: 1;
-    opacity: .15;
+    color: $color-gray-900;
+    line-height: 0.8;
+    opacity: .07;
     position: absolute;
-    top: $space-8;
-    right: $space-8;
+    bottom: -0.12em;
+    right: $space-4;
     pointer-events: none;
+    transition: color $t-mid $t-ease, opacity $t-mid $t-ease, transform $t-mid $t-ease;
   }
 
   &__title {

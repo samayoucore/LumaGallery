@@ -18,18 +18,18 @@ body {
 
   // Hero display — maximum impact
   &--display {
-    font-size: clamp($fs-4xl, 7.5vw, $fs-7xl);
+    font-size: clamp($fs-4xl, 8vw, $fs-7xl);
     font-weight: $fw-light;
-    letter-spacing: -0.03em;
-    line-height: 0.95;
+    letter-spacing: -0.035em;
+    line-height: 0.9;
   }
 
   // Section heading
   &--section {
-    font-size: clamp($fs-3xl, 5vw, $fs-5xl);
+    font-size: clamp($fs-3xl, 5.5vw, $fs-5xl);
     font-weight: $fw-light;
-    letter-spacing: -0.02em;
-    line-height: $lh-tight;
+    letter-spacing: -0.025em;
+    line-height: 1.02;
   }
 
   // Card heading
@@ -53,27 +53,26 @@ body {
 .luma-section__label {
   display: inline-flex;
   align-items: center;
-  gap: $space-2;
+  gap: $space-3;
   font-family: $font-body;
   font-size: $fs-xs;
-  font-weight: $fw-semibold;
-  letter-spacing: 0.18em;
+  font-weight: $fw-bold;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: $color-accent;
-  margin-bottom: $space-4;
+  margin-bottom: $space-5;
 
   &::before {
     content: '';
     display: block;
-    width: 20px;
-    height: 1.5px;
+    width: 8px;
+    height: 8px;
     background: currentColor;
     flex-shrink: 0;
+    transform: rotate(45deg); // brutalist accent lozenge
   }
 
-  &--light {
-    color: rgba($color-white, .5);
-  }
+  &--light { color: rgba($color-white, .55); }
 }
 
 // ─── Text utilities ───────────────────────────────────────────────────────────

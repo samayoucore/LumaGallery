@@ -1,0 +1,110 @@
+// ─── Luma Gallery — Distorted Text ────────────────────────────────────────────
+//
+// Per-letter spans (.luma-distort__char) are produced by distorted-text.js for
+// every .js-distort-text target — the interactive band below AND the oversized
+// page-hero words. The RAF loop owns the transform, so no CSS transition here
+// (it would fight the easing).
+
+.luma-distort__char {
+  display: inline-block;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+// ─── Signature interactive band ───────────────────────────────────────────────
+.luma-distort {
+  position: relative;
+  overflow: hidden;
+  background: $color-dark;
+  color: $color-white;
+  padding: clamp($space-16, 12vw, $space-32) 0;
+  isolation: isolate;
+
+  // Soft accent glow, off-centre — depth without noise
+  &::before {
+    content: '';
+    position: absolute;
+    width: 60vw; height: 60vw;
+    top: -20%; right: -10%;
+    background: radial-gradient(circle, rgba($color-accent, 0.16) 0%, transparent 60%);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  // Faint background word — drifts on scroll (parallax) for layered depth.
+  // Centred with flex (not transform) so parallax JS can own `transform`.
+  &__ghost {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 0;
+    font-family: 'Playfair Display', $font-heading;
+    font-size: clamp(140px, 38vw, 620px);
+    font-weight: $fw-regular;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: rgba($color-white, 0.025);
+    pointer-events: none;
+    user-select: none;
+    white-space: nowrap;
+  }
+
+  &__inner {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+
+  &__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: $color-accent;
+    margin-bottom: $space-6;
+
+    &::before,
+    &::after {
+      content: '';
+      width: 28px; height: 1px;
+      background: rgba($color-white, 0.25);
+    }
+  }
+
+  // The oversized, hover-broken word
+  &__word {
+    display: inline-block;
+    margin: 0;
+    font-family: 'Playfair Display', $font-heading;
+    font-size: clamp(64px, 17vw, 280px);
+    font-weight: $fw-regular;
+    line-height: 0.86;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+    cursor: default;
+    user-select: none;
+
+    // Outline type — reads like an art installation
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba($color-white, 0.55);
+
+    @supports not (-webkit-text-stroke: 1px white) {
+      color: rgba($color-white, 0.9);
+    }
+
+    @media (max-width: $bp-md) { -webkit-text-stroke-width: 1px; }
+  }
+
+  &__sub {
+    max-width: 440px;
+    margin: $space-8 auto 0;
+    font-size: $fs-base;
+    line-height: $lh-normal;
+    color: $color-gray-400;
+  }
+}

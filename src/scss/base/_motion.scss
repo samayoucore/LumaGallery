@@ -1,0 +1,117 @@
+// ─── Luma Gallery — Motion & Editorial Utilities ──────────────────────────────
+//
+// Scroll-reveal, stagger, parallax, counters and magnetic hooks for
+// animations.js, plus a global reduced-motion safety net and a few
+// art-direction utilities (oversized indices, brutalist rules, marquee).
+//
+// Reveal hiding is gated on BOTH `.js-anim` (added by JS) and
+// `prefers-reduced-motion: no-preference`, so no-JS and reduced-motion users
+// always see fully-visible content.
+
+$ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+
+// Reveals are driven by a one-shot keyframe with `backwards` fill (NOT forwards):
+// during the stagger delay the element shows the hidden `from` state, and once
+// the animation ends the transform reverts to the element's own base — so card
+// hover lifts and magnetic-button transforms keep working afterwards.
+@media (prefers-reduced-motion: no-preference) {
+
+  .js-anim [data-reveal] { opacity: 0; }
+  .js-anim [data-reveal].is-revealed {
+    opacity: 1;
+    animation: luma-reveal-in 0.8s $ease-out-expo backwards;
+  }
+
+  .js-anim [data-reveal-children] > * { opacity: 0; }
+  .js-anim [data-reveal-children].is-revealed > * {
+    opacity: 1;
+    animation: luma-reveal-in 0.7s $ease-out-expo backwards; // animation-delay set inline by JS
+  }
+
+  // Magnetic targets ease back smoothly when the pointer leaves
+  [data-magnetic] { transition: transform 0.3s $ease-out-expo; }
+}
+
+@keyframes luma-reveal-in {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+// ─── Magnetic inner label (optional) ──────────────────────────────────────────
+.luma-magnetic__inner { display: inline-flex; align-items: center; gap: $space-2; }
+
+// ─── Animated counter ─────────────────────────────────────────────────────────
+[data-count] { font-variant-numeric: tabular-nums; }
+
+// ─── Editorial: oversized index / coordinates ─────────────────────────────────
+.luma-index {
+  font-family: $font-heading;
+  font-size: clamp($fs-2xl, 4vw, $fs-5xl);
+  font-weight: $fw-light;
+  line-height: 1;
+  color: $color-gray-300;
+  letter-spacing: -0.02em;
+
+  &--accent { color: $color-accent; }
+}
+
+// Tiny museum-style coordinate / catalogue label
+.luma-coords {
+  font-family: $font-body;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: $color-gray-400;
+}
+
+// ─── Brutalist rule / divider ─────────────────────────────────────────────────
+.luma-rule {
+  width: 100%;
+  height: 1px;
+  background: $color-gray-200;
+  border: 0;
+
+  &--dark   { background: $color-dark-border; }
+  &--accent { background: $color-accent; height: 2px; }
+}
+
+// ─── Marquee (CSS-only, pauses on hover & for reduced motion) ──────────────────
+.luma-marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  user-select: none;
+
+  &__track {
+    display: inline-block;
+    will-change: transform;
+    animation: luma-marquee 26s linear infinite;
+  }
+
+  &:hover &__track { animation-play-state: paused; }
+}
+
+@keyframes luma-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+// ─── Tap targets on touch ─────────────────────────────────────────────────────
+@media (hover: none) and (pointer: coarse) {
+  .luma-button { min-height: 44px; }
+}
+
+// ─── Text selection ───────────────────────────────────────────────────────────
+::selection { background: $color-accent; color: $color-white; }
+
+// ─── Global reduced-motion safety net ─────────────────────────────────────────
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .luma-marquee__track { animation: none !important; }
+}

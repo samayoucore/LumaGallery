@@ -4,14 +4,23 @@
  * Initialises all modules.
  */
 
-import { initCursorLight }  from './modules/cursor-light.js';
-import { initFavorites }    from './modules/favorites.js';
-import { initModals }       from './modules/modals.js';
-import { initGalleryWalk }  from './modules/gallery-walk.js';
-import { initViewInRoom }   from './modules/view-in-room.js';
-import { initAiAssistant }  from './modules/ai-assistant.js';
-import { initAiCurator }    from './modules/ai-curator.js';
-import { initFilters }      from './modules/filters.js';
+import { initCursorLight }   from './modules/cursor-light.js';
+import { initFavorites }     from './modules/favorites.js';
+import { initFavoritesPage } from './modules/favorites-page.js';
+import { initModals }        from './modules/modals.js';
+import { initGalleryWalk }   from './modules/gallery-walk.js';
+import { initViewInRoom }    from './modules/view-in-room.js';
+import { initAiAssistant }   from './modules/ai-assistant.js';
+import { initAiCurator }     from './modules/ai-curator.js';
+import { initFilters }       from './modules/filters.js';
+import { initJournal }       from './modules/journal.js';
+import { initDistortedText } from './modules/distorted-text.js';
+import { initAnimations }    from './modules/animations.js';
+import { initDemoCart }      from './modules/demo-cart.js';
+import { initCheckout }      from './modules/checkout.js';
+import { initRecentlyViewed } from './modules/recently-viewed.js';
+import { initAccount }       from './modules/account.js';
+import { studioInit }        from './modules/studio.js';
 
 // ─── Header scroll behaviour ──────────────────────────────────────────────────
 
@@ -113,56 +122,6 @@ function initReveal() {
   els.forEach( el => io.observe( el ) );
 }
 
-// ─── Cart count (demo mode without WooCommerce) ───────────────────────────────
-
-function initDemoCart() {
-  const lumaData = window.lumaData || {};
-  if ( lumaData.isWooActive === 'yes' ) return;
-
-  try {
-    const cart = JSON.parse( localStorage.getItem( 'luma_demo_cart' ) ) || [];
-    const badges = document.querySelectorAll( '.js-cart-count' );
-    const count  = cart.reduce( ( sum, item ) => sum + ( item.qty || 1 ), 0 );
-    badges.forEach( el => {
-      el.textContent = count;
-      el.style.display = count > 0 ? '' : 'none';
-    } );
-  } catch { /* storage unavailable */ }
-}
-
-function initAddToCartDemo() {
-  const lumaData = window.lumaData || {};
-  if ( lumaData.isWooActive === 'yes' ) return;
-
-  document.addEventListener( 'click', e => {
-    const btn = e.target.closest( '.js-add-to-cart' );
-    if ( !btn ) return;
-    e.preventDefault();
-
-    const id    = btn.dataset.artworkId;
-    const price = btn.dataset.price;
-    const title = btn.closest( '.luma-artwork-card' )?.querySelector( '.luma-artwork-card__title' )?.textContent?.trim() || '';
-
-    try {
-      let cart = JSON.parse( localStorage.getItem( 'luma_demo_cart' ) ) || [];
-      const exists = cart.find( item => item.id === id );
-      if ( !exists ) {
-        cart.push( { id, price, title, qty: 1 } );
-        localStorage.setItem( 'luma_demo_cart', JSON.stringify( cart ) );
-        initDemoCart();
-
-        // Visual feedback
-        btn.textContent = 'Added!';
-        btn.disabled = true;
-        setTimeout( () => {
-          btn.textContent = 'In Cart';
-          btn.disabled = false;
-        }, 2000 );
-      }
-    } catch { /* storage unavailable */ }
-  } );
-}
-
 // ─── Newsletter mock submit ───────────────────────────────────────────────────
 
 function initNewsletter() {
@@ -192,13 +151,20 @@ document.addEventListener( 'DOMContentLoaded', () => {
   initReveal();
   initModals();
   initFavorites();
+  initFavoritesPage();
   initGalleryWalk();
   initViewInRoom();
   initAiAssistant();
   initAiCurator();
   initFilters();
+  initJournal();
   initDemoCart();
-  initAddToCartDemo();
+  initCheckout();
+  initRecentlyViewed();
+  initAccount();
+  studioInit();
   initNewsletter();
   initCursorLight();
+  initAnimations();
+  initDistortedText();
 } );

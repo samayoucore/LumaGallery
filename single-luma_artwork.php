@@ -48,6 +48,10 @@ $status_labels = [
 ];
 $status_label = $status_labels[ $status ] ?? $status_labels['available'];
 
+// Demo-cart data
+$currency  = ( luma_is_woocommerce_active() && function_exists( 'get_woocommerce_currency_symbol' ) ) ? get_woocommerce_currency_symbol() : '€';
+$size_attr = ( $width && $height ) ? "$width × $height cm" : '';
+
 // Artist post (if exists)
 $artist_posts = new WP_Query( [
     'post_type'      => 'luma_artist',
@@ -118,14 +122,26 @@ $recently_viewed_data = wp_json_encode( [
                     <?php if ( luma_is_woocommerce_active() ) : ?>
                         <?php do_action( 'woocommerce_single_product_summary' ); ?>
                     <?php else : ?>
-                        <button class="luma-button luma-button--accent js-add-to-cart"
-                            data-artwork-id="<?php echo esc_attr( $post_id ); ?>"
-                            data-price="<?php echo esc_attr( $price_raw ); ?>">
+                        <?php
+                        $single_cart_attrs = sprintf(
+                            'data-cart-id="%s" data-title="%s" data-artist="%s" data-price="%s" data-currency="%s" data-image="%s" data-gradient="%s" data-url="%s" data-status="%s" data-size="%s" data-technique="%s"',
+                            esc_attr( $post_id ),
+                            esc_attr( $title ),
+                            esc_attr( $artist ),
+                            esc_attr( $price_raw ),
+                            esc_attr( $currency ),
+                            esc_url( $thumb_src ),
+                            esc_attr( $gradient ),
+                            esc_url( $permalink ),
+                            esc_attr( $status ),
+                            esc_attr( $size_attr ),
+                            esc_attr( $technique )
+                        );
+                        ?>
+                        <button type="button" class="luma-button luma-button--accent js-add-to-cart" <?php echo $single_cart_attrs; // already escaped ?>>
                             <?php esc_html_e( 'Add to Cart', 'luma-gallery' ); ?>
                         </button>
-                        <button class="luma-button luma-button--primary js-add-to-cart"
-                            data-artwork-id="<?php echo esc_attr( $post_id ); ?>"
-                            data-price="<?php echo esc_attr( $price_raw ); ?>">
+                        <button type="button" class="luma-button luma-button--primary js-add-to-cart" <?php echo $single_cart_attrs; // already escaped ?>>
                             <?php esc_html_e( 'Buy Now', 'luma-gallery' ); ?>
                         </button>
                     <?php endif; ?>

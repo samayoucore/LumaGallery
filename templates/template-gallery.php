@@ -66,7 +66,7 @@ $color_swatches    = [
                 <p class="luma-page-hero__subtitle"><?php esc_html_e( 'Browse curated artworks by mood, style, technique, and artist', 'luma-gallery' ); ?></p>
             </div>
         </div>
-        <div class="luma-page-hero__word" aria-hidden="true">GALLERY</div>
+        <div class="luma-page-hero__word js-distort-text" aria-hidden="true">GALLERY</div>
     </section>
 
     <!-- ─── Gallery body ─────────────────────────────────────────────────── -->

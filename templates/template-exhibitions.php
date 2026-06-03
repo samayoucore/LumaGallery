@@ -128,7 +128,7 @@ $mood_filters = [ 'Calm', 'Dark', 'Melancholic', 'Romantic', 'Bright', 'Abstract
                 <p class="luma-page-hero__subtitle"><?php esc_html_e( 'Explore artworks through mood, theme, and visual storytelling', 'luma-gallery' ); ?></p>
             </div>
         </div>
-        <div class="luma-page-hero__word" aria-hidden="true">EXHIBITIONS</div>
+        <div class="luma-page-hero__word js-distort-text" aria-hidden="true">EXHIBITIONS</div>
     </section>
 
     <!-- ─── Featured exhibition ───────────────────────────────────────────── -->

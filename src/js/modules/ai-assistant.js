@@ -5,7 +5,7 @@
 
 import { openModal } from './modals.js';
 
-const AI_ASSISTANT_AI_ASSISTANT_MODAL_ID = 'modal-ai-assistant';
+const AI_ASSISTANT_MODAL_ID = 'modal-ai-assistant';
 
 // ─── Template bank ────────────────────────────────────────────────────────────
 

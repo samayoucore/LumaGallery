@@ -1,40 +1,13 @@
-// ─── Luma Gallery — Main SCSS Entry Point ─────────────────────────────────────
-// This file is compiled by Gulp into assets/css/main.min.css
-// Do not add styles directly here — import partials only.
+// Luma Gallery — Main SCSS Entry Point
+// This build intentionally excludes the previous component/section/page
+// partials. The visible site language is now defined by the 2026 art
+// direction system below, with only shared tokens/reset kept.
 
-// ─── Base ─────────────────────────────────────────────────────────────────────
 @import 'base/variables';
 @import 'base/helpers';
 @import 'base/reset';
-@import 'base/typography';
-@import 'base/global';
-
-// ─── Components ───────────────────────────────────────────────────────────────
-@import 'components/buttons';
-@import 'components/badges';
-@import 'components/header';
-@import 'components/footer';
-@import 'components/artwork-card';
-@import 'components/artist-card';
-@import 'components/exhibition-card';
-@import 'components/modal';
-@import 'components/forms';
-
-// ─── Sections ─────────────────────────────────────────────────────────────────
-@import 'sections/hero';
-@import 'sections/gallery-walk';
-@import 'sections/featured-exhibition';
-@import 'sections/popular-artworks';
-@import 'sections/mood-picker';
-@import 'sections/new-artists';
-@import 'sections/how-it-works';
-@import 'sections/ai-curator';
-@import 'sections/cta';
-
-// ─── Pages ────────────────────────────────────────────────────────────────────
-@import 'pages/home';
-@import 'pages/gallery';
-@import 'pages/artwork';
-@import 'pages/artists';
-@import 'pages/artist';
-@import 'pages/exhibitions';
+@import 'pages/art-direction';
+@import 'pages/cart';
+@import 'pages/checkout';
+@import 'pages/account';
+@import 'pages/studio';          // Phase 6C

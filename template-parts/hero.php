@@ -75,11 +75,11 @@ if ( ! $hero_image ) {
                 <?php esc_html_e( 'Enter the Gallery', 'luma-gallery' ); ?> &rarr;
             </a>
             <div class="luma-hero__intro-stats" aria-label="<?php esc_attr_e( 'Gallery statistics', 'luma-gallery' ); ?>">
-                <span><strong>120+</strong> <?php esc_html_e( 'Artworks', 'luma-gallery' ); ?></span>
+                <span><strong data-count="120" data-suffix="+">120+</strong> <?php esc_html_e( 'Artworks', 'luma-gallery' ); ?></span>
                 <span class="luma-hero__intro-sep" aria-hidden="true">/</span>
-                <span><strong>36</strong> <?php esc_html_e( 'Artists', 'luma-gallery' ); ?></span>
+                <span><strong data-count="36">36</strong> <?php esc_html_e( 'Artists', 'luma-gallery' ); ?></span>
                 <span class="luma-hero__intro-sep" aria-hidden="true">/</span>
-                <span><strong>8</strong> <?php esc_html_e( 'Exhibitions', 'luma-gallery' ); ?></span>
+                <span><strong data-count="8">8</strong> <?php esc_html_e( 'Exhibitions', 'luma-gallery' ); ?></span>
             </div>
         </div><!-- .luma-hero__intro -->
 

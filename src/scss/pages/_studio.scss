@@ -1,0 +1,764 @@
+// ─── Artist Studio (Phase 6C) ─────────────────────────────────────────────────
+// Front-end demo of an artist workspace. Built on the 2026 art-direction tokens
+// ($ad-*); editorial / brutalist-clean, not a generic admin dashboard.
+
+$studio-error: #d23b2c;
+
+// [hidden] must win over the grid/flex display of panels & helpers (see gotcha).
+.luma-studio [hidden] { display: none !important; }
+
+.luma-studio { background: $ad-paper; }
+
+// ── Hero ───────────────────────────────────────────────────────────────────────
+.luma-studio__hero {
+  position: relative;
+  overflow: hidden;
+  color: $color-white;
+  padding-top: calc(92px + clamp(#{$space-12}, 8vw, #{$space-20}));
+  padding-bottom: clamp($space-10, 5vw, $space-16);
+  border-bottom: 1px solid $ad-white-line;
+  background:
+    linear-gradient(90deg, rgba($color-white, .06) 1px, transparent 1px) 0 0 / 84px 84px,
+    linear-gradient(rgba($color-white, .045) 1px, transparent 1px) 0 0 / 84px 84px,
+    $ad-ink;
+
+  > .luma-container { position: relative; z-index: 2; }
+}
+
+.luma-studio__word {
+  position: absolute;
+  right: clamp(-30px, -2vw, 40px);
+  bottom: -30px;
+  z-index: 1;
+  font-family: 'Playfair Display', $font-heading;
+  font-size: clamp(72px, 17vw, 280px);
+  line-height: .8;
+  letter-spacing: -.03em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba($color-white, .1);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+.luma-studio__eyebrow {
+  font-size: 10px;
+  font-weight: $fw-bold;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: $ad-accent;
+  margin-bottom: $space-4;
+}
+
+.luma-studio__title {
+  font-family: $font-heading;
+  font-size: clamp(3rem, 7vw, 6rem);
+  font-weight: $fw-light;
+  line-height: .92;
+  letter-spacing: -.02em;
+  margin-bottom: $space-4;
+}
+
+.luma-studio__subtitle { font-size: $fs-md; color: rgba($color-white, .66); max-width: 560px; }
+
+.luma-studio__disclaimer {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  margin-top: $space-6;
+  padding: $space-2 $space-4;
+  border: 1px solid $ad-white-line;
+  font-size: $fs-xs;
+  color: rgba($color-white, .6);
+  svg { flex: 0 0 auto; }
+
+  &--ink {
+    margin-top: $space-5;
+    border-color: $ad-line-strong;
+    color: rgba($ad-ink, .55);
+  }
+}
+
+.luma-studio__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+  margin-top: clamp($space-6, 3vw, $space-10);
+}
+
+.luma-studio__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0 $space-5;
+  border: 1px solid $ad-white-line;
+  font-size: 10px;
+  font-weight: $fw-bold;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba($color-white, .82);
+  text-decoration: none;
+  transition: background .2s $ad-ease, border-color .2s $ad-ease, color .2s $ad-ease;
+  &:hover { background: $ad-accent; border-color: $ad-accent; color: $color-white; }
+}
+
+// ── Body ───────────────────────────────────────────────────────────────────────
+.luma-studio__body { padding-block: clamp($space-12, 7vw, $space-24); }
+
+// ── Profile card ─────────────────────────────────────────────────────────────
+.luma-studio__profile {
+  display: flex;
+  align-items: stretch;
+  gap: clamp($space-5, 3vw, $space-8);
+  padding: clamp($space-5, 3vw, $space-8);
+  border: 1px solid $ad-line-strong;
+  border-left: 3px solid $ad-accent;
+  background: $ad-soft;
+  margin-bottom: clamp($space-10, 5vw, $space-16);
+
+  @media (max-width: $bp-sm) { flex-direction: column; }
+}
+
+.luma-studio__profile-avatar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(64px, 7vw, 88px);
+  height: clamp(64px, 7vw, 88px);
+  border: 1px solid $ad-accent;
+  background: rgba($ad-accent, .1);
+  font-family: $font-heading;
+  font-size: clamp($fs-2xl, 3vw, $fs-3xl);
+  font-weight: $fw-light;
+  letter-spacing: .04em;
+  color: $ad-ink;
+  line-height: 1;
+}
+
+.luma-studio__profile-label {
+  font-size: 10px;
+  font-weight: $fw-bold;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: $ad-accent;
+  margin-bottom: $space-2;
+}
+
+.luma-studio__profile-name {
+  font-family: $font-heading;
+  font-size: clamp($fs-2xl, 4vw, $fs-4xl);
+  font-weight: $fw-light;
+  line-height: .95;
+  letter-spacing: -.02em;
+  color: $ad-ink;
+  margin-bottom: $space-3;
+}
+
+.luma-studio__profile-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2 $space-6;
+  list-style: none;
+  margin-bottom: $space-3;
+
+  li {
+    font-size: $fs-sm;
+    color: $ad-ink;
+    span {
+      display: block;
+      font-size: 9px;
+      font-weight: $fw-bold;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: rgba($ad-ink, .45);
+      margin-bottom: 2px;
+    }
+  }
+}
+
+.luma-studio__profile-note { font-size: $fs-sm; color: rgba($ad-ink, .55); max-width: 60ch; }
+
+// ── Stats ──────────────────────────────────────────────────────────────────────
+.luma-studio__stats {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: clamp($space-3, 2vw, $space-5);
+  margin-bottom: clamp($space-10, 5vw, $space-16);
+
+  @media (max-width: $bp-xl) { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: $bp-md) { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: $bp-sm) { grid-template-columns: 1fr; }
+}
+
+.luma-studio__stat {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  padding: clamp($space-4, 2vw, $space-6);
+  border: 1px solid $ad-line-strong;
+  background: $ad-soft;
+
+  &-value {
+    font-family: $font-heading;
+    font-size: clamp($fs-2xl, 3.5vw, $fs-4xl);
+    font-weight: $fw-light;
+    line-height: .9;
+    letter-spacing: -.02em;
+    color: $ad-ink;
+  }
+  &-label {
+    font-size: 10px;
+    font-weight: $fw-bold;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: rgba($ad-ink, .5);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .js-anim .luma-studio__stat {
+    opacity: 0;
+    animation: luma-studio-stat .6s $ad-ease forwards;
+    animation-delay: calc(var(--i, 0) * 70ms);
+  }
+}
+@keyframes luma-studio-stat { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+// ── Tabs ───────────────────────────────────────────────────────────────────────
+.luma-studio__tabs {
+  display: flex;
+  gap: $space-1;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  border-bottom: 1px solid $ad-line;
+  margin-bottom: clamp($space-8, 4vw, $space-12);
+  &::-webkit-scrollbar { display: none; }
+}
+
+.luma-studio__tab {
+  flex: 0 0 auto;
+  min-height: 48px;
+  padding: 0 clamp($space-3, 2vw, $space-5);
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: rgba($ad-ink, .5);
+  font-size: $fs-xs;
+  font-weight: $fw-bold;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color .2s $ad-ease, border-color .2s $ad-ease;
+
+  &:hover { color: $ad-ink; }
+  &[aria-selected='true'] { color: $ad-ink; border-bottom-color: $ad-accent; }
+  &:focus-visible { outline: 2px solid $ad-accent; outline-offset: -2px; }
+}
+
+// ── Panels ───────────────────────────────────────────────────────────────────
+@media (prefers-reduced-motion: no-preference) {
+  .luma-studio__panel:not([hidden]) { animation: luma-studio-fade .4s $ad-ease; }
+}
+@keyframes luma-studio-fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+.luma-studio__panel-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: $space-4;
+  flex-wrap: wrap;
+  margin-bottom: clamp($space-6, 3vw, $space-10);
+}
+
+.luma-studio__panel-eyebrow,
+.luma-studio__preview-eyebrow {
+  font-size: 10px;
+  font-weight: $fw-bold;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: $ad-accent;
+  margin-bottom: $space-2;
+}
+
+.luma-studio__panel-title {
+  font-family: $font-heading;
+  font-size: clamp($fs-2xl, 4vw, $fs-4xl);
+  font-weight: $fw-light;
+  line-height: 1;
+  letter-spacing: -.02em;
+  color: $ad-ink;
+}
+
+.luma-studio__note {
+  margin-top: clamp($space-8, 4vw, $space-12);
+  padding-top: $space-5;
+  border-top: 1px solid $ad-line;
+  font-size: $fs-sm;
+  color: rgba($ad-ink, .5);
+  max-width: 70ch;
+}
+
+// ── Overview ─────────────────────────────────────────────────────────────────
+.luma-studio__overview-head { margin-bottom: clamp($space-6, 3vw, $space-8); }
+
+.luma-studio__quick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-3;
+  margin-bottom: clamp($space-10, 5vw, $space-16);
+}
+
+.luma-studio__overview-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: clamp($space-8, 4vw, $space-16);
+  align-items: start;
+
+  @media (max-width: $bp-lg) { grid-template-columns: 1fr; gap: clamp($space-10, 6vw, $space-16); }
+}
+
+.luma-studio__subhead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: $space-4;
+  margin-bottom: $space-5;
+  padding-bottom: $space-3;
+  border-bottom: 1px solid $ad-line;
+}
+
+.luma-studio__subhead-title {
+  font-family: $font-heading;
+  font-size: $fs-xl;
+  font-weight: $fw-light;
+  color: $ad-ink;
+}
+
+.luma-studio__subhead-link {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: $fw-bold;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba($ad-ink, .55);
+  transition: color .2s $ad-ease;
+  &:hover { color: $ad-accent; }
+}
+
+// ── Grids of cards ─────────────────────────────────────────────────────────────
+.luma-studio__grid {
+  display: grid;
+  gap: clamp($space-4, 2vw, $space-6);
+
+  &--4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    @media (max-width: $bp-xl) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    @media (max-width: $bp-md) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    @media (max-width: $bp-sm) { grid-template-columns: 1fr; }
+  }
+  &--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    @media (max-width: $bp-xl) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    @media (max-width: $bp-sm) { grid-template-columns: 1fr; }
+  }
+
+  &.is-empty { display: block; }
+}
+
+// ── Artwork card ─────────────────────────────────────────────────────────────
+.luma-studio__card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $ad-line-strong;
+  background: $ad-paper;
+  transition: transform .25s $ad-ease, box-shadow .25s $ad-ease, border-color .25s $ad-ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: $ad-ink;
+    box-shadow: 0 18px 40px -28px rgba($color-black, .5);
+  }
+}
+
+.luma-studio__card-media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  background: $ad-soft;
+}
+
+.luma-studio__card-badge {
+  position: absolute;
+  top: $space-3;
+  left: $space-3;
+  padding: 4px 10px;
+  font-size: 9px;
+  font-weight: $fw-bold;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: $color-white;
+  background: rgba($color-black, .55);
+  border: 1px solid rgba($color-white, .25);
+
+  &--published { background: rgba($color-available, .92); border-color: transparent; }
+  &--draft     { background: rgba($color-black, .6); }
+  &--archived  { background: rgba($color-sold, .9); border-color: transparent; }
+}
+
+.luma-studio__card-body {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  padding: clamp($space-4, 2vw, $space-5);
+}
+
+.luma-studio__card-meta {
+  font-size: 10px;
+  font-weight: $fw-bold;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba($ad-ink, .5);
+}
+
+.luma-studio__card-title {
+  font-family: $font-heading;
+  font-size: $fs-xl;
+  font-weight: $fw-regular;
+  line-height: 1.05;
+  color: $ad-ink;
+}
+
+.luma-studio__card-price { font-size: $fs-base; font-weight: $fw-semibold; color: $ad-ink; }
+
+.luma-studio__card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: $space-1; }
+
+.luma-studio__card-tag {
+  padding: 3px 9px;
+  font-size: 10px;
+  letter-spacing: .04em;
+  color: rgba($ad-ink, .7);
+  border: 1px solid $ad-line;
+  background: $ad-soft;
+}
+
+.luma-studio__card-date {
+  margin-top: auto;
+  padding-top: $space-2;
+  font-size: $fs-xs;
+  color: rgba($ad-ink, .42);
+}
+
+.luma-studio__card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-1;
+  margin-top: $space-3;
+  padding-top: $space-3;
+  border-top: 1px solid $ad-line;
+}
+
+.luma-studio__card-btn {
+  flex: 1 1 auto;
+  min-height: 36px;
+  padding: 6px 10px;
+  background: transparent;
+  border: 1px solid $ad-line-strong;
+  color: rgba($ad-ink, .8);
+  font-size: 10px;
+  font-weight: $fw-bold;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background .18s $ad-ease, color .18s $ad-ease, border-color .18s $ad-ease;
+
+  &:hover { background: $ad-ink; border-color: $ad-ink; color: $color-white; }
+  &:focus-visible { outline: 2px solid $ad-accent; outline-offset: 2px; }
+
+  &--danger:hover { background: $studio-error; border-color: $studio-error; }
+  &.is-confirm { background: $studio-error; border-color: $studio-error; color: $color-white; }
+
+  @media (max-width: $bp-md) { min-height: 44px; }
+}
+
+// ── Split layouts (form + preview / form + list / form + ai output) ───────────
+.luma-studio__split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: clamp($space-8, 4vw, $space-16);
+  align-items: start;
+
+  @media (max-width: $bp-lg) { grid-template-columns: 1fr; }
+
+  &--posts,
+  &--ai { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  &--posts { @media (max-width: $bp-lg) { grid-template-columns: 1fr; } }
+  &--ai    { @media (max-width: $bp-lg) { grid-template-columns: 1fr; } }
+}
+
+// ── Forms ──────────────────────────────────────────────────────────────────────
+.luma-studio__form { display: grid; gap: clamp($space-5, 3vw, $space-8); }
+
+.luma-studio__form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-5;
+
+  @media (max-width: $bp-sm) { grid-template-columns: 1fr; }
+}
+
+.luma-studio__field {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  min-width: 0;
+
+  &--wide { grid-column: 1 / -1; }
+
+  label {
+    font-size: 11px;
+    font-weight: $fw-bold;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: rgba($ad-ink, .6);
+  }
+
+  &.has-error {
+    .luma-input,
+    .luma-select,
+    .luma-textarea {
+      border-color: $studio-error;
+      box-shadow: 0 0 0 3px rgba($studio-error, .14);
+    }
+  }
+}
+
+.luma-studio__req { color: $ad-accent; }
+
+.luma-textarea--sm { min-height: 80px; }
+
+.luma-studio__error {
+  margin: 0;
+  font-size: $fs-xs;
+  color: $studio-error;
+}
+
+.luma-studio__form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-3;
+}
+
+.luma-studio__feedback {
+  margin: 0;
+  padding: $space-3 $space-4;
+  border-left: 3px solid $ad-line-strong;
+  background: $ad-soft;
+  font-size: $fs-sm;
+  color: rgba($ad-ink, .7);
+
+  &:empty { display: none; }
+  &.is-success { border-left-color: $color-available; color: $ad-ink; }
+  &.is-error   { border-left-color: $studio-error; color: $studio-error; }
+}
+
+// ── Live preview ─────────────────────────────────────────────────────────────
+.luma-studio__preview-wrap {
+  position: sticky;
+  top: calc(92px + #{$space-4});
+  @media (max-width: $bp-lg) { position: static; }
+}
+
+.luma-studio__preview { margin-top: $space-3; }
+
+.luma-studio__preview-note { margin-top: $space-3; font-size: $fs-xs; color: rgba($ad-ink, .45); }
+
+.luma-studio__preview-card {
+  border: 1px solid $ad-line-strong;
+  background: $ad-paper;
+}
+
+.luma-studio__preview-media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  background: $ad-soft;
+}
+
+.luma-studio__preview-index {
+  position: absolute;
+  top: $space-3;
+  left: $space-3;
+  font-family: $font-heading;
+  font-size: $fs-sm;
+  letter-spacing: .1em;
+  color: rgba($color-white, .8);
+}
+
+.luma-studio__preview-body {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  padding: clamp($space-4, 2vw, $space-5);
+}
+
+.luma-studio__preview-meta {
+  font-size: 10px;
+  font-weight: $fw-bold;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba($ad-ink, .5);
+}
+
+.luma-studio__preview-title {
+  font-family: $font-heading;
+  font-size: $fs-2xl;
+  font-weight: $fw-light;
+  line-height: 1.02;
+  color: $ad-ink;
+}
+
+.luma-studio__preview-price { font-size: $fs-base; font-weight: $fw-semibold; color: $ad-ink; }
+.luma-studio__preview-desc  { font-size: $fs-sm; color: rgba($ad-ink, .6); line-height: $lh-snug; }
+
+.luma-studio__preview-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: $space-1; }
+.luma-studio__preview-tag {
+  padding: 3px 9px;
+  font-size: 10px;
+  color: rgba($ad-ink, .7);
+  border: 1px solid $ad-line;
+}
+
+// ── Posts ──────────────────────────────────────────────────────────────────────
+.luma-studio__post-list { display: grid; gap: $space-4; &.is-empty { display: block; } }
+
+.luma-studio__post {
+  padding: clamp($space-4, 2vw, $space-5);
+  border: 1px solid $ad-line-strong;
+  background: $ad-paper;
+  transition: border-color .2s $ad-ease;
+  &:hover { border-color: $ad-ink; }
+}
+
+.luma-studio__post-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-3;
+  margin-bottom: $space-3;
+}
+
+.luma-studio__post-topic {
+  font-size: 9px;
+  font-weight: $fw-bold;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: $ad-accent;
+}
+
+.luma-studio__post-status {
+  font-size: 9px;
+  font-weight: $fw-bold;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border: 1px solid $ad-line;
+  &--published { color: $color-available; border-color: rgba($color-available, .4); }
+  &--draft     { color: rgba($ad-ink, .55); }
+}
+
+.luma-studio__post-title {
+  font-family: $font-heading;
+  font-size: $fs-xl;
+  font-weight: $fw-regular;
+  line-height: 1.05;
+  color: $ad-ink;
+  margin-bottom: $space-2;
+}
+
+.luma-studio__post-excerpt { font-size: $fs-sm; color: rgba($ad-ink, .6); line-height: $lh-snug; margin-bottom: $space-2; }
+
+.luma-studio__post-linked {
+  font-size: $fs-xs;
+  color: rgba($ad-ink, .6);
+  span {
+    font-weight: $fw-bold;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: rgba($ad-ink, .42);
+    margin-right: $space-1;
+  }
+}
+
+.luma-studio__post-date { font-size: $fs-xs; color: rgba($ad-ink, .42); margin-top: $space-2; }
+.luma-studio__post .luma-studio__card-actions { margin-top: $space-4; }
+
+// ── AI assistant ─────────────────────────────────────────────────────────────
+.luma-studio__ai-output {
+  border: 1px solid $ad-line-strong;
+  background: $ad-soft;
+  padding: clamp($space-5, 3vw, $space-8);
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.luma-studio__ai-placeholder { font-size: $fs-sm; color: rgba($ad-ink, .5); margin: auto 0; }
+
+.luma-studio__ai-loading {
+  font-size: $fs-sm;
+  font-weight: $fw-semibold;
+  color: $ad-accent;
+  margin: auto 0;
+  &::after { content: ''; }
+}
+
+.luma-studio__ai-result { display: flex; flex-direction: column; gap: $space-4; }
+
+.luma-studio__ai-result-type {
+  font-size: 10px;
+  font-weight: $fw-bold;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: $ad-accent;
+}
+
+.luma-studio__ai-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.luma-studio__ai-chip {
+  padding: 4px 10px;
+  font-size: 11px;
+  color: $ad-ink;
+  border: 1px solid $ad-line-strong;
+  background: $ad-paper;
+}
+
+.luma-studio__ai-actions { display: flex; flex-wrap: wrap; gap: $space-2; }
+
+.luma-studio__ai-feedback {
+  margin: 0;
+  font-size: $fs-xs;
+  color: rgba($ad-ink, .55);
+  &:empty { display: none; }
+  &.is-success { color: $color-available; }
+  &.is-error { color: $studio-error; }
+}
+
+// ── Empty states ─────────────────────────────────────────────────────────────
+.luma-studio__empty {
+  grid-column: 1 / -1;
+  padding: clamp($space-10, 5vw, $space-16);
+  text-align: center;
+  border: 1px dashed $ad-line-strong;
+
+  &-title { font-family: $font-heading; font-size: $fs-2xl; font-weight: $fw-light; color: $ad-ink; margin-bottom: $space-2; }
+  &-text { font-size: $fs-sm; color: rgba($ad-ink, .55); margin-bottom: $space-6; max-width: 46ch; margin-inline: auto; }
+}
+
+// ── Reduced motion ─────────────────────────────────────────────────────────────
+@media (prefers-reduced-motion: reduce) {
+  .luma-studio__card:hover { transform: none; }
+  .js-anim .luma-studio__stat { opacity: 1; animation: none; }
+  .luma-studio__panel:not([hidden]) { animation: none; }
+}

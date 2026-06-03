@@ -10,6 +10,7 @@
 
 export function initCursorLight() {
   if ( window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches ) return;
+  if ( window.matchMedia( '(hover: none), (pointer: coarse)' ).matches ) return;
 
   const hero = document.querySelector( '.luma-hero' );
   if ( !hero ) return;
