@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Luma Gallery static demo for GitHub Pages">
+  <title>Mira Solen | Luma Gallery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.min.css">
+  <script>window.lumaData={"siteUrl":"","themeUrl":"assets","isWooActive":"no","cartUrl":"cart.html","currency":"€","routes":{"home":"index.html","gallery":"gallery.html","artists":"artists.html","exhibitions":"exhibitions.html","journal":"journal.html","favorites":"favorites.html","curator":"ai-curator.html","studio":"studio.html","account":"account.html","cart":"cart.html","checkout":"checkout.html","about":"about.html","search":"search.html"}};</script>
+</head>
+<body class="">
+
+<header class="luma-header js-header" role="banner">
+  <div class="luma-header__inner">
+    <a href="index.html" class="luma-header__logo" aria-label="Luma Gallery">
+      <span class="luma-header__logo-text"><span class="luma-header__logo-luma">Luma</span><span class="luma-header__logo-gallery">Gallery</span></span>
+    </a>
+    <nav class="luma-header__nav" aria-label="Primary navigation"><ul class="luma-header__nav-list"><li class="menu-item"><a href="gallery.html">Gallery</a></li><li class="menu-item"><a href="artists.html">Artists</a></li><li class="menu-item"><a href="exhibitions.html">Exhibitions</a></li><li class="menu-item"><a href="journal.html">Journal</a></li><li class="menu-item"><a href="ai-curator.html">AI Curator</a></li><li class="menu-item"><a href="studio.html">Studio</a></li><li class="menu-item"><a href="about.html">About</a></li></ul></nav>
+    <div class="luma-header__actions">
+      <button class="luma-header__action-btn js-search-toggle" aria-label="Open search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></button>
+      <a href="favorites.html" class="luma-header__action-btn luma-header__action-btn--favorites" aria-label="Favorites"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="luma-header__action-count js-favorites-count" style="display:none;">0</span></a>
+      <a href="cart.html" class="luma-header__action-btn luma-header__action-btn--cart" aria-label="Cart"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="luma-header__action-count js-cart-count" style="display:none;">0</span></a>
+      <a href="account.html" class="luma-header__action-btn" aria-label="Account"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></a>
+      <a href="studio.html" class="luma-button luma-button--ghost luma-header__cta">Become an Artist</a>
+      <button class="luma-header__burger js-menu-toggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="luma-header__mobile-menu js-mobile-menu" aria-hidden="true">
+    <nav class="luma-header__mobile-nav">
+      <ul class="luma-header__mobile-nav-list"><li class="menu-item"><a href="gallery.html">Gallery</a></li><li class="menu-item"><a href="artists.html">Artists</a></li><li class="menu-item"><a href="exhibitions.html">Exhibitions</a></li><li class="menu-item"><a href="journal.html">Journal</a></li><li class="menu-item"><a href="ai-curator.html">AI Curator</a></li><li class="menu-item"><a href="studio.html">Studio</a></li><li class="menu-item"><a href="about.html">About</a></li></ul>
+      <a href="studio.html" class="luma-button luma-button--primary luma-header__mobile-cta">Become an Artist</a>
+    </nav>
+  </div>
+  <div class="luma-header__search js-search-overlay" aria-hidden="true">
+    <div class="luma-header__search-inner">
+      <form class="luma-header__search-form" role="search" method="get" action="search.html">
+        <input class="luma-header__search-input" type="search" name="s" placeholder="Search artworks, artists..." autocomplete="off">
+        <button type="submit" class="luma-header__search-submit" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></button>
+      </form>
+      <button class="luma-header__search-close js-search-close" aria-label="Close search"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+  </div>
+</header>
+<main class="luma-main luma-artist-page" id="main-content"><section class="luma-artist-hero" aria-label="Mira Solen"><div class="luma-artist-hero__cover-placeholder" style="background:linear-gradient(120deg,#3A3530,#5C5550);position:absolute;inset:0;opacity:.3;"></div><div class="luma-artist-hero__gradient" aria-hidden="true"></div><div class="luma-artist-hero__content"><div class="luma-artist-hero__avatar-placeholder" style="background:linear-gradient(120deg,#3A3530,#5C5550);"><span>M</span></div><div class="luma-artist-hero__meta"><h1 class="luma-artist-hero__name">Mira Solen</h1><p class="luma-artist-hero__location"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Paris, France</p><p class="luma-artist-hero__bio">Abstract painter focused on emotional color fields and gestural marks. Her canvases feel like weather systems remembered from within.</p><div class="luma-artist-hero__stats"><div class="luma-artist-hero__stat"><strong>11</strong><span>Works</span></div><div class="luma-artist-hero__stat"><strong>1,510</strong><span>Followers</span></div><div class="luma-artist-hero__stat"><strong>18</strong><span>Sold</span></div></div><div class="luma-artist-hero__actions"><button class="luma-button luma-button--ghost-light js-toggle-favorite" data-artist-id="mira-solen" data-type="artist" aria-pressed="false">Follow Artist</button><a href="https://example.com" class="luma-button luma-button--ghost-light" target="_blank" rel="noopener noreferrer">Contact</a></div></div></div></section><div class="luma-artist-body"><div class="luma-artist-main"><div class="luma-artist-section"><h2 class="luma-artist-section__title">Biography</h2><p>Abstract painter focused on emotional color fields and gestural marks. Her canvases feel like weather systems remembered from within.</p></div><div class="luma-artist-section"><h2 class="luma-artist-section__title">Artist Statement</h2><blockquote><p>A painting begins when color stops behaving like color and starts behaving like temperature.</p></blockquote></div></div><div class="luma-artist-aside"></div></div><section class="luma-artist-artworks"><div class="luma-artist-artworks__header"><h2 class="luma-artist-artworks__title">Artworks by Mira Solen</h2><span class="luma-artist-artworks__count">2</span></div><div class="luma-artist-artworks__grid">
+<article class="luma-artwork-card" data-artwork-id="nocturne-field" data-index="0" data-title="Nocturne Field Mira Solen" data-artist="Mira Solen" data-price="2400" data-style="Abstract" data-mood="Dark" data-technique="Oil" data-color="Black" data-room="Office" data-size="120 x 150 cm" data-status="reserved" data-date="1698000000">
+  <div class="luma-artwork-card__image-wrap">
+    <span class="luma-artwork-card__index" aria-hidden="true">N01</span>
+    <a href="artwork-nocturne-field.html" class="luma-artwork-card__image-link" tabindex="-1">
+      <div class="luma-artwork-card__placeholder" style="background:linear-gradient(120deg,#3A3530,#5C5550);" aria-label="Nocturne Field"></div>
+      <span class="luma-artwork-card__scrim" aria-hidden="true"></span>
+    </a>
+    <span class="luma-badge luma-badge--reserved luma-artwork-card__status-badge">Reserved</span>
+    <div class="luma-artwork-card__overlay" aria-hidden="true">
+      <div class="luma-artwork-card__overlay-actions">
+        <a href="artwork-nocturne-field.html" class="luma-button luma-button--accent luma-button--sm">View Artwork</a>
+        
+        <button class="luma-artwork-card__quick-view js-quick-view js-view-in-room" data-artwork-id="nocturne-field" data-artwork-title="Nocturne Field" data-artwork-size="120 x 150 cm" data-artwork-url="artwork-nocturne-field.html" data-artwork-gradient="linear-gradient(120deg,#3A3530,#5C5550)" aria-label="Quick view"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+      </div>
+    </div>
+    <button class="luma-artwork-card__favorite js-toggle-favorite" data-artwork-id="nocturne-field" data-type="artwork" aria-label="Add to favorites" aria-pressed="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+  </div>
+  <div class="luma-artwork-card__body">
+    <div class="luma-artwork-card__meta"><span class="luma-artwork-card__artist">Mira Solen</span></div>
+    <h3 class="luma-artwork-card__title"><a href="artwork-nocturne-field.html">Nocturne Field</a></h3>
+    <div class="luma-artwork-card__footer">
+      <span class="luma-artwork-card__price">€ 2 400</span>
+      <span class="luma-artwork-card__status luma-artwork-card__status--reserved">Reserved</span>
+    </div>
+  </div>
+</article>
+<article class="luma-artwork-card" data-artwork-id="red-architecture" data-index="1" data-title="Red Architecture Mira Solen" data-artist="Mira Solen" data-price="4100" data-style="Abstract" data-mood="Energetic" data-technique="Acrylic" data-color="Red" data-room="Studio" data-size="130 x 160 cm" data-status="available" data-date="1692000000">
+  <div class="luma-artwork-card__image-wrap">
+    <span class="luma-artwork-card__index" aria-hidden="true">N02</span>
+    <a href="artwork-red-architecture.html" class="luma-artwork-card__image-link" tabindex="-1">
+      <div class="luma-artwork-card__placeholder" style="background:linear-gradient(135deg,#3A1A1A,#5A2A2A);" aria-label="Red Architecture"></div>
+      <span class="luma-artwork-card__scrim" aria-hidden="true"></span>
+    </a>
+    
+    <div class="luma-artwork-card__overlay" aria-hidden="true">
+      <div class="luma-artwork-card__overlay-actions">
+        <a href="artwork-red-architecture.html" class="luma-button luma-button--accent luma-button--sm">View Artwork</a>
+        <button type="button" class="luma-button luma-button--ghost-light luma-button--sm js-add-to-cart" data-cart-id="red-architecture" data-title="Red Architecture" data-artist="Mira Solen" data-price="4100" data-currency="€" data-image="" data-gradient="linear-gradient(135deg,#3A1A1A,#5A2A2A)" data-url="artwork-red-architecture.html" data-status="available" data-size="130 x 160 cm" data-technique="Acrylic">Add to Cart</button>
+        <button class="luma-artwork-card__quick-view js-quick-view js-view-in-room" data-artwork-id="red-architecture" data-artwork-title="Red Architecture" data-artwork-size="130 x 160 cm" data-artwork-url="artwork-red-architecture.html" data-artwork-gradient="linear-gradient(135deg,#3A1A1A,#5A2A2A)" aria-label="Quick view"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+      </div>
+    </div>
+    <button class="luma-artwork-card__favorite js-toggle-favorite" data-artwork-id="red-architecture" data-type="artwork" aria-label="Add to favorites" aria-pressed="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+  </div>
+  <div class="luma-artwork-card__body">
+    <div class="luma-artwork-card__meta"><span class="luma-artwork-card__artist">Mira Solen</span></div>
+    <h3 class="luma-artwork-card__title"><a href="artwork-red-architecture.html">Red Architecture</a></h3>
+    <div class="luma-artwork-card__footer">
+      <span class="luma-artwork-card__price">€ 4 100</span>
+      <span class="luma-artwork-card__status luma-artwork-card__status--available">Available</span>
+    </div>
+  </div>
+</article></div></section><section class="luma-artist-similar"><div class="luma-artist-similar__header"><h2 class="luma-artist-similar__title">Similar Artists</h2></div><div class="luma-artist-similar__grid">
+<article class="luma-artist-card" data-artist-id="elena-morozova" data-index="0" data-style="Minimalist">
+  <a href="artist-elena-morozova.html" class="luma-artist-card__image-link" tabindex="-1">
+    <div class="luma-artist-card__image-wrap">
+      <div class="luma-artist-card__avatar-placeholder" style="background:linear-gradient(135deg,#2C2C2A,#4A4845);"><span class="luma-artist-card__initial">E</span></div>
+      <span class="luma-artist-card__scrim" aria-hidden="true"></span>
+      <span class="luma-artist-card__index" aria-hidden="true">N01</span>
+      <span class="luma-artist-card__view" aria-hidden="true">View profile &rarr;</span>
+    </div>
+  </a>
+  <div class="luma-artist-card__body">
+    <div class="luma-artist-card__head">
+      <h3 class="luma-artist-card__name"><a href="artist-elena-morozova.html">Elena Morozova</a></h3>
+      <span class="luma-artist-card__location"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Moscow, Russia</span>
+    </div>
+    <p class="luma-artist-card__bio">Painter of light and quiet domestic interiors. Working in oil on linen, she studies ordinary rooms...</p>
+    <div class="luma-artist-card__footer">
+      <span class="luma-artist-card__count">14 works</span>
+      <button class="luma-artist-card__follow js-toggle-favorite" data-artist-id="elena-morozova" data-type="artist" aria-label="Follow artist" aria-pressed="false"><span class="luma-artist-card__follow-icon" aria-hidden="true">+</span><span class="luma-artist-card__follow-text">Follow</span></button>
+    </div>
+  </div>
+</article>
+<article class="luma-artist-card" data-artist-id="victor-hale" data-index="1" data-style="Landscape">
+  <a href="artist-victor-hale.html" class="luma-artist-card__image-link" tabindex="-1">
+    <div class="luma-artist-card__image-wrap">
+      <div class="luma-artist-card__avatar-placeholder" style="background:linear-gradient(160deg,#1E2A3A,#2E4A5A);"><span class="luma-artist-card__initial">V</span></div>
+      <span class="luma-artist-card__scrim" aria-hidden="true"></span>
+      <span class="luma-artist-card__index" aria-hidden="true">N02</span>
+      <span class="luma-artist-card__view" aria-hidden="true">View profile &rarr;</span>
+    </div>
+  </a>
+  <div class="luma-artist-card__body">
+    <div class="luma-artist-card__head">
+      <h3 class="luma-artist-card__name"><a href="artist-victor-hale.html">Victor Hale</a></h3>
+      <span class="luma-artist-card__location"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> London, UK</span>
+    </div>
+    <p class="luma-artist-card__bio">Urban landscapes and atmospheric blues. Victor works with acrylic and ink to turn city weather into...</p>
+    <div class="luma-artist-card__footer">
+      <span class="luma-artist-card__count">9 works</span>
+      <button class="luma-artist-card__follow js-toggle-favorite" data-artist-id="victor-hale" data-type="artist" aria-label="Follow artist" aria-pressed="false"><span class="luma-artist-card__follow-icon" aria-hidden="true">+</span><span class="luma-artist-card__follow-text">Follow</span></button>
+    </div>
+  </div>
+</article>
+<article class="luma-artist-card" data-artist-id="anna-weiss" data-index="2" data-style="Minimalist">
+  <a href="artist-anna-weiss.html" class="luma-artist-card__image-link" tabindex="-1">
+    <div class="luma-artist-card__image-wrap">
+      <div class="luma-artist-card__avatar-placeholder" style="background:linear-gradient(145deg,#2A1E1A,#4A3530);"><span class="luma-artist-card__initial">A</span></div>
+      <span class="luma-artist-card__scrim" aria-hidden="true"></span>
+      <span class="luma-artist-card__index" aria-hidden="true">N03</span>
+      <span class="luma-artist-card__view" aria-hidden="true">View profile &rarr;</span>
+    </div>
+  </a>
+  <div class="luma-artist-card__body">
+    <div class="luma-artist-card__head">
+      <h3 class="luma-artist-card__name"><a href="artist-anna-weiss.html">Anna Weiss</a></h3>
+      <span class="luma-artist-card__location"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Berlin, Germany</span>
+    </div>
+    <p class="luma-artist-card__bio">Minimalist print-maker exploring form, pattern and negative space. Anna builds images from restraint, rhythm and soft...</p>
+    <div class="luma-artist-card__footer">
+      <span class="luma-artist-card__count">7 works</span>
+      <button class="luma-artist-card__follow js-toggle-favorite" data-artist-id="anna-weiss" data-type="artist" aria-label="Follow artist" aria-pressed="false"><span class="luma-artist-card__follow-icon" aria-hidden="true">+</span><span class="luma-artist-card__follow-text">Follow</span></button>
+    </div>
+  </div>
+</article></div></section></main>
+
+<footer class="luma-footer" role="contentinfo">
+  <div class="luma-footer__inner">
+    <div class="luma-footer__brand">
+      <a href="index.html" class="luma-footer__logo"><span class="luma-footer__logo-luma">Luma</span><span class="luma-footer__logo-gallery">Gallery</span></a>
+      <p class="luma-footer__tagline">A digital gallery for artworks, artists, and immersive discovery.</p>
+      <div class="luma-footer__social">
+        <a href="#" class="luma-footer__social-link" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></a>
+        <a href="#" class="luma-footer__social-link" aria-label="Pinterest"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></a>
+        <a href="#" class="luma-footer__social-link" aria-label="Twitter / X"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></a>
+      </div>
+    </div>
+    <div class="luma-footer__nav-col">
+      <h4 class="luma-footer__nav-title">Explore</h4>
+      <ul class="luma-footer__nav-list">
+        <li><a href="gallery.html">Gallery</a></li><li><a href="artists.html">Artists</a></li><li><a href="exhibitions.html">Exhibitions</a></li><li><a href="journal.html">Journal</a></li><li><a href="ai-curator.html">AI Curator</a></li>
+      </ul>
+    </div>
+    <div class="luma-footer__nav-col">
+      <h4 class="luma-footer__nav-title">Artists</h4>
+      <ul class="luma-footer__nav-list">
+        <li><a href="studio.html">Artist Studio</a></li><li><a href="artists.html">Meet the Artists</a></li><li><a href="about.html">About Luma</a></li>
+      </ul>
+    </div>
+    <div class="luma-footer__nav-col">
+      <h4 class="luma-footer__nav-title">Newsletter</h4>
+      <p class="luma-footer__newsletter-text">Get curated picks and new exhibitions delivered to your inbox.</p>
+      <form class="luma-footer__newsletter-form js-newsletter-form">
+        <input type="email" class="luma-footer__newsletter-input" placeholder="your@email.com" required>
+        <button type="submit" class="luma-button luma-button--primary luma-footer__newsletter-btn">Subscribe</button>
+      </form>
+    </div>
+  </div>
+  <div class="luma-footer__wordmark-row"><span class="luma-footer__wordmark js-distort-text" aria-hidden="true">LUMA GALLERY</span></div>
+  <div class="luma-footer__bottom">
+    <div class="luma-footer__bottom-inner">
+      <p class="luma-footer__copyright">&copy; 2026 Luma Gallery. All rights reserved.</p>
+      <p class="luma-footer__disclaimer">Static demo project. No real payments are processed. AI features are rule-based simulations.</p>
+      <nav class="luma-footer__legal" aria-label="Legal navigation"><ul class="luma-footer__legal-list"><li><a href="about.html">About</a></li></ul></nav>
+    </div>
+  </div>
+</footer>
+<div class="luma-modal luma-modal--room js-modal" id="modal-view-in-room" role="dialog" aria-modal="true" aria-label="View artwork in a room" aria-hidden="true"><div class="luma-modal__backdrop js-modal-close" tabindex="-1"></div><div class="luma-modal__panel luma-modal__panel--room"><div class="luma-modal__header"><h2 class="luma-modal__title">View in Room</h2><div class="luma-room-switcher"><button class="luma-room-switcher__btn js-room-switch is-active" data-room="living">Living Room</button><button class="luma-room-switcher__btn js-room-switch" data-room="bedroom">Bedroom</button><button class="luma-room-switcher__btn js-room-switch" data-room="office">Office</button></div><button class="luma-modal__close js-modal-close" aria-label="Close"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div><div class="luma-room js-room" data-active-room="living"><div class="luma-room__wall"><div class="luma-room__light" aria-hidden="true"></div><div class="luma-room__light-cone" aria-hidden="true"></div><div class="luma-room__frame js-room-frame"><div class="luma-room__frame-border"><div class="luma-room__frame-mat"><div class="luma-room__frame-image js-room-artwork-image"></div></div></div><div class="luma-room__frame-shadow" aria-hidden="true"></div></div><div class="luma-room__wainscot" aria-hidden="true"></div></div><div class="luma-room__floor" aria-hidden="true"><div class="luma-room__floor-planks"></div></div><div class="luma-room__furniture luma-room__furniture--living js-room-furniture" data-room="living"><div class="luma-room__sofa"><div class="luma-room__sofa-back"></div><div class="luma-room__sofa-seat"></div><div class="luma-room__sofa-cushion luma-room__sofa-cushion--1"></div><div class="luma-room__sofa-cushion luma-room__sofa-cushion--2"></div></div><div class="luma-room__side-table"><div class="luma-room__side-table-top"></div><div class="luma-room__side-table-leg"></div></div><div class="luma-room__plant"><div class="luma-room__plant-pot"></div><div class="luma-room__plant-leaves"></div></div></div><div class="luma-room__furniture luma-room__furniture--bedroom js-room-furniture" data-room="bedroom" style="display:none;"><div class="luma-room__bed"><div class="luma-room__bed-frame"></div><div class="luma-room__bed-mattress"></div><div class="luma-room__bed-pillow luma-room__bed-pillow--1"></div><div class="luma-room__bed-pillow luma-room__bed-pillow--2"></div><div class="luma-room__bed-blanket"></div></div><div class="luma-room__nightstand"><div class="luma-room__nightstand-top"></div><div class="luma-room__nightstand-lamp"><div class="luma-room__lamp-shade"></div><div class="luma-room__lamp-base"></div></div></div></div><div class="luma-room__furniture luma-room__furniture--office js-room-furniture" data-room="office" style="display:none;"><div class="luma-room__desk"><div class="luma-room__desk-top"></div><div class="luma-room__desk-monitor"><div class="luma-room__monitor-screen"></div><div class="luma-room__monitor-stand"></div></div><div class="luma-room__desk-leg luma-room__desk-leg--1"></div><div class="luma-room__desk-leg luma-room__desk-leg--2"></div></div><div class="luma-room__office-chair"><div class="luma-room__chair-back"></div><div class="luma-room__chair-seat"></div></div></div></div><div class="luma-modal__room-info"><div class="luma-modal__room-info-text"><span class="luma-modal__room-info-title js-room-info-title"></span><span class="luma-modal__room-info-size js-room-info-size"></span></div><a href="#" class="luma-button luma-button--primary luma-button--sm js-room-view-link">View Artwork</a></div></div></div>
+<div class="luma-modal luma-modal--ai js-modal" id="modal-ai-assistant" role="dialog" aria-modal="true" aria-label="AI Artist Assistant" aria-hidden="true"><div class="luma-modal__backdrop js-modal-close" tabindex="-1"></div><div class="luma-modal__panel luma-modal__panel--ai"><div class="luma-modal__header"><div class="luma-modal__header-brand"><div class="luma-ai-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><h2 class="luma-modal__title">AI Artist Assistant</h2></div><button class="luma-modal__close js-modal-close" aria-label="Close"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div><div class="luma-ai-panel__tones"><span class="luma-ai-panel__tones-label">Tone:</span><button class="luma-ai-panel__tone-btn js-ai-tone" data-tone="poetic">Poetic</button><button class="luma-ai-panel__tone-btn js-ai-tone is-active" data-tone="gallery">Gallery</button><button class="luma-ai-panel__tone-btn js-ai-tone" data-tone="minimal">Minimal</button><button class="luma-ai-panel__tone-btn js-ai-tone" data-tone="commercial">Commercial</button><button class="luma-ai-panel__tone-btn js-ai-tone" data-tone="social-media">Social Media</button></div><div class="luma-ai-panel__actions"><button class="luma-button luma-button--ghost luma-button--sm js-ai-generate" data-type="description">Generate Description</button><button class="luma-button luma-button--ghost luma-button--sm js-ai-generate" data-type="tags">Suggest Tags</button><button class="luma-button luma-button--ghost luma-button--sm js-ai-generate" data-type="story">Write Story</button><button class="luma-button luma-button--ghost luma-button--sm js-ai-generate" data-type="social">Social Post</button><button class="luma-button luma-button--ghost luma-button--sm js-ai-generate" data-type="seo">SEO Description</button></div><div class="luma-ai-panel__output"><div class="luma-ai-panel__state luma-ai-panel__state--empty js-ai-state-empty"><div class="luma-ai-panel__empty-icon" aria-hidden="true"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><p>Choose a generation type above and the assistant will write for you.</p></div><div class="luma-ai-panel__state luma-ai-panel__state--loading js-ai-state-loading" style="display:none;" aria-live="polite"><div class="luma-ai-panel__loader"><div class="luma-ai-panel__loader-dots"><span></span><span></span><span></span></div><p class="luma-ai-panel__loader-text js-ai-loader-text">Generating...</p></div></div><div class="luma-ai-panel__state luma-ai-panel__state--generated js-ai-state-generated" style="display:none;" aria-live="polite"><div class="luma-ai-panel__generated-type js-ai-generated-type"></div><div class="luma-ai-panel__generated-text js-ai-generated-text" contenteditable="false"></div><div class="luma-ai-panel__generated-actions"><button class="luma-button luma-button--primary luma-button--sm js-ai-apply">Apply</button><button class="luma-button luma-button--ghost luma-button--sm js-ai-copy">Copy</button><button class="luma-button luma-button--ghost luma-button--sm js-ai-regenerate">Regenerate</button><button class="luma-button luma-button--ghost luma-button--sm js-ai-edit">Edit Manually</button></div></div></div><p class="luma-ai-panel__disclaimer"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> Demo AI Assistant. All results are rule-based simulations.</p></div></div>
+<script src="assets/js/main.min.js"></script>
+</body>
+</html>
