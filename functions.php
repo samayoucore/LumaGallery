@@ -98,7 +98,7 @@ add_action( 'wp_enqueue_scripts', function () {
         'siteUrl'        => get_site_url(),
         'themeUrl'       => LUMA_THEME_URI,
         'isWooActive'    => luma_is_woocommerce_active() ? 'yes' : 'no',
-        'cartUrl'        => luma_is_woocommerce_active() ? wc_get_cart_url() : home_url( '/cart-demo/' ),
+        'cartUrl'        => luma_is_woocommerce_active() ? wc_get_cart_url() : home_url( '/cart/' ),
         'favoritesLabel' => __( 'Favorites', 'luma-gallery' ),
         'currency'       => luma_is_woocommerce_active() ? get_woocommerce_currency_symbol() : '€',
     ] );
@@ -182,3 +182,90 @@ function luma_get_artwork_url( int $post_id ): string {
     }
     return get_permalink( $post_id );
 }
+
+// ─── Customizer ─────────────────────────────────────────────────────────────
+
+/**
+ * Boolean sanitizer for checkbox controls.
+ */
+function luma_sanitize_checkbox( $checked ): bool {
+    return ( isset( $checked ) && true === (bool) $checked );
+}
+
+/**
+ * Whether small demo / portfolio disclaimers should be shown.
+ * Controlled via Customizer → Luma Gallery Settings (default: on).
+ */
+function luma_show_demo_notice(): bool {
+    return (bool) get_theme_mod( 'luma_show_demo_notice', true );
+}
+
+/**
+ * Footer tagline — Customizer value with a sensible default.
+ */
+function luma_get_footer_tagline(): string {
+    return (string) get_theme_mod(
+        'luma_footer_tagline',
+        __( 'A digital gallery for artworks, artists, and immersive discovery.', 'luma-gallery' )
+    );
+}
+
+add_action( 'customize_register', function ( $wp_customize ): void {
+
+    $wp_customize->add_section( 'luma_gallery_settings', [
+        'title'       => __( 'Luma Gallery Settings', 'luma-gallery' ),
+        'description' => __( 'Hero image and brand settings for the Luma Gallery theme.', 'luma-gallery' ),
+        'priority'    => 30,
+    ] );
+
+    // 1. Hero image — read by template-parts/hero.php
+    $wp_customize->add_setting( 'luma_hero_image_url', [
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+        'transport'         => 'refresh',
+    ] );
+    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'luma_hero_image_url', [
+        'label'       => __( 'Hero Image', 'luma-gallery' ),
+        'description' => __( 'Optional hero image for the homepage. Falls back to bundled artwork if empty.', 'luma-gallery' ),
+        'section'     => 'luma_gallery_settings',
+    ] ) );
+
+    // 2. Hero image alt text
+    $wp_customize->add_setting( 'luma_hero_image_alt', [
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ] );
+    $wp_customize->add_control( 'luma_hero_image_alt', [
+        'label'       => __( 'Hero Image Alt Text', 'luma-gallery' ),
+        'description' => __( 'Describes the hero image for screen readers.', 'luma-gallery' ),
+        'section'     => 'luma_gallery_settings',
+        'type'        => 'text',
+    ] );
+
+    // 3. Demo notice toggle
+    $wp_customize->add_setting( 'luma_show_demo_notice', [
+        'default'           => true,
+        'sanitize_callback' => 'luma_sanitize_checkbox',
+        'transport'         => 'refresh',
+    ] );
+    $wp_customize->add_control( 'luma_show_demo_notice', [
+        'label'       => __( 'Show demo notice', 'luma-gallery' ),
+        'description' => __( 'Show small demo/portfolio disclaimers where supported.', 'luma-gallery' ),
+        'section'     => 'luma_gallery_settings',
+        'type'        => 'checkbox',
+    ] );
+
+    // 4. Footer tagline
+    $wp_customize->add_setting( 'luma_footer_tagline', [
+        'default'           => __( 'A digital gallery for artworks, artists, and immersive discovery.', 'luma-gallery' ),
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ] );
+    $wp_customize->add_control( 'luma_footer_tagline', [
+        'label'       => __( 'Footer Tagline', 'luma-gallery' ),
+        'description' => __( 'Short brand line shown in the footer.', 'luma-gallery' ),
+        'section'     => 'luma_gallery_settings',
+        'type'        => 'text',
+    ] );
+} );

@@ -9,7 +9,7 @@
                 <span class="luma-footer__logo-luma">Luma</span><span class="luma-footer__logo-gallery">Gallery</span>
             </a>
             <p class="luma-footer__tagline">
-                <?php esc_html_e( 'A premium digital gallery for discovering, curating, and collecting original artworks.', 'luma-gallery' ); ?>
+                <?php echo esc_html( luma_get_footer_tagline() ); ?>
             </p>
             <div class="luma-footer__social">
                 <a href="#" class="luma-footer__social-link" aria-label="Instagram">
@@ -77,9 +77,11 @@
                 &copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> Luma Gallery.
                 <?php esc_html_e( 'All rights reserved.', 'luma-gallery' ); ?>
             </p>
-            <p class="luma-footer__disclaimer">
-                <?php esc_html_e( 'Demo project — no real payments are processed. AI features are rule-based simulations, not real AI APIs.', 'luma-gallery' ); ?>
-            </p>
+            <?php if ( luma_show_demo_notice() ) : ?>
+                <p class="luma-footer__disclaimer">
+                    <?php esc_html_e( 'Demo project — no real payments are processed. AI features are rule-based simulations, not real AI APIs.', 'luma-gallery' ); ?>
+                </p>
+            <?php endif; ?>
             <nav class="luma-footer__legal" aria-label="<?php esc_attr_e( 'Legal navigation', 'luma-gallery' ); ?>">
                 <?php
                 wp_nav_menu( [
