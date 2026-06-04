@@ -1,0 +1,70 @@
+// ─── Luma Gallery — How It Works ─────────────────────────────────────────────
+
+.luma-how-it-works {
+  background: $color-white;
+  border-top: 1px solid $color-gray-200;
+  border-bottom: 1px solid $color-gray-200;
+
+  &__steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $space-1;
+
+    @media (max-width: $bp-md) {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+  }
+
+  &__step {
+    display: flex;
+    flex-direction: column;
+    gap: $space-5;
+    padding: clamp($space-8, 4vw, $space-16) clamp($space-6, 3vw, $space-12);
+    border-right: 1px solid $color-gray-200;
+    position: relative;
+    overflow: hidden;
+    transition: background $t-mid $t-ease;
+
+    &:hover { background: $color-gray-50; }
+    &:hover .luma-how-it-works__num { color: $color-accent; opacity: .16; transform: translate(8%, 8%); }
+
+    &:last-child { border-right: none; }
+
+    @media (max-width: $bp-md) {
+      border-right: none;
+      border-bottom: 1px solid $color-gray-200;
+      &:last-child { border-bottom: none; }
+    }
+  }
+
+  &__num {
+    font-family: $font-heading;
+    font-size: clamp($fs-5xl, 11vw, $fs-7xl);
+    font-weight: $fw-light;
+    color: $color-gray-900;
+    line-height: 0.8;
+    opacity: .07;
+    position: absolute;
+    bottom: -0.12em;
+    right: $space-4;
+    pointer-events: none;
+    transition: color $t-mid $t-ease, opacity $t-mid $t-ease, transform $t-mid $t-ease;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: $fs-2xl;
+    font-weight: $fw-light;
+    color: $color-dark;
+    letter-spacing: -0.02em;
+    position: relative;
+  }
+
+  &__text {
+    font-size: $fs-base;
+    line-height: $lh-loose;
+    color: $color-gray-500;
+    max-width: 280px;
+  }
+}

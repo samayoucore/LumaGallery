@@ -1,0 +1,14 @@
+// Luma Gallery — Main SCSS Entry Point
+// This build intentionally excludes the previous component/section/page
+// partials. The visible site language is now defined by the 2026 art
+// direction system below, with only shared tokens/reset kept.
+
+@import 'base/variables';
+@import 'base/helpers';
+@import 'base/reset';
+@import 'pages/art-direction';
+@import 'pages/cart';
+@import 'pages/checkout';
+@import 'pages/account';
+@import 'pages/studio';          // Phase 6C
+@import 'pages/service-pages';   // Phase 7A (about / search / 404)

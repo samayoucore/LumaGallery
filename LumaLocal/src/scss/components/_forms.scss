@@ -1,0 +1,181 @@
+// ─── Luma Gallery — Forms ─────────────────────────────────────────────────────
+
+.luma-form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-5;
+}
+
+.luma-field {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+
+  &__label {
+    font-size: $fs-xs;
+    font-weight: $fw-medium;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: $color-gray-dark;
+  }
+
+  &__input,
+  &__textarea,
+  &__select {
+    width: 100%;
+    padding: $space-3 $space-4;
+    background: $color-white;
+    border: 1px solid $color-beige;
+    border-radius: $radius-md;
+    font-size: $fs-base;
+    font-family: $font-body;
+    color: $color-charcoal;
+    transition: border-color $t-fast, box-shadow $t-fast;
+    appearance: none;
+
+    &::placeholder { color: $color-gray-mid; }
+
+    &:focus {
+      border-color: $color-gold;
+      box-shadow: 0 0 0 3px rgba($color-gold, .12);
+    }
+
+    // Dark variant
+    &--dark {
+      background: rgba($color-ivory, .06);
+      border-color: rgba($color-ivory, .12);
+      color: $color-ivory;
+
+      &::placeholder { color: rgba($color-ivory, .35); }
+      &:focus { border-color: rgba($color-gold, .6); }
+    }
+  }
+
+  &__textarea {
+    resize: vertical;
+    min-height: 120px;
+    line-height: $lh-normal;
+  }
+
+  &__select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 7L11 1' stroke='%234A4845' stroke-width='1.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right $space-4 center;
+    padding-right: $space-10;
+  }
+
+  // Validation
+  &.has-error {
+    .luma-field__input,
+    .luma-field__textarea,
+    .luma-field__select {
+      border-color: #C0392B;
+    }
+  }
+
+  &.has-success {
+    .luma-field__input,
+    .luma-field__textarea,
+    .luma-field__select {
+      border-color: $color-available;
+    }
+  }
+
+  &__error {
+    font-size: $fs-xs;
+    color: #C0392B;
+    display: flex;
+    align-items: center;
+    gap: $space-1;
+  }
+
+  &__hint {
+    font-size: $fs-xs;
+    color: $color-gray-mid;
+  }
+
+  // Checkbox / Radio
+  &__checkbox-wrap,
+  &__radio-wrap {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    cursor: pointer;
+  }
+
+  &__checkbox,
+  &__radio {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    border: 1.5px solid $color-beige;
+    background: $color-white;
+    cursor: pointer;
+    appearance: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color $t-fast, background $t-fast;
+
+    &:checked {
+      background: $color-charcoal;
+      border-color: $color-charcoal;
+
+      &::after {
+        content: '';
+        display: block;
+      }
+    }
+  }
+
+  &__checkbox {
+    border-radius: $radius-sm;
+
+    &:checked::after {
+      width: 5px;
+      height: 8px;
+      border: 2px solid $color-ivory;
+      border-top: none;
+      border-left: none;
+      transform: rotate(45deg) translate(-1px, -1px);
+    }
+  }
+
+  &__radio {
+    border-radius: 50%;
+
+    &:checked::after {
+      width: 6px;
+      height: 6px;
+      background: $color-ivory;
+      border-radius: 50%;
+    }
+  }
+
+  &__checkbox-label,
+  &__radio-label {
+    font-size: $fs-sm;
+    color: $color-gray-dark;
+    cursor: pointer;
+  }
+
+  // Price range
+  &__range {
+    width: 100%;
+    appearance: none;
+    height: 2px;
+    background: $color-beige;
+    border-radius: $radius-full;
+    cursor: pointer;
+
+    &::-webkit-slider-thumb {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      background: $color-charcoal;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  }
+}

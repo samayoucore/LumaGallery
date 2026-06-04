@@ -1,0 +1,306 @@
+// ─── AI Curator Page ──────────────────────────────────────────────────────────
+
+.luma-page--curator { background: $color-white; }
+
+// ── Hero (dark, premium) ──────────────────────────────────────────────────────
+.luma-curator-hero {
+  background: $color-dark;
+  color: $color-white;
+  position: relative;
+  overflow: hidden;
+  padding-top: calc(#{$header-height} + clamp(#{$space-12}, 8vw, #{$space-20}));
+  padding-bottom: clamp($space-10, 5vw, $space-16);
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 80% 0%, rgba($color-accent, .14) 0%, transparent 45%);
+    pointer-events: none;
+  }
+
+  > .luma-container { position: relative; z-index: 2; }
+
+  &__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: $color-accent;
+    margin-bottom: $space-4;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: clamp($fs-4xl, 8vw, $fs-6xl);
+    font-weight: $fw-light;
+    line-height: $lh-tight;
+    letter-spacing: -0.02em;
+    margin-bottom: $space-4;
+  }
+
+  &__subtitle {
+    font-size: $fs-md;
+    color: $color-gray-400;
+    max-width: 540px;
+    line-height: $lh-normal;
+    margin-bottom: $space-5;
+  }
+
+  &__disclaimer {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+    font-size: $fs-xs;
+    color: $color-gray-500;
+    border: 1px solid $color-dark-border;
+    border-radius: $radius-full;
+    padding: $space-1 $space-4;
+  }
+}
+
+// ── Body + layout ─────────────────────────────────────────────────────────────
+.luma-curator-body {
+  background: $color-gray-50;
+  padding-top: clamp($space-10, 5vw, $space-16);
+  padding-bottom: clamp($space-16, 8vw, $space-24);
+}
+
+.luma-curator-layout {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: clamp($space-8, 4vw, $space-16);
+  align-items: start;
+
+  @media (max-width: $bp-lg) { grid-template-columns: 1fr; }
+}
+
+// ── Form panel ────────────────────────────────────────────────────────────────
+.luma-curator-panel {
+  position: sticky;
+  top: calc(#{$header-height} + #{$space-4});
+
+  @media (max-width: $bp-lg) { position: static; }
+}
+
+.luma-curator-form {
+  background: $color-white;
+  border: 1px solid $color-gray-200;
+  border-radius: $radius-lg;
+  padding: clamp($space-5, 3vw, $space-8);
+  box-shadow: $shadow-sm;
+
+  &__hint {
+    margin-top: $space-4;
+    font-size: $fs-xs;
+    color: $color-gray-400;
+    line-height: $lh-normal;
+  }
+}
+
+.luma-curator-field {
+  & + & { margin-top: $space-4; }
+
+  &__label {
+    display: block;
+    font-size: 10px;
+    font-weight: $fw-semibold;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: $color-gray-500;
+    margin-bottom: $space-2;
+  }
+}
+
+.luma-curator-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-4;
+  margin: $space-5 0;
+
+  @media (max-width: $bp-sm) { grid-template-columns: 1fr; }
+
+  .luma-curator-field + .luma-curator-field { margin-top: 0; }
+}
+
+.luma-textarea {
+  width: 100%;
+  padding: $space-3 $space-4;
+  border: 1px solid $color-gray-200;
+  border-radius: $radius-md;
+  font-family: $font-body;
+  font-size: $fs-sm;
+  line-height: $lh-normal;
+  color: $color-dark;
+  background: $color-white;
+  resize: vertical;
+  min-height: 84px;
+  transition: border-color $t-fast, box-shadow $t-fast;
+
+  &::placeholder { color: $color-gray-400; }
+  &:focus {
+    border-color: $color-dark;
+    box-shadow: 0 0 0 3px rgba($color-dark, .06);
+    outline: none;
+  }
+}
+
+.luma-curator-submit {
+  width: 100%;
+  justify-content: center;
+  margin-top: $space-2;
+}
+
+// ── Results ───────────────────────────────────────────────────────────────────
+.luma-curator-results-wrap { min-width: 0; }
+
+.luma-curator-summary {
+  font-family: $font-heading;
+  font-size: clamp($fs-lg, 2.4vw, $fs-2xl);
+  font-weight: $fw-light;
+  color: $color-dark;
+  line-height: $lh-snug;
+  margin-bottom: $space-8;
+  padding-left: $space-5;
+  border-left: 2px solid $color-accent;
+}
+
+// Loader
+.luma-curator-loader {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  padding: $space-6 0 $space-8;
+  color: $color-gray-500;
+  font-size: $fs-sm;
+
+  &__dots {
+    display: inline-flex;
+    gap: 5px;
+
+    span {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: $color-accent;
+      animation: luma-curator-bounce 1.2s infinite ease-in-out both;
+    }
+    span:nth-child(1) { animation-delay: -0.24s; }
+    span:nth-child(2) { animation-delay: -0.12s; }
+  }
+}
+
+@keyframes luma-curator-bounce {
+  0%, 80%, 100% { transform: scale(0.4); opacity: .4; }
+  40%           { transform: scale(1);   opacity: 1; }
+}
+
+// Per-card explanation chips
+.luma-curator-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-1;
+  margin-top: $space-3;
+}
+
+.luma-curator-chip.luma-chip {
+  background: $color-accent-light;
+  border-color: rgba($color-accent, .25);
+  color: $color-accent;
+  font-weight: $fw-medium;
+}
+
+// Empty state
+.luma-curator-empty {
+  text-align: center;
+  padding: clamp($space-12, 6vw, $space-20) $space-6;
+  background: $color-white;
+  border: 1px dashed $color-gray-300;
+  border-radius: $radius-lg;
+
+  &__title {
+    font-family: $font-heading;
+    font-size: clamp($fs-xl, 3vw, $fs-3xl);
+    font-weight: $fw-light;
+    color: $color-dark;
+    margin-bottom: $space-3;
+  }
+
+  &__text {
+    font-size: $fs-sm;
+    color: $color-gray-500;
+    margin-bottom: $space-6;
+  }
+}
+
+// ── How it works ──────────────────────────────────────────────────────────────
+.luma-curator-how {
+  background: $color-white;
+  padding: clamp($space-16, 8vw, $space-24) 0;
+  border-top: 1px solid $color-gray-200;
+
+  &__header {
+    text-align: center;
+    margin-bottom: clamp($space-10, 5vw, $space-16);
+  }
+
+  &__eyebrow {
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: $color-accent;
+    margin-bottom: $space-3;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: clamp($fs-2xl, 4vw, $fs-4xl);
+    font-weight: $fw-light;
+    color: $color-dark;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp($space-6, 3vw, $space-12);
+    max-width: $container-max;
+    margin: 0 auto;
+
+    @media (max-width: $bp-md) { grid-template-columns: 1fr; gap: $space-8; }
+  }
+
+  &__col { border-top: 2px solid $color-dark; padding-top: $space-5; }
+
+  &__num {
+    font-family: $font-heading;
+    font-size: $fs-xl;
+    color: $color-accent;
+    display: block;
+    margin-bottom: $space-3;
+  }
+
+  &__col-title {
+    font-family: $font-heading;
+    font-size: $fs-xl;
+    font-weight: $fw-regular;
+    color: $color-dark;
+    margin-bottom: $space-3;
+  }
+
+  &__col-text {
+    font-size: $fs-sm;
+    color: $color-gray-600;
+    line-height: $lh-loose;
+  }
+
+  &__note {
+    text-align: center;
+    margin-top: clamp($space-10, 5vw, $space-16);
+    font-size: $fs-xs;
+    color: $color-gray-400;
+    letter-spacing: 0.04em;
+  }
+}

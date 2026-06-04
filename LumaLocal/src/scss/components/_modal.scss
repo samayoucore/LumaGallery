@@ -1,0 +1,453 @@
+// ─── Luma Gallery — Modals ────────────────────────────────────────────────────
+
+.luma-modal {
+  position: fixed;
+  inset: 0;
+  z-index: $z-modal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity $t-mid $t-ease;
+
+  &[aria-hidden='false'],
+  &.is-open {
+    opacity: 1;
+    pointer-events: all;
+
+    .luma-modal__panel {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  &__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba($color-dark, .80);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+
+  &__panel {
+    position: relative;
+    z-index: 1;
+    background: $color-white;
+    border-radius: $radius-xl;
+    width: 90vw;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    transform: translateY(28px);
+    opacity: 0;
+    transition: transform $t-mid $t-ease, opacity $t-mid $t-ease;
+    box-shadow: $shadow-xl;
+
+    &--room { max-width: 920px; max-height: 85vh; }
+    &--ai   { max-width: 700px; }
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-4;
+    padding: $space-5 $space-6;
+    border-bottom: 1px solid $color-gray-200;
+    flex-wrap: wrap;
+  }
+
+  &__header-brand {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: $fs-xl;
+    font-weight: $fw-light;
+    color: $color-dark;
+    letter-spacing: -0.01em;
+  }
+
+  &__close {
+    width: 36px; height: 36px;
+    border-radius: $radius-md;
+    display: flex; align-items: center; justify-content: center;
+    color: $color-gray-400;
+    flex-shrink: 0;
+    transition: background $t-fast, color $t-fast;
+    margin-left: auto;
+
+    &:hover { background: $color-gray-100; color: $color-dark; }
+  }
+
+  // Room modal info bar
+  &__room-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-4;
+    padding: $space-4 $space-6;
+    border-top: 1px solid $color-gray-200;
+  }
+
+  &__room-info-text {
+    display: flex;
+    flex-direction: column;
+    gap: $space-1;
+  }
+
+  &__room-info-title {
+    font-family: $font-heading;
+    font-size: $fs-lg;
+    font-weight: $fw-light;
+    color: $color-dark;
+  }
+
+  &__room-info-size {
+    font-size: $fs-xs;
+    color: $color-gray-400;
+  }
+}
+
+// ── Room switcher ─────────────────────────────────────────────────────────────
+
+.luma-room-switcher {
+  display: flex;
+  gap: $space-1;
+  background: $color-gray-100;
+  border-radius: $radius-md;
+  padding: $space-1;
+
+  &__btn {
+    padding: $space-2 $space-4;
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: $color-gray-400;
+    border-radius: $radius-sm;
+    transition: all $t-fast;
+
+    &.is-active, &:hover {
+      background: $color-white;
+      color: $color-dark;
+      box-shadow: $shadow-sm;
+    }
+  }
+}
+
+// ── CSS Room scene ────────────────────────────────────────────────────────────
+
+.luma-room {
+  position: relative;
+  height: 420px;
+  overflow: hidden;
+  background: $color-gray-50;
+
+  @media (max-width: $bp-md) { height: 300px; }
+
+  &__wall {
+    position: absolute;
+    inset: 0;
+    bottom: 28%;
+    background: #EDEAE6;
+    overflow: hidden;
+  }
+
+  &__wainscot {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 70px;
+    background: #E0DCD7;
+    border-top: 2px solid #D4D0CB;
+  }
+
+  &__light {
+    position: absolute;
+    top: -30px; left: 50%;
+    transform: translateX(-50%);
+    width: 6px; height: 45px;
+    background: #C8C5C0;
+    border-radius: 2px;
+    z-index: 3;
+  }
+
+  &__light-cone {
+    position: absolute;
+    top: 15px; left: 50%;
+    transform: translateX(-50%);
+    width: 0; height: 0;
+    border-left: 100px solid transparent;
+    border-right: 100px solid transparent;
+    border-top: 220px solid rgba(255, 250, 235, .10);
+    z-index: 1;
+  }
+
+  &__floor {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 28%;
+    background: #C4A882;
+    overflow: hidden;
+  }
+
+  &__floor-planks {
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 79px,
+      rgba(0,0,0,.05) 80px
+    );
+  }
+
+  // Frame
+  &__frame {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -62%);
+    z-index: 2;
+  }
+
+  &__frame-border {
+    background: #7A6545;
+    padding: 6px;
+    box-shadow: $shadow-artwork;
+    border-radius: 1px;
+  }
+
+  &__frame-mat {
+    background: #F5F1EA;
+    padding: 14px;
+  }
+
+  &__frame-image {
+    width: 200px; height: 160px;
+    background: $color-gray-200;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @media (max-width: $bp-md) { width: 150px; height: 120px; }
+
+    img, div {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__frame-shadow {
+    position: absolute;
+    bottom: -10px; left: 8%; right: 8%;
+    height: 16px;
+    background: rgba(0,0,0,.18);
+    filter: blur(7px);
+    z-index: -1;
+  }
+
+  // Sofa
+  &__sofa {
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 270px;
+  }
+
+  &__sofa-back     { height: 56px; background: #4E4440; border-radius: 4px 4px 0 0; margin-inline: 6px; }
+  &__sofa-seat     { height: 34px; background: #5C5250; border-radius: 0 0 4px 4px; margin-top: 2px; }
+  &__sofa-cushion  {
+    position: absolute; bottom: 34px; width: 84px; height: 48px;
+    background: #655C58; border-radius: 3px;
+    &--1 { left: 18px; }
+    &--2 { right: 18px; }
+  }
+
+  // Side table
+  &__side-table { position: absolute; bottom: 0; right: calc(50% - 185px); width: 46px; }
+  &__side-table-top { height: 7px; background: #7A6545; border-radius: 2px; }
+  &__side-table-leg { width: 3px; height: 28px; background: #7A6545; margin: 0 auto; }
+
+  // Plant
+  &__plant { position: absolute; bottom: 0; left: calc(50% - 210px); }
+  &__plant-pot { width: 28px; height: 22px; background: #9E7A5A; border-radius: 0 0 4px 4px; margin: 0 auto; }
+  &__plant-leaves {
+    width: 48px; height: 56px; margin: 0 auto -3px;
+    background: radial-gradient(ellipse, #3E6B42 40%, transparent 70%),
+                radial-gradient(ellipse at 30% 50%, #2E5032 40%, transparent 65%),
+                radial-gradient(ellipse at 70% 50%, #2E5032 40%, transparent 65%);
+  }
+
+  // Bed
+  &__bed { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 250px; }
+  &__bed-frame   { height: 14px; background: #6A5040; border-radius: 2px 2px 0 0; }
+  &__bed-mattress { height: 38px; background: #ECE6DE; margin-top: 2px; }
+  &__bed-blanket  { height: 26px; background: #7888A0; margin-top: 2px; border-radius: 0 0 2px 2px; }
+  &__bed-pillow   {
+    position: absolute; top: 14px; width: 76px; height: 34px;
+    background: #F0EAE0; border-radius: 3px;
+    &--1 { left: 8px; }
+    &--2 { left: 96px; }
+  }
+
+  &__nightstand { position: absolute; bottom: 0; right: calc(50% - 186px); width: 48px; }
+  &__nightstand-top { height: 30px; background: #6A5040; border-radius: 2px; }
+  &__nightstand-lamp { position: absolute; top: -38px; left: 50%; transform: translateX(-50%); }
+  &__lamp-shade { width: 22px; height: 16px; background: #EECC80; clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%); }
+  &__lamp-base  { width: 3px; height: 22px; background: #7A6545; margin: 0 auto; }
+
+  // Desk
+  &__desk { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 290px; }
+  &__desk-top { height: 9px; background: #5A4838; border-radius: 2px; }
+  &__desk-leg {
+    position: absolute; bottom: 0; width: 5px; height: 38px; background: #5A4838;
+    &--1 { left: 8px; top: 9px; }
+    &--2 { right: 8px; top: 9px; }
+  }
+  &__desk-monitor { position: absolute; top: -76px; left: 50%; transform: translateX(-50%); }
+  &__monitor-screen { width: 96px; height: 66px; background: #15152A; border: 3px solid #303040; border-radius: 3px; margin: 0 auto; }
+  &__monitor-stand { width: 4px; height: 18px; background: #303040; margin: 0 auto; }
+  &__office-chair { position: absolute; bottom: 0; right: calc(50% - 195px); width: 56px; }
+  &__chair-back { height: 56px; background: #222; border-radius: 3px 3px 0 0; margin-inline: 5px; }
+  &__chair-seat { height: 22px; background: #2E2E2E; border-radius: 0 0 3px 3px; margin-top: 2px; }
+}
+
+// ── AI Panel ──────────────────────────────────────────────────────────────────
+
+.luma-ai-panel {
+
+  &__tones {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    padding: $space-3 $space-6;
+    border-bottom: 1px solid $color-gray-200;
+    flex-wrap: wrap;
+  }
+
+  &__tones-label {
+    font-size: $fs-xs;
+    color: $color-gray-400;
+    font-weight: $fw-semibold;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    margin-right: $space-1;
+  }
+
+  &__tone-btn {
+    padding: $space-1 $space-3;
+    font-size: $fs-xs;
+    border-radius: $radius-full;
+    border: 1px solid $color-gray-200;
+    color: $color-gray-500;
+    transition: all $t-fast;
+
+    &.is-active, &:hover {
+      background: $color-dark;
+      border-color: $color-dark;
+      color: $color-white;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: $space-2;
+    padding: $space-4 $space-6;
+    border-bottom: 1px solid $color-gray-200;
+    flex-wrap: wrap;
+  }
+
+  &__output {
+    padding: $space-6;
+    min-height: 200px;
+  }
+
+  &__state--empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: $space-4;
+    text-align: center;
+    color: $color-gray-300;
+    padding: $space-10;
+  }
+
+  &__empty-icon { opacity: .4; }
+
+  &__loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $space-5;
+  }
+
+  &__loader-dots {
+    display: flex;
+    gap: $space-2;
+
+    span {
+      width: 8px; height: 8px;
+      background: $color-accent;
+      border-radius: 50%;
+      animation: luma-ai-pulse 1.2s ease-in-out infinite;
+
+      &:nth-child(2) { animation-delay: .2s; }
+      &:nth-child(3) { animation-delay: .4s; }
+    }
+  }
+
+  @keyframes luma-ai-pulse {
+    0%, 100% { opacity: .3; transform: scale(.8); }
+    50%       { opacity: 1;  transform: scale(1.1); }
+  }
+
+  &__loader-text { font-size: $fs-sm; color: $color-gray-400; }
+
+  &__generated-type {
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: $color-accent;
+    margin-bottom: $space-4;
+  }
+
+  &__generated-text {
+    font-size: $fs-md;
+    line-height: $lh-loose;
+    color: $color-dark;
+    padding: $space-5;
+    background: $color-gray-50;
+    border: 1px solid $color-gray-200;
+    border-radius: $radius-md;
+    margin-bottom: $space-5;
+    min-height: 80px;
+
+    &[contenteditable='true'] {
+      outline: none;
+      border-color: $color-dark;
+      background: $color-white;
+    }
+  }
+
+  &__generated-actions {
+    display: flex;
+    gap: $space-2;
+    flex-wrap: wrap;
+  }
+
+  &__disclaimer {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    padding: $space-3 $space-6 $space-5;
+    font-size: $fs-xs;
+    color: $color-gray-300;
+    border-top: 1px solid $color-gray-100;
+  }
+}

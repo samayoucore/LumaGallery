@@ -1,0 +1,442 @@
+// ─── Exhibitions List & Single Exhibition ─────────────────────────────────────
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// LIST PAGE
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// ── Featured exhibition hero ──────────────────────────────────────────────────
+.luma-exhibitions-featured {
+  position: relative;
+  min-height: 65vh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  background: $color-dark;
+
+  @media (max-width: $bp-md) { min-height: 50vh; }
+
+  &__cover {
+    position: absolute;
+    inset: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: .38;
+    }
+  }
+
+  &__cover-placeholder {
+    position: absolute;
+    inset: 0;
+    opacity: .3;
+  }
+
+  &__gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba($color-dark, .96) 0%, rgba($color-dark, .15) 70%, transparent 100%);
+  }
+
+  &__content {
+    position: relative;
+    z-index: 2;
+    max-width: $container-max;
+    margin: 0 auto;
+    width: 100%;
+    padding: $space-16 $container-padding;
+    color: $color-white;
+  }
+
+  &__eyebrow {
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: $color-accent;
+    margin-bottom: $space-4;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: clamp(#{$fs-3xl}, 6vw, #{$fs-5xl});
+    font-weight: $fw-light;
+    line-height: $lh-tight;
+    letter-spacing: -0.02em;
+    margin-bottom: $space-3;
+  }
+
+  &__subtitle {
+    font-size: $fs-base;
+    color: $color-gray-400;
+    margin-bottom: $space-5;
+  }
+
+  &__curator {
+    max-width: 560px;
+    font-family: $font-heading;
+    font-size: $fs-lg;
+    font-style: italic;
+    line-height: $lh-normal;
+    color: $color-gray-300;
+    margin-bottom: $space-8;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: $space-4;
+    flex-wrap: wrap;
+  }
+}
+
+// ── Mood filter bar ───────────────────────────────────────────────────────────
+.luma-exhibitions-filter {
+  background: $color-white;
+  border-bottom: 1px solid $color-gray-200;
+  padding: $space-4 $container-padding;
+
+  &__inner {
+    max-width: $container-max;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    flex-wrap: wrap;
+  }
+
+  &__label {
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: $color-gray-500;
+    white-space: nowrap;
+    margin-right: $space-2;
+  }
+}
+
+.luma-mood-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 14px;
+  border: 1px solid $color-gray-300;
+  border-radius: $radius-full;
+  font-size: $fs-xs;
+  font-weight: $fw-medium;
+  color: $color-gray-600;
+  background: $color-white;
+  cursor: pointer;
+  transition: border-color $t-fast, background $t-fast, color $t-fast;
+
+  &:hover,
+  &.is-active {
+    background: $color-dark;
+    border-color: $color-dark;
+    color: $color-white;
+  }
+}
+
+// ── Exhibitions body ──────────────────────────────────────────────────────────
+.luma-exhibitions-body {
+  background: $color-gray-50;
+  padding: $space-12 $container-padding $space-24;
+
+  &__header {
+    max-width: $container-max;
+    margin: 0 auto $space-10;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: $fs-2xl;
+    font-weight: $fw-light;
+  }
+
+  &__count {
+    font-size: $fs-sm;
+    color: $color-gray-500;
+  }
+}
+
+.luma-exhibitions-grid {
+  max-width: $container-max;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $space-6;
+
+  @media (max-width: $bp-md) { grid-template-columns: 1fr; }
+}
+
+// ── Gallery Walk CTA ──────────────────────────────────────────────────────────
+.luma-exhibitions-cta {
+  background: $color-dark;
+  color: $color-white;
+  padding: $space-20 $container-padding;
+  text-align: center;
+
+  &__inner {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  &__eyebrow {
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: $color-accent;
+    margin-bottom: $space-4;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: clamp(#{$fs-2xl}, 4vw, #{$fs-4xl});
+    font-weight: $fw-light;
+    line-height: $lh-tight;
+    margin-bottom: $space-4;
+  }
+
+  &__text {
+    font-size: $fs-base;
+    color: $color-gray-400;
+    margin-bottom: $space-8;
+    line-height: $lh-normal;
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// SINGLE EXHIBITION
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// ── Exhibition hero ───────────────────────────────────────────────────────────
+.luma-exhibition-hero {
+  position: relative;
+  min-height: 78vh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  background: $color-dark;
+
+  @media (max-width: $bp-md) { min-height: 55vh; }
+
+  &__cover {
+    position: absolute;
+    inset: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: .38;
+    }
+  }
+
+  &__cover-placeholder {
+    position: absolute;
+    inset: 0;
+    opacity: .28;
+  }
+
+  &__gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba($color-dark, .97) 0%, rgba($color-dark, .08) 70%, transparent 100%);
+  }
+
+  &__content {
+    position: relative;
+    z-index: 2;
+    max-width: $container-max;
+    margin: 0 auto;
+    width: 100%;
+    padding: $space-24 $container-padding;
+    color: $color-white;
+  }
+
+  &__eyebrow {
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: $color-accent;
+    margin-bottom: $space-4;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: clamp(#{$fs-3xl}, 7vw, 100px);
+    font-weight: $fw-light;
+    line-height: $lh-tight;
+    letter-spacing: -0.02em;
+    margin-bottom: $space-4;
+  }
+
+  &__subtitle {
+    font-size: $fs-lg;
+    color: $color-gray-400;
+    margin-bottom: $space-6;
+  }
+
+  &__curator {
+    max-width: 600px;
+    font-family: $font-heading;
+    font-size: $fs-xl;
+    font-style: italic;
+    color: $color-gray-300;
+    line-height: $lh-normal;
+    margin-bottom: $space-8;
+    padding-left: $space-5;
+    border-left: 2px solid $color-accent;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: $space-4;
+    flex-wrap: wrap;
+  }
+}
+
+// ── Exhibition intro ──────────────────────────────────────────────────────────
+.luma-exhibition-intro {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: $space-16 $container-padding;
+  text-align: center;
+
+  p {
+    font-family: $font-heading;
+    font-size: $fs-lg;
+    color: $color-gray-700;
+    line-height: $lh-loose;
+  }
+}
+
+// ── Artworks in exhibition ────────────────────────────────────────────────────
+.luma-exhibition-artworks {
+  background: $color-gray-50;
+  padding: $space-12 $container-padding $space-16;
+
+  &__header {
+    max-width: $container-max;
+    margin: 0 auto $space-10;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: $fs-2xl;
+    font-weight: $fw-light;
+  }
+
+  &__count { font-size: $fs-sm; color: $color-gray-500; }
+
+  &__grid {
+    max-width: $container-max;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $space-5;
+
+    @media (max-width: $bp-lg) { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: $bp-sm) { grid-template-columns: 1fr; }
+  }
+}
+
+// ── Curator commentary blocks ─────────────────────────────────────────────────
+.luma-exhibition-commentary {
+  max-width: $container-max;
+  margin: 0 auto;
+  padding: $space-12 $container-padding $space-16;
+}
+
+.luma-commentary-block {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: $space-10;
+  margin-bottom: $space-12;
+  padding-bottom: $space-12;
+  border-bottom: 1px solid $color-gray-200;
+  align-items: start;
+
+  @media (max-width: $bp-md) { grid-template-columns: 1fr; gap: $space-5; }
+
+  &:last-child { border-bottom: none; margin-bottom: 0; }
+
+  &__artwork {
+    &-label {
+      font-size: $fs-xs;
+      font-weight: $fw-semibold;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: $color-accent;
+      margin-bottom: $space-2;
+    }
+
+    &-title {
+      font-family: $font-heading;
+      font-size: $fs-xl;
+      font-weight: $fw-light;
+      color: $color-dark;
+    }
+
+    &-artist {
+      font-size: $fs-sm;
+      color: $color-gray-500;
+      margin-top: $space-1;
+    }
+  }
+
+  &__text {
+    font-size: $fs-base;
+    color: $color-gray-700;
+    line-height: $lh-loose;
+
+    p { margin-bottom: $space-4; &:last-child { margin-bottom: 0; } }
+  }
+}
+
+// ── Exhibition CTA ────────────────────────────────────────────────────────────
+.luma-exhibition-cta {
+  text-align: center;
+  padding: $space-20 $container-padding;
+  background: $color-dark;
+  color: $color-white;
+
+  &__inner {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  &__eyebrow {
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: $color-accent;
+    margin-bottom: $space-4;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: clamp(#{$fs-2xl}, 4vw, #{$fs-4xl});
+    font-weight: $fw-light;
+    margin-bottom: $space-4;
+    line-height: $lh-tight;
+  }
+
+  &__text {
+    color: $color-gray-400;
+    max-width: 440px;
+    margin: 0 auto $space-8;
+    line-height: $lh-normal;
+  }
+}

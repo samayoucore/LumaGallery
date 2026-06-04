@@ -1,0 +1,138 @@
+// ─── Luma Gallery — Typography ────────────────────────────────────────────────
+
+body {
+  font-family: $font-body;
+  font-size: $fs-base;
+  font-weight: $fw-regular;
+  color: $color-dark;
+  background-color: $color-white;
+}
+
+// ─── Heading scale ────────────────────────────────────────────────────────────
+
+.luma-heading {
+  font-family: $font-heading;
+  font-weight: $fw-light;
+  line-height: $lh-tight;
+  color: inherit;
+
+  // Hero display — maximum impact
+  &--display {
+    font-size: clamp($fs-4xl, 8vw, $fs-7xl);
+    font-weight: $fw-light;
+    letter-spacing: -0.035em;
+    line-height: 0.9;
+  }
+
+  // Section heading
+  &--section {
+    font-size: clamp($fs-3xl, 5.5vw, $fs-5xl);
+    font-weight: $fw-light;
+    letter-spacing: -0.025em;
+    line-height: 1.02;
+  }
+
+  // Card heading
+  &--card {
+    font-size: clamp($fs-xl, 2.5vw, $fs-2xl);
+    font-weight: $fw-light;
+    letter-spacing: -0.01em;
+  }
+
+  // UI heading (sans-serif)
+  &--sm {
+    font-size: $fs-lg;
+    font-weight: $fw-semibold;
+    font-family: $font-body;
+    letter-spacing: -0.01em;
+  }
+}
+
+// ─── Section label — eyebrow ──────────────────────────────────────────────────
+
+.luma-section__label {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-3;
+  font-family: $font-body;
+  font-size: $fs-xs;
+  font-weight: $fw-bold;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: $color-accent;
+  margin-bottom: $space-5;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    background: currentColor;
+    flex-shrink: 0;
+    transform: rotate(45deg); // brutalist accent lozenge
+  }
+
+  &--light { color: rgba($color-white, .55); }
+}
+
+// ─── Text utilities ───────────────────────────────────────────────────────────
+
+.luma-text-sm      { font-size: $fs-sm; }
+.luma-text-base    { font-size: $fs-base; }
+.luma-text-lg      { font-size: $fs-lg; }
+.luma-text-muted   { color: $color-gray-400; }
+.luma-text-accent  { color: $color-accent; }
+
+// ─── WordPress content ────────────────────────────────────────────────────────
+
+.wp-content {
+  font-size: $fs-md;
+  line-height: $lh-loose;
+  color: $color-gray-600;
+
+  h2, h3, h4 {
+    font-family: $font-heading;
+    font-weight: $fw-light;
+    color: $color-dark;
+    margin: $space-8 0 $space-4;
+    letter-spacing: -0.01em;
+  }
+
+  h2 { font-size: $fs-2xl; }
+  h3 { font-size: $fs-xl; }
+  h4 { font-size: $fs-lg; }
+
+  p { margin-bottom: $space-6; }
+
+  a {
+    color: $color-accent;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: opacity $t-fast;
+    &:hover { opacity: .75; }
+  }
+
+  ul, ol {
+    list-style: revert;
+    margin: 0 0 $space-6 $space-6;
+  }
+
+  blockquote {
+    border-left: 3px solid $color-accent;
+    padding: $space-4 $space-6;
+    margin: $space-8 0;
+    font-family: $font-heading;
+    font-size: $fs-xl;
+    font-style: italic;
+    color: $color-dark;
+    background: $color-gray-50;
+    border-radius: 0 $radius-md $radius-md 0;
+  }
+
+  img {
+    max-width: 100%;
+    border-radius: $radius-md;
+    margin: $space-8 0;
+  }
+}

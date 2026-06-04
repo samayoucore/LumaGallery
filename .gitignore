@@ -6,6 +6,7 @@
 !/README.md
 !/plugins/
 !/themes/
+!/LumaLocal/
 
 # Plugins: only the Luma Core plugin.
 /plugins/*
@@ -14,3 +15,6 @@
 # Themes: only the Luma Gallery theme.
 /themes/*
 !/themes/LumaGallery/
+
+# LumaLocal (static, no-WP build of the site): never its node_modules.
+/LumaLocal/node_modules/

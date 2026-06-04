@@ -1,0 +1,63 @@
+// ─── Luma Gallery — Mood Picker ───────────────────────────────────────────────
+
+.luma-mood-picker {
+  background: $color-gray-50;
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: $space-3;
+
+    @media (max-width: $bp-lg) { grid-template-columns: repeat(4, 1fr); }
+    @media (max-width: $bp-md) { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $space-3;
+    padding: $space-8 $space-6;
+    background: $color-white;
+    border: 1px solid $color-gray-200;
+    border-radius: $radius-md;
+    text-align: center;
+    text-decoration: none;
+    color: $color-dark;
+    transition: all $t-mid $t-ease;
+    cursor: pointer;
+
+    &:hover {
+      background: $color-dark;
+      color: $color-white;
+      border-color: $color-dark;
+      transform: translateY(-3px);
+      box-shadow: $shadow-md;
+
+      .luma-mood-picker__icon { transform: scale(1.15); }
+      .luma-mood-picker__desc { color: rgba($color-white, .50); }
+    }
+  }
+
+  &__icon {
+    font-size: $fs-2xl;
+    display: block;
+    line-height: 1;
+    transition: transform $t-mid $t-spring;
+  }
+
+  &__label {
+    font-family: $font-heading;
+    font-size: $fs-xl;
+    font-weight: $fw-light;
+    letter-spacing: -0.01em;
+  }
+
+  &__desc {
+    font-size: $fs-xs;
+    color: $color-gray-400;
+    line-height: $lh-snug;
+    transition: color $t-fast;
+    letter-spacing: 0.02em;
+  }
+}

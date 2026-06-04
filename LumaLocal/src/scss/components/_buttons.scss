@@ -1,0 +1,110 @@
+// ─── Luma Gallery — Buttons ───────────────────────────────────────────────────
+
+.luma-button {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  padding: $space-3 $space-6;
+  font-family: $font-body;
+  font-size: $fs-xs;
+  font-weight: $fw-semibold;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: $radius-sm;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: background $t-fast, color $t-fast, border-color $t-fast,
+              transform $t-fast, box-shadow $t-fast;
+  white-space: nowrap;
+  text-decoration: none;
+  user-select: none;
+  line-height: 1;
+
+  // Primary — dark fill
+  &--primary {
+    background: $color-dark;
+    color: $color-white;
+    border-color: $color-dark;
+
+    &:hover {
+      background: $color-gray-800;
+      border-color: $color-gray-800;
+      transform: translateY(-1px);
+      box-shadow: $shadow-md;
+    }
+    &:active { transform: none; box-shadow: none; }
+  }
+
+  // Accent — #fb472f fill
+  &--accent {
+    background: $color-accent;
+    color: $color-white;
+    border-color: $color-accent;
+
+    &:hover {
+      background: $color-accent-hover;
+      border-color: $color-accent-hover;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba($color-accent, .30);
+    }
+    &:active { transform: none; box-shadow: none; }
+  }
+
+  // Ghost — outlined dark
+  &--ghost {
+    background: transparent;
+    color: $color-dark;
+    border-color: $color-dark;
+
+    &:hover {
+      background: $color-dark;
+      color: $color-white;
+    }
+  }
+
+  // Ghost light — on dark backgrounds
+  &--ghost-light {
+    background: transparent;
+    color: $color-white;
+    border-color: rgba($color-white, .45);
+
+    &:hover {
+      background: rgba($color-white, .10);
+      border-color: $color-white;
+    }
+  }
+
+  // Sizes
+  &--xs { font-size: 10px; padding: $space-1 $space-3; }
+  &--sm { font-size: $fs-xs; padding: $space-2 $space-4; }
+  &--lg { font-size: $fs-sm; padding: $space-4 $space-8; letter-spacing: 0.08em; }
+
+  // States
+  &:disabled,
+  &[disabled] { opacity: .4; cursor: not-allowed; pointer-events: none; }
+
+  &.is-loading {
+    pointer-events: none; opacity: .6; position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 14px; height: 14px;
+      border: 2px solid transparent;
+      border-top-color: currentColor;
+      border-radius: 50%;
+      animation: luma-btn-spin .6s linear infinite;
+    }
+  }
+}
+
+@keyframes luma-btn-spin { to { transform: rotate(360deg); } }
+
+// ── Trailing-icon microinteraction ────────────────────────────────────────────
+// Arrow/chevron icons drift on hover. Only affects real .luma-button elements
+// (icon-only controls use their own classes), and is suppressed for the spinner.
+.luma-button {
+  svg { transition: transform $t-fast $t-ease; }
+  &:hover svg { transform: translateX(2px); }
+  &.is-loading svg { transform: none; }
+}

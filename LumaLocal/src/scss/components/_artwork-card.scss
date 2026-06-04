@@ -1,0 +1,212 @@
+// ─── Luma Gallery — Artwork Card (editorial gallery plaque) ───────────────────
+
+.luma-artwork-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: $color-white;
+  border: $border-hair;
+  border-radius: $radius-md;
+  overflow: hidden;
+  transition: border-color $t-mid $t-ease, transform $t-mid $t-spring, box-shadow $t-mid $t-ease;
+
+  &:hover {
+    border-color: $color-dark;
+    transform: translateY(-6px);
+    box-shadow: 0 24px 50px -28px rgba($color-dark, .45);
+
+    .luma-artwork-card__image    { transform: scale(1.06); }
+    .luma-artwork-card__placeholder { transform: scale(1.06); }
+    .luma-artwork-card__overlay  { opacity: 1; }
+    .luma-artwork-card__scrim    { opacity: 1; }
+    .luma-artwork-card__favorite { opacity: 1; transform: none; }
+    .luma-artwork-card__index    { color: $color-accent; }
+    .luma-artwork-card__title a  { color: $color-accent; }
+  }
+
+  &:focus-within { border-color: $color-dark; }
+
+  // Featured — spans two columns, wide cinematic crop
+  &--featured {
+    grid-column: span 2;
+    @media (max-width: $bp-md) { grid-column: span 1; }
+    .luma-artwork-card__image-wrap { aspect-ratio: 16 / 10; }
+  }
+
+  // ── Image ─────────────────────────────────────────────────────────────────
+  &__image-wrap {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: $color-gray-100;
+    flex-shrink: 0;
+  }
+
+  &__image-link { position: absolute; inset: 0; display: block; }
+
+  &__image,
+  &__placeholder {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.9s $t-ease;
+  }
+
+  // Bottom scrim for overlay legibility
+  &__scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba($color-dark, .72) 0%, rgba($color-dark, .12) 36%, transparent 60%);
+    opacity: 0;
+    transition: opacity $t-mid $t-ease;
+    pointer-events: none;
+  }
+
+  // Catalogue index — museum tag, top-left
+  &__index {
+    position: absolute;
+    top: $space-3; left: $space-3;
+    z-index: $z-card;
+    font-family: $font-body;
+    font-size: 10px;
+    font-weight: $fw-bold;
+    letter-spacing: 0.18em;
+    color: $color-white;
+    mix-blend-mode: difference;
+    transition: color $t-fast;
+  }
+
+  &__status-badge {
+    position: absolute;
+    top: $space-3; left: 50%;
+    transform: translateX(-50%);
+    z-index: $z-card;
+  }
+
+  // Hover overlay actions — anchored bottom
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    padding: $space-4;
+    opacity: 0;
+    transition: opacity $t-mid $t-ease;
+    z-index: $z-card;
+  }
+
+  &__overlay-actions {
+    display: flex;
+    gap: $space-2;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  &__quick-view {
+    width: 36px; height: 36px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-white;
+    border: 1px solid rgba($color-white, .35);
+    border-radius: $radius-sm;
+    background: rgba($color-white, .08);
+    backdrop-filter: blur(6px);
+    transition: background $t-fast, border-color $t-fast;
+    &:hover { background: rgba($color-white, .2); border-color: $color-white; }
+  }
+
+  // Favorite
+  &__favorite {
+    position: absolute;
+    top: $space-2; right: $space-2;
+    z-index: $z-card;
+    width: 38px; height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-dark;
+    background: $color-white;
+    border-radius: $radius-full;
+    box-shadow: $shadow-sm;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: opacity $t-fast, transform $t-fast, background $t-fast, color $t-fast;
+
+    &:hover { background: $color-dark; color: $color-white; }
+    &.is-active {
+      opacity: 1; transform: none;
+      background: $color-accent; color: $color-white;
+      svg path { fill: currentColor; }
+    }
+    &.is-animating { animation: luma-fav-pop .4s $t-spring; }
+
+    @media (hover: none) { opacity: 1; transform: none; }
+  }
+
+  // ── Body — editorial caption ────────────────────────────────────────────────
+  &__body {
+    padding: $space-4 $space-4 $space-5;
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+    flex: 1;
+  }
+
+  &__meta { display: flex; }
+
+  &__artist {
+    font-size: 10px;
+    font-weight: $fw-bold;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: $color-accent;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: $fs-lg;
+    font-weight: $fw-regular;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+
+    a { color: $color-dark; text-decoration: none; transition: color $t-fast; }
+  }
+
+  &__footer {
+    margin-top: auto;
+    padding-top: $space-3;
+    border-top: $border-hair;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: $space-3;
+  }
+
+  &__price {
+    font-size: $fs-base;
+    font-weight: $fw-semibold;
+    color: $color-dark;
+    letter-spacing: -0.01em;
+  }
+
+  &__status {
+    font-size: 10px;
+    font-weight: $fw-semibold;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: $color-gray-400;
+
+    &--available { color: $color-available; }
+    &--reserved  { color: $color-reserved; }
+    &--sold      { color: $color-sold; }
+  }
+}
+
+@keyframes luma-fav-pop {
+  0%   { transform: scale(1); }
+  45%  { transform: scale(1.28); }
+  100% { transform: scale(1); }
+}

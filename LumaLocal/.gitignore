@@ -1,0 +1,4 @@
+node_modules/
+static/**/*.map
+.DS_Store
+Thumbs.db

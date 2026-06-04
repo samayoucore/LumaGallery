@@ -1,0 +1,85 @@
+// ─── Luma Gallery — Helper Mixins & Functions ─────────────────────────────────
+
+// Breakpoint mixins
+@mixin below($bp) {
+  @media (max-width: $bp) { @content; }
+}
+
+@mixin above($bp) {
+  @media (min-width: calc($bp + 1px)) { @content; }
+}
+
+@mixin between($min, $max) {
+  @media (min-width: $min) and (max-width: $max) { @content; }
+}
+
+// Aspect ratio
+@mixin aspect($w: 1, $h: 1) {
+  aspect-ratio: #{$w} / #{$h};
+}
+
+// Absolute fill
+@mixin fill {
+  position: absolute;
+  inset: 0;
+}
+
+// Overlay
+@mixin overlay($color: rgba(0,0,0,.5)) {
+  @include fill;
+  content: '';
+  background: $color;
+}
+
+// Flex center
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Truncate
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Clamp lines
+@mixin line-clamp($n: 2) {
+  display: -webkit-box;
+  -webkit-line-clamp: $n;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// Hover lift
+@mixin hover-lift($y: -4px) {
+  transition: transform $t-mid $t-ease, box-shadow $t-mid $t-ease;
+
+  &:hover {
+    transform: translateY($y);
+    box-shadow: $shadow-lg;
+  }
+}
+
+// Full-width image cover
+@mixin img-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+// Scrollbar hidden
+@mixin scrollbar-hidden {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
+// Glass surface
+@mixin glass($bg: rgba(255,255,255,.06), $blur: 12px) {
+  background: $bg;
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+}

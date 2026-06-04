@@ -1,0 +1,46 @@
+// ─── Luma Gallery — New Artists Section ──────────────────────────────────────
+
+.luma-new-artists {
+
+  &__cta {
+    margin-top: $space-16;
+    padding: $space-10 $space-12;
+    background: $color-dark;
+    border-radius: $radius-lg;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-8;
+    position: relative;
+    overflow: hidden;
+
+    // accent glow
+    &::after {
+      content: '';
+      position: absolute;
+      right: -80px; top: -80px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba($color-accent, .08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    @media (max-width: $bp-md) {
+      flex-direction: column;
+      text-align: center;
+      padding: $space-8;
+    }
+  }
+
+  &__cta-text {
+    font-family: $font-heading;
+    font-size: clamp($fs-xl, 2.5vw, $fs-2xl);
+    font-weight: $fw-light;
+    color: $color-white;
+    max-width: 360px;
+    position: relative;
+    z-index: 1;
+    letter-spacing: -0.01em;
+  }
+
+  .luma-button { position: relative; z-index: 1; }
+}
