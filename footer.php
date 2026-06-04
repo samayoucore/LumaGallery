@@ -39,7 +39,7 @@
         <div class="luma-footer__nav-col">
             <h4 class="luma-footer__nav-title"><?php esc_html_e( 'Artists', 'luma-gallery' ); ?></h4>
             <ul class="luma-footer__nav-list">
-                <li><a href="<?php echo esc_url( home_url( '/artist-studio/' ) ); ?>"><?php esc_html_e( 'Artist Studio', 'luma-gallery' ); ?></a></li>
+                <li><a href="<?php echo esc_url( home_url( '/studio/' ) ); ?>"><?php esc_html_e( 'Artist Studio', 'luma-gallery' ); ?></a></li>
                 <li><a href="<?php echo esc_url( home_url( '/artists/' ) ); ?>"><?php esc_html_e( 'Meet the Artists', 'luma-gallery' ); ?></a></li>
                 <li><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>"><?php esc_html_e( 'About Luma', 'luma-gallery' ); ?></a></li>
             </ul>
@@ -64,6 +64,11 @@
         </div>
 
     </div><!-- .luma-footer__inner -->
+
+    <!-- Oversized editorial wordmark -->
+    <div class="luma-footer__wordmark-row">
+        <span class="luma-footer__wordmark js-distort-text" aria-hidden="true">LUMA GALLERY</span>
+    </div>
 
     <!-- Bottom bar -->
     <div class="luma-footer__bottom">
