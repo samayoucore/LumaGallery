@@ -62,7 +62,7 @@ $artists = function_exists( 'luma_get_demo_artists' ) ? luma_get_demo_artists( 6
             <p class="luma-new-artists__cta-text">
                 <?php esc_html_e( 'Are you an artist? Join Luma Gallery and reach new collectors.', 'luma-gallery' ); ?>
             </p>
-            <a href="<?php echo esc_url( home_url( '/artist-studio/' ) ); ?>" class="luma-button luma-button--primary">
+            <a href="<?php echo esc_url( home_url( '/studio/' ) ); ?>" class="luma-button luma-button--primary">
                 <?php esc_html_e( 'Become an Artist', 'luma-gallery' ); ?>
             </a>
         </div>

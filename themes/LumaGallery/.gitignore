@@ -1,0 +1,18 @@
+# ─── Dependencies ─────────────────────────────────────────────────────────────
+/node_modules/
+
+# ─── Local tooling / editor / OS ───────────────────────────────────────────────
+/.claude/
+.vscode/
+.idea/
+*.code-workspace
+.DS_Store
+Thumbs.db
+
+# ─── Logs / debug ──────────────────────────────────────────────────────────────
+*.log
+npm-debug.log*
+yarn-error.log*
+
+# NOTE: compiled assets in /assets/ (main.min.css/js + .map) are intentionally
+# tracked — WordPress enqueues them directly and there is no build step in prod.

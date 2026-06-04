@@ -26,6 +26,20 @@ get_header();
     <!-- New Artists -->
     <?php get_template_part( 'template-parts/section-new-artists' ); ?>
 
+    <!-- Interactive editorial interlude -->
+    <section class="luma-distort" aria-label="<?php esc_attr_e( 'Curated selection', 'luma-gallery' ); ?>">
+        <span class="luma-distort__ghost" data-parallax="-0.07" aria-hidden="true">LUMA</span>
+        <div class="luma-container">
+            <div class="luma-distort__inner">
+                <p class="luma-distort__eyebrow"><?php esc_html_e( 'Hand-picked', 'luma-gallery' ); ?></p>
+                <div class="luma-distort__word js-distort-text">CURATED</div>
+                <p class="luma-distort__sub">
+                    <?php esc_html_e( 'Every work is chosen with intent. Move your cursor across the type — like light shifting over a canvas.', 'luma-gallery' ); ?>
+                </p>
+            </div>
+        </div>
+    </section>
+
     <!-- How It Works -->
     <section class="luma-section luma-how-it-works" id="how-it-works">
         <div class="luma-container">
@@ -33,7 +47,7 @@ get_header();
                 <span class="luma-section__label"><?php esc_html_e( 'The Process', 'luma-gallery' ); ?></span>
                 <h2 class="luma-heading luma-heading--section"><?php esc_html_e( 'How Luma Works', 'luma-gallery' ); ?></h2>
             </div>
-            <div class="luma-how-it-works__steps">
+            <div class="luma-how-it-works__steps" data-reveal-children="120">
                 <?php
                 $steps = [
                     [ 'num' => '01', 'title' => 'Discover', 'text' => 'Browse curated exhibitions, explore by mood, or let the AI Curator suggest artworks tailored to your space and taste.' ],
@@ -65,7 +79,7 @@ get_header();
                 <p class="luma-cta__subtext">
                     <?php esc_html_e( 'Over 120 original works by independent artists. Curated exhibitions. Immersive viewing. No pressure — just art.', 'luma-gallery' ); ?>
                 </p>
-                <div class="luma-cta__actions">
+                <div class="luma-cta__actions" data-reveal-children="100">
                     <a href="<?php echo esc_url( home_url( '/gallery/' ) ); ?>" class="luma-button luma-button--primary luma-button--lg">
                         <?php esc_html_e( 'Enter the Gallery', 'luma-gallery' ); ?>
                     </a>

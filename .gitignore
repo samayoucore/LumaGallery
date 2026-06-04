@@ -1,18 +1,15 @@
-# ─── Dependencies ─────────────────────────────────────────────────────────────
-/node_modules/
+# Luma Gallery repository — version-control ONLY the custom theme and plugin.
+# Everything else under wp-content (uploads, default themes/plugins, etc.) is ignored.
 
-# ─── Local tooling / editor / OS ───────────────────────────────────────────────
-/.claude/
-.vscode/
-.idea/
-*.code-workspace
-.DS_Store
-Thumbs.db
+/*
+!/.gitignore
+!/plugins/
+!/themes/
 
-# ─── Logs / debug ──────────────────────────────────────────────────────────────
-*.log
-npm-debug.log*
-yarn-error.log*
+# Plugins: only the Luma Core plugin.
+/plugins/*
+!/plugins/luma-core/
 
-# NOTE: compiled assets in /assets/ (main.min.css/js + .map) are intentionally
-# tracked — WordPress enqueues them directly and there is no build step in prod.
+# Themes: only the Luma Gallery theme.
+/themes/*
+!/themes/LumaGallery/

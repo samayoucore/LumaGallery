@@ -23,6 +23,11 @@ define( 'LUMA_CORE_URL', plugin_dir_url( __FILE__ ) );
 require_once LUMA_CORE_DIR . 'includes/post-types.php';
 require_once LUMA_CORE_DIR . 'includes/taxonomies.php';
 require_once LUMA_CORE_DIR . 'includes/demo-data.php';
+require_once LUMA_CORE_DIR . 'includes/demo-seeder.php';
+
+if ( is_admin() ) {
+    require_once LUMA_CORE_DIR . 'includes/admin.php';
+}
 
 // ─── Registration on init ─────────────────────────────────────────────────────
 
