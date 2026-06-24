@@ -1,200 +1,243 @@
 # Luma Gallery
 
-**Luma Gallery** is a premium, editorial online art gallery built on WordPress — a portfolio project that demonstrates custom theme + plugin architecture, a hand-built SCSS/JS pipeline, and a full set of interactive features (favorites, AI-style curation, an immersive viewer, a demo commerce flow and an artist workspace) without relying on page builders or off-the-shelf themes.
+## Русская версия
 
-> **Portfolio demo.** Everything is safe to explore: **no real payments are processed**, **no external/paid AI APIs are used** (the “AI” features are rule-based), and the demo commerce + artist tools run entirely in the browser via `localStorage`.
+**Luma Gallery** — концептуальная онлайн-галерея современного искусства, разработанная на WordPress как portfolio pet-project.
 
----
+Проект объединяет произведения искусства, профили художников, выставки и редакционный журнал в едином цифровом пространстве. Сайт имитирует полноценную платформу для просмотра, сохранения, покупки и публикации произведений искусства.
 
-## Table of contents
+Luma Gallery разработана без использования готовых тем и визуальных конструкторов. В основе проекта лежат собственная WordPress-тема, отдельный функциональный плагин, ручная SCSS/JavaScript-сборка и набор интерактивных пользовательских сценариев.
 
-- [Overview](#overview)
-- [Features](#features)
-- [Tech stack](#tech-stack)
-- [Architecture](#architecture)
-- [Repository structure](#repository-structure)
-- [How it works](#how-it-works)
-- [Getting started](#getting-started)
-- [Customizer settings](#customizer-settings)
-- [Build & development](#build--development)
-- [Accessibility & responsiveness](#accessibility--responsiveness)
-- [Author](#author)
+> **Демонстрационный проект.** На сайте не проводятся реальные платежи, не используются платные или внешние AI API, а данные корзины, заказов, избранного и кабинета художника сохраняются локально в браузере через `localStorage`.
 
----
+## Концепция
 
-## Overview
+Luma Gallery представляет собой премиальную цифровую арт-галерею с editorial-визуальным стилем.
 
-Luma Gallery presents artworks, artists, exhibitions and an editorial journal inside a single cohesive “digital gallery” experience. The visual language is **editorial / brutalist-clean**: hairline borders, oversized display typography, near-square corners, large background words and a restrained palette (paper `#ffffff`, ink `#1d1d1f`, accent `#fb472f`).
+Проект построен вокруг идеи единого пространства, в котором пользователь может:
 
-The project is split into a **presentation theme** and a **business-logic plugin**, with an additional **client-side demo layer** that simulates collecting and selling art end-to-end without a backend or third-party services.
+- изучать произведения искусства;
+- знакомиться с художниками;
+- просматривать текущие и будущие выставки;
+- читать редакционные материалы;
+- сохранять понравившиеся работы;
+- оформлять демонстрационные заказы;
+- взаимодействовать с персональными рекомендациями;
+- использовать отдельное рабочее пространство художника.
 
----
+Визуальное направление сочетает крупную типографику, тонкие линии, почти прямые углы, большие фоновые надписи и сдержанную цветовую палитру с ярким акцентом.
 
-## Features
+## Основные возможности
 
-### Browsing & discovery
-- **Gallery, Artists, Exhibitions** listing pages with filtering and grid/wall layout switching.
-- **Journal** — a real custom post type (`luma_artist_post`) with topics, archive at `/journal/`, and single posts.
-- **Search** — a custom, editorial results page with post-type labels and a strong empty state.
-- **Immersive viewing** — Gallery Walk and a “View in Room” modal.
+### Просмотр и поиск искусства
 
-### Collecting (client-side demo)
-- **Favorites** — save artworks, artists and exhibitions (`localStorage`), with a dedicated `/favorites/` page.
-- **Demo Cart → Checkout → Orders** — add to cart, run a full checkout with inline validation, and generate a demo order (`LUMA-YYYY-NNNN`). No real payment.
-- **Account dashboard** — profile, demo order history, saved works, followed artists and recently-viewed items.
+- каталог произведений с фильтрацией;
+- страницы художников и выставок;
+- переключение между различными вариантами отображения каталога;
+- редакционный журнал с отдельными публикациями и тематическими категориями;
+- собственная страница поиска;
+- полноэкранный режим просмотра Gallery Walk;
+- функция View in Room для демонстрации произведения в интерьере.
 
-### Creating (client-side demo)
-- **Artist Studio** (`/studio/`) — a demo artist workspace: add/edit demo artworks with a live preview, write studio posts, and use a **mock AI Assistant** (descriptions, story, tags, social copy, SEO) — all rule-based, stored locally.
+### Избранное и демонстрационная покупка
 
-### “AI” features (rule-based, no external APIs)
-- **AI Curator** (`/ai-curator/`) — turns a sentence about your space/taste into a filtered selection.
-- **AI Assistant** modal and the Studio assistant — template-driven text generation.
+- сохранение произведений, художников и выставок в избранное;
+- отдельная страница с сохранёнными материалами;
+- демонстрационная корзина;
+- оформление заказа с валидацией полей;
+- создание локального номера заказа;
+- история оформленных заказов;
+- личный кабинет пользователя;
+- отображение недавно просмотренных произведений.
 
-### Site completion
-- **About** page, custom **404** (“missing artwork” gallery concept), and the editorial **Search** page.
-- **Customizer** controls for hero image, demo notice and footer tagline.
-- **Demo Content tool** — a one-click admin page that seeds (and clears) all demo pages and journal content.
+Все данные этого раздела сохраняются локально в браузере. Реальные платежи и передача платёжных данных не выполняются.
 
----
+### Кабинет художника
 
-## Tech stack
+В проекте реализован демонстрационный Artist Studio — рабочее пространство для художника.
 
-- **WordPress** (classic templates, custom theme + plugin)
-- **PHP 7.4+**
-- **SCSS** compiled with **Gulp** (Dart Sass → autoprefixed, minified `main.min.css`)
-- **Vanilla JavaScript** — ES modules concatenated and minified (Terser) into a single `main.min.js`
-- **`localStorage`** for all demo commerce / studio state
-- **Local by Flywheel** for local development
-- No external APIs, no real payment gateway, **WooCommerce optional** (all Woo calls are feature-gated; the site runs fully without it)
+В нём можно:
 
----
+- добавлять и редактировать произведения;
+- просматривать изменения в режиме живого предпросмотра;
+- создавать публикации для журнала;
+- управлять локальными данными;
+- генерировать описания, истории, теги, SEO-тексты и материалы для социальных сетей.
 
-## Architecture
+Контент кабинета существует только в браузере и не отправляется на внешний сервер.
 
-| Layer | Where | Responsibility |
-| --- | --- | --- |
-| **Custom Theme** | `themes/LumaGallery` | Templates, UI, SCSS, vanilla JS, Customizer |
-| **Luma Core plugin** | `plugins/luma-core` | Journal CPT, `luma_post_topic` taxonomy, demo-data helpers, demo content seeder + admin tool |
-| **Local Demo Layer** | browser `localStorage` | Favorites, cart, checkout, orders, account, studio, recently-viewed |
+### AI-функции
 
-Business/content logic lives in the **plugin** so it stays independent of the active theme; the **theme** stays focused on presentation.
+В Luma Gallery реализованы функции, имитирующие работу искусственного интеллекта:
 
----
+- **AI Curator** формирует подборку произведений на основе текстового описания пространства, настроения или предпочтений пользователя;
+- **AI Assistant** создаёт описания, теги, истории и маркетинговые тексты для художника.
 
-## Repository structure
+Эти функции работают на основе заранее подготовленных правил, фильтров, шаблонов и наборов фраз. Внешние языковые модели и платные AI-сервисы не используются.
 
-This repository is organised like a real WordPress `wp-content` directory, so it can be dropped straight into an install:
+## Архитектура проекта
 
-```
-.
-├── .gitignore                     # tracks only the custom theme + plugin
-├── plugins/
-│   └── luma-core/
-│       ├── luma-core.php          # bootstrap, activation hook
-│       └── includes/
-│           ├── post-types.php     # Journal CPT (luma_artist_post)
-│           ├── taxonomies.php     # luma_post_topic taxonomy + topics
-│           ├── demo-data.php      # Journal demo/fallback helpers
-│           ├── demo-seeder.php    # one-click demo content seeder
-│           └── admin.php          # "Luma Gallery → Demo Content" admin page
-└── themes/
-    └── LumaGallery/
-        ├── functions.php          # setup, asset enqueue, Customizer
-        ├── header.php / footer.php
-        ├── front-page.php         # custom homepage (hero)
-        ├── search.php / 404.php
-        ├── single-*.php / archive-*.php
-        ├── templates/             # page templates (Gallery, About, Cart, Checkout, Account, Studio…)
-        ├── template-parts/        # cards, hero, homepage sections, modals
-        ├── src/
-        │   ├── scss/              # source styles (art-direction monolith + page partials)
-        │   └── js/modules/        # source JS modules
-        ├── assets/                # compiled main.min.css / main.min.js (committed)
-        ├── gulpfile.js
-        └── package.json
-```
+Проект разделён на три основных уровня:
 
----
+- **собственная WordPress-тема** отвечает за интерфейс, шаблоны страниц, стили, анимации и клиентскую логику;
+- **плагин Luma Core** содержит типы записей, таксономии, демонстрационные данные и инструменты для создания контента;
+- **локальный демонстрационный слой** хранит избранное, корзину, заказы, данные аккаунта и Artist Studio через `localStorage`.
 
-## How it works
+Такое разделение позволяет отделить визуальную часть сайта от бизнес-логики и контента.
 
-### Demo data & content
-Real WordPress records exist for the **Journal** (`luma_artist_post`). Artworks, artists and exhibitions are rendered from **built-in demo data** — the templates gracefully fall back to curated demo content when no real records exist, so every page looks complete out of the box. Demo artwork cards get a stable slug-based id so they can be favorited / added to cart independently.
+## Технологии
 
-### Client-side state (`localStorage`)
-All demo collecting and studio data lives in the browser:
+В проекте используются:
 
-| Key | Purpose |
-| --- | --- |
-| `luma_favorites`, `luma_favorites_meta` | saved artworks / artists / exhibitions |
-| `luma_demo_cart` | demo cart contents |
-| `luma_demo_orders` | placed demo orders (`LUMA-YYYY-NNNN`) |
-| `luma_recently_viewed` | recently viewed artworks |
-| `luma_studio_artworks`, `luma_studio_posts`, `luma_studio_ai_count` | Artist Studio content & metrics |
+- WordPress;
+- PHP;
+- собственная WordPress-тема;
+- собственный плагин Luma Core;
+- SCSS;
+- Gulp;
+- Vanilla JavaScript;
+- `localStorage`;
+- классические шаблоны WordPress;
+- адаптивная и доступная вёрстка.
 
-### “AI” without AI
-The AI Curator and the Studio/Assistant generators are **deterministic, rule-based** text/selection engines (phrase banks + filters). There are no network calls and no paid services.
+WooCommerce не является обязательной зависимостью. Проект может работать как полноценная демонстрация без его установки.
+
+## Цель проекта
+
+Luma Gallery создавалась как portfolio pet-project, демонстрирующий:
+
+- разработку собственной темы WordPress с нуля;
+- создание отдельного функционального WordPress-плагина;
+- разделение интерфейса и бизнес-логики;
+- работу с пользовательскими типами записей и таксономиями;
+- создание сложного многостраничного интерфейса;
+- разработку интерактивных сценариев без готовых конструкторов;
+- работу с SCSS и собственной frontend-сборкой;
+- создание адаптивного и доступного интерфейса;
+- реализацию демонстрационной e-commerce-логики;
+- проектирование личного кабинета и рабочего пространства художника;
+- использование AI-assisted подхода в процессе разработки.
+
+Главная задача проекта — показать возможность создания цельного и визуально выразительного WordPress-продукта без готовых тем, page builder-инструментов, внешних AI API и обязательной зависимости от WooCommerce.
 
 ---
 
-## Getting started
+## English Version
 
-> Requires a WordPress install (Local by Flywheel recommended) with this repo’s `plugins/luma-core` and `themes/LumaGallery` placed under `wp-content/`.
+**Luma Gallery** is a conceptual online contemporary art gallery built with WordPress as a portfolio pet project.
 
-**Minimum setup (3 steps):**
+The project brings artworks, artist profiles, exhibitions, and an editorial journal together within a single digital space. It simulates a complete platform for discovering, saving, purchasing, and publishing artwork.
 
-1. **Activate the plugin** — *Plugins → Luma Core*. (WooCommerce is **not** required.)
-2. **Seed demo content** — *Luma Gallery → Demo Content → “Seed Demo Content.”* This creates the 10 demo pages with the correct page templates, plus the Journal posts and topics.
-3. **Save permalinks** — *Settings → Permalinks → “Post name” → Save Changes* (so `/journal/`, `/gallery/`, etc. resolve).
+Luma Gallery was developed without pre-built themes or visual page builders. The project is based on a custom WordPress theme, a separate functionality plugin, a hand-built SCSS and JavaScript pipeline, and a collection of interactive user flows.
 
-That’s enough to bring the whole site to a presentable state.
+> **Portfolio demo.** No real payments are processed, no paid or external AI APIs are used, and all cart, order, favorites, and artist workspace data is stored locally in the browser through `localStorage`.
 
-**Optional:**
-- *Appearance → Customize → Luma Gallery Settings* — set a hero image, toggle the demo notice, edit the footer tagline.
-- *Appearance → Menus* — assign a menu to **Primary Navigation** (the theme ships a working fallback menu otherwise).
-- The homepage needs no configuration — the theme renders its custom `front-page.php` at `/`.
+## Concept
 
-**Reset:** *Luma Gallery → Demo Content → “Clear Demo Content”* removes only the seeded pages/posts (marked with a `_luma_demo_content` meta) and never touches your own content.
+Luma Gallery is designed as a premium digital art gallery with an editorial visual direction.
 
----
+The project is built around the idea of a unified space where users can:
 
-## Customizer settings
+- discover artworks;
+- explore artist profiles;
+- browse current and upcoming exhibitions;
+- read editorial publications;
+- save their favorite works;
+- place demonstration orders;
+- receive personalized selections;
+- use a dedicated artist workspace.
 
-*Appearance → Customize → Luma Gallery Settings:*
+The visual direction combines oversized typography, thin borders, near-square corners, large background words, and a restrained color palette with a bright accent color.
 
-- **Hero Image** + **Alt text** — optional homepage hero (falls back to a bundled image).
-- **Show demo notice** — toggles the small demo/portfolio disclaimer in the footer.
-- **Footer Tagline** — the brand line in the footer.
+## Main Features
 
----
+### Art Discovery and Search
 
-## Build & development
+- artwork catalog with filtering;
+- artist and exhibition pages;
+- multiple catalog layout modes;
+- editorial journal with individual articles and topic categories;
+- custom search results page;
+- immersive Gallery Walk mode;
+- View in Room functionality for displaying an artwork inside an interior.
 
-Sources live in `themes/LumaGallery/src/`; WordPress only loads the compiled `assets/main.min.*`.
+### Favorites and Demo Purchases
 
-```bash
-cd themes/LumaGallery
-npm install
-npm run build      # compile SCSS + JS into assets/
-```
+- saving artworks, artists, and exhibitions;
+- a dedicated favorites page;
+- demonstration shopping cart;
+- checkout flow with inline validation;
+- locally generated order numbers;
+- demo order history;
+- customer account dashboard;
+- recently viewed artworks.
 
-Notes:
-- SCSS lives in `src/scss/` (the active visual system is the `pages/_art-direction.scss` monolith plus page partials); JS lives in `src/js/modules/`.
-- JS modules are concatenated into one scope, so top-level names are uniquely prefixed per module.
-- Dart Sass `@import` deprecation warnings are expected and can be ignored while the build succeeds.
+All data in this section is stored locally in the browser. No real payments are processed, and no payment information is transmitted.
 
----
+### Artist Workspace
 
-## Accessibility & responsiveness
+The project includes a demonstration Artist Studio that acts as a workspace for artists.
 
-- Responsive and free of horizontal overflow from 360px up to large desktops.
-- Semantic landmarks, labelled form controls, accessible tabs (`aria-selected` + `hidden` panels), `aria-live` feedback regions, visible focus states, and `aria-hidden` on decorative background words/frames.
-- Honors `prefers-reduced-motion`.
+Artists can:
 
----
+- add and edit artworks;
+- view changes through a live preview;
+- create journal publications;
+- manage locally stored content;
+- generate descriptions, stories, tags, SEO copy, and social media text.
 
-## Author
+Artist Studio content exists only inside the browser and is not sent to an external server.
 
-Built by **Alexsey Zhulimov** as a portfolio project, with an AI-assisted development workflow.
+### AI-style Features
 
-> Status: feature-complete demo. Built as a showcase of custom WordPress development — not intended for production sites with real content or payments.
+Luma Gallery contains several features that simulate artificial intelligence:
+
+- **AI Curator** creates an artwork selection based on a written description of the user’s space, mood, or preferences;
+- **AI Assistant** generates descriptions, tags, stories, and promotional content for artists.
+
+These features are powered by deterministic rules, filters, templates, and phrase collections. No external language models or paid AI services are used.
+
+## Project Architecture
+
+The project is divided into three main layers:
+
+- the **custom WordPress theme** handles the interface, page templates, styling, animations, and client-side logic;
+- the **Luma Core plugin** contains custom post types, taxonomies, demonstration data, and content-management tools;
+- the **local demonstration layer** stores favorites, cart data, orders, account information, and Artist Studio content through `localStorage`.
+
+This separation keeps the presentation layer independent from business and content logic.
+
+## Technologies
+
+The project uses:
+
+- WordPress;
+- PHP;
+- a custom WordPress theme;
+- the custom Luma Core plugin;
+- SCSS;
+- Gulp;
+- Vanilla JavaScript;
+- `localStorage`;
+- classic WordPress templates;
+- responsive and accessible frontend development.
+
+WooCommerce is not a required dependency. The project can operate as a complete demonstration without it.
+
+## Project Goal
+
+Luma Gallery was created as a portfolio pet project that demonstrates:
+
+- developing a custom WordPress theme from scratch;
+- building a separate functionality plugin;
+- separating presentation from business logic;
+- working with custom post types and taxonomies;
+- creating a complex multi-page interface;
+- developing interactive functionality without page builders;
+- working with SCSS and a custom frontend build pipeline;
+- building a responsive and accessible interface;
+- implementing a demonstration e-commerce flow;
+- designing a customer account and artist workspace;
+- using an AI-assisted development workflow.
+
+The main purpose of the project is to demonstrate how a cohesive and visually expressive WordPress product can be developed without pre-built themes, page builders, external AI APIs, or a required WooCommerce dependency.
